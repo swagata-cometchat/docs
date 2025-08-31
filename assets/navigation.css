@@ -39,9 +39,16 @@ html.cc-nav-ready #navbar .nav-tabs {
 
 /* Sidebar technology dropdown width: apply globally via CSS (no JS) */
 #sidebar-content .nav-dropdown-trigger {
-  min-width: 210px !important;
-  width: auto !important;
+  max-width: 230px !important;
+  width: 230px !important;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* Place version (data-version-aligner-button) next to technology by making the first row a flex container */
+#navigation-items .text-sm > .pl-2:first-of-type {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
