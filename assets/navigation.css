@@ -36,3 +36,12 @@ html.cc-nav-ready #navbar .nav-tabs {
 /* Technology dropdown: no enforced background */
 
 /* Product dropdown: no enforced background */
+
+/* Sidebar technology dropdown width: apply globally via CSS (no JS) */
+#sidebar-content .nav-dropdown-trigger {
+  min-width: 210px !important;
+  width: auto !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
