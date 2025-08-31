@@ -15,3 +15,8 @@ html.cc-version-aligned #sidebar-content [data-version-aligner-button] {
   display: flex !important;
   align-items: center;
 }
+
+/* On large screens, hide any duplicate version buttons tagged in the navbar */
+@media (min-width: 1024px) {
+  #navbar .cc-dup-version { display: none !important; }
+}

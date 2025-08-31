@@ -103,12 +103,14 @@
         return null;
     }
 
-    // Route gating: version dropdown should appear only on /ui-kit/ and /sdk/
+    // Route gating: version dropdown should appear only on configured prefixes
+    const ALLOWED_VERSION_PREFIXES = (Array.isArray(window.ccVersionRoutes) && window.ccVersionRoutes.length)
+        ? window.ccVersionRoutes : ['/ui-kit','/sdk'];
     function isVersionRoute() {
         try {
             let p = window.location.pathname || '/';
             p = stripBase(p);
-            return p === '/ui-kit' || p.indexOf('/ui-kit/') === 0 || p === '/sdk' || p.indexOf('/sdk/') === 0;
+            return ALLOWED_VERSION_PREFIXES.some(prefix => p === prefix || p.indexOf(prefix + '/') === 0);
         } catch(_) { return false; }
     }
 
