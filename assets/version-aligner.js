@@ -1,18 +1,5 @@
 /* ------------------------------------------------------------------ */
-/* 0 —  soft-patch removeChild so React never crashes if a node has   */
-/*      been moved elsewhere.  Safe, silent and 100-% reversible.     */
-/* ------------------------------------------------------------------ */
-(function () {
-    const origRemove = Node.prototype.removeChild;
-    Node.prototype.removeChild = function (child) {
-        if (!this.contains(child)) return child;   // swallow NotFoundError
-        return origRemove.call(this, child);
-    };
-})();
-
-/* ------------------------------------------------------------------ */
-/* 1 —  **your "last-working" aligner** with no functional changes.   */
-/*      (I only added a class on the wrapper so we can spot it later.)*/
+/* 1 —  Version dropdown aligner (no global DOM patches).             */
 /* ------------------------------------------------------------------ */
 (function initVersionAligner() {
     // Debug mode - can be controlled from console via: window.VERSION_ALIGNER_DEBUG = true
