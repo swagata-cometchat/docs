@@ -16,6 +16,8 @@
   const WRAP_ID = 'cc-home-product-wrap';
   const BTN_DATA = 'data-cc-home-product-button';
   const MENU_DATA = 'data-cchpdm';
+  const MENU_ID = 'cc-home-product-menu';
+  const LOCK_KEY = '__ccHomeProductDropdownLock';
 
   // Global open state so we can manage listeners once
   let openMenu = null;
@@ -52,6 +54,7 @@
 
   function createButton(label) {
     const btn = DOC.createElement('button');
+    btn.id = 'cc-home-product-dropdown-button';
     btn.type = 'button';
     btn.setAttribute('aria-haspopup', 'menu');
     btn.setAttribute('aria-expanded', 'false');
@@ -86,11 +89,14 @@
     chevron.appendChild(path);
     btn.appendChild(span);
     btn.appendChild(chevron);
+    // Link to menu for accessibility; set now, menu will be created on open
+    try { btn.setAttribute('aria-controls', MENU_ID); } catch (_) {}
     return btn;
   }
 
   function createMenu(items, onSelect) {
     const menu = DOC.createElement('div');
+    menu.id = MENU_ID;
     menu.role = 'menu';
     menu.tabIndex = -1;
     menu.dataset.ccHomeProductMenu = 'true';
@@ -101,6 +107,7 @@
       'bg-white', 'dark:bg-background-dark', 'border', 'border-gray-200', 'dark:border-gray-800',
       'shadow-xl', 'p-1'
     ].join(' ');
+    // aria-labelledby is set when opening, once the trigger is known
 
     items.forEach(it => {
       const item = DOC.createElement('button');
@@ -167,7 +174,7 @@
   }
 
   function removeExisting(container) {
-    container.querySelectorAll('[' + BTN_DATA + ']')?.forEach(el => el.remove());
+    try { container.querySelectorAll('[' + BTN_DATA + ']')?.forEach(el => el.remove()); } catch(_) {}
   }
 
   // Cleanup helper for when we navigate away from the homepage in SPA flow
@@ -183,12 +190,25 @@
     const navbar = DOC.getElementById(NAVBAR_ID);
     const target = ensureContainer(navbar);
     if (!target) return;
+    // Ensure any global non-home product dropdown is removed (safety)
+    try {
+      DOC.querySelectorAll('#cc-product-dropdown, #cc-product-dropdown-button, #cc-product-dropdown-wrap')?.forEach(el => el.remove());
+    } catch (_) {}
     removeExisting(target);
 
-    const btn = createButton('Products');
-    btn.setAttribute(BTN_DATA, 'true');
-    btn.style.width = '150px';
-    target.appendChild(btn);
+    // Avoid races with duplicate loaders
+    if (window[LOCK_KEY]) return;
+    window[LOCK_KEY] = true;
+    try {
+      // If already present anywhere, skip
+      if (DOC.querySelector('[' + BTN_DATA + ']')) return;
+      const btn = createButton('Products');
+      btn.setAttribute(BTN_DATA, 'true');
+      btn.style.width = '150px';
+      target.appendChild(btn);
+    } finally {
+      setTimeout(() => { window[LOCK_KEY] = false; }, 0);
+    }
 
     function closeMenu() {
       if (openMenu) {
@@ -205,6 +225,7 @@
       if (openMenu) { closeMenu(); }
       const menu = createMenu(ITEMS, () => closeMenu());
       menu.setAttribute(MENU_DATA, 'menu');
+      try { menu.setAttribute('aria-labelledby', btn.id); } catch (_) {}
       DOC.body.appendChild(menu);
       placeMenu(menu, btn);
       requestAnimationFrame(() => placeMenu(menu, btn));
@@ -276,14 +297,24 @@
 
   // SPA/hydration guards
   try {
-    const origPush = WIN.history.pushState;
-    const origReplace = WIN.history.replaceState;
-    WIN.history.pushState = function (...args) { const ret = origPush.apply(this, args); apply(); return ret; };
-    WIN.history.replaceState = function (...args) { const ret = origReplace.apply(this, args); apply(); return ret; };
+    if (!WIN.__ccHpHistoryPatched) {
+      const origPush = WIN.history.pushState;
+      const origReplace = WIN.history.replaceState;
+      WIN.history.pushState = function (...args) { const ret = origPush.apply(this, args); apply(); return ret; };
+      WIN.history.replaceState = function (...args) { const ret = origReplace.apply(this, args); apply(); return ret; };
+      WIN.__ccHpHistoryPatched = true;
+    }
   } catch (_) {}
   WIN.addEventListener('popstate', apply);
   WIN.addEventListener('hashchange', apply);
   DOC.addEventListener('visibilitychange', () => { if (DOC.visibilityState === 'visible') apply(); });
+
+  // Also respond to central navigation events if available
+  try {
+    WIN.addEventListener('cc:route-change', apply, true);
+    WIN.addEventListener('cc:route-after', apply, true);
+    WIN.addEventListener('cc:nav-revealed', apply, true);
+  } catch (_) {}
 
   // Observe for navbar availability; once found, narrow the scope to navbar only
   try {

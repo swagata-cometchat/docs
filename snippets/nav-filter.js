@@ -347,10 +347,22 @@
       if (typeof orig !== 'function') return;
       history[method] = function () { var ret = orig.apply(this, arguments); refresh(); return ret; };
     }
-    try { hookHistory('pushState'); hookHistory('replaceState'); } catch (_) {}
+    try {
+      if (!window.__ccNavFilterHistoryPatched) {
+        hookHistory('pushState');
+        hookHistory('replaceState');
+        window.__ccNavFilterHistoryPatched = true;
+      }
+    } catch (_) {}
     window.addEventListener('popstate', refresh, true);
     window.addEventListener('hashchange', refresh, true);
     document.addEventListener('visibilitychange', function(){ if (!document.hidden) refresh(); }, true);
+
+    // Also listen to central route events to re-apply filtering when available
+    try {
+      window.addEventListener('cc:route-change', refresh, true);
+      window.addEventListener('cc:route-after', refresh, true);
+    } catch (_) {}
 
     // React to explicit product dropdown changes without relying solely on route
     try {

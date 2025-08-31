@@ -13,6 +13,9 @@
     var BTN_ID = 'cc-product-dropdown-button';
     var WRAP_ID = 'cc-product-dropdown-wrap';
   var STORAGE_KEY = 'cc:last-product-key';
+  var LOCK_KEY = '__ccProductDropdownLock';
+  var NAV_READY = false;
+  try { NAV_READY = document.documentElement.classList.contains('cc-nav-ready'); } catch(_) {}
 
   // Routes shared across multiple products — keep dropdown visible and preserve last product context
   var SHARED_PREFIXES = ['/chat-builder','/ui-kit','/sdk','/widget','/rest-api','/fundamentals'];
@@ -112,6 +115,30 @@
       return wrap;
     }
 
+    function dedupeGlobal() {
+      try {
+        var btns = document.querySelectorAll('#' + BTN_ID);
+        if (btns && btns.length > 1) {
+          for (var i = 1; i < btns.length; i++) {
+            var b = btns[i];
+            if (b && b.parentNode) b.parentNode.removeChild(b);
+          }
+        }
+        var wraps = document.querySelectorAll('#' + WRAP_ID);
+        if (wraps && wraps.length > 1) {
+          for (var j = 1; j < wraps.length; j++) {
+            var w = wraps[j];
+            if (w && w.parentNode) w.parentNode.removeChild(w);
+          }
+        }
+        // Remove lingering homepage variant if present (safety)
+        var homeBtns = document.querySelectorAll('[data-cc-home-product-button]');
+        homeBtns.forEach(function (el) { try { el.remove(); } catch(_) {} });
+        var homeWraps = document.querySelectorAll('#cc-home-product-wrap');
+        homeWraps.forEach(function (el) { try { el.remove(); } catch(_) {} });
+      } catch (_) {}
+    }
+
     function buildDropdown(currentKey) {
       // If on shared page with no currentKey, prefer persisted key for a better label
       if (!currentKey) {
@@ -127,6 +154,7 @@
       btn.type = 'button';
       btn.setAttribute('aria-haspopup', 'menu');
       btn.setAttribute('aria-expanded', 'false');
+      btn.setAttribute('aria-controls', DROPDOWN_ID);
       btn.style.width = '150px';
       btn.className = [
         'group bg-background-light dark:bg-background-dark disabled:pointer-events-none',
@@ -159,6 +187,7 @@
       var menu = document.createElement('div');
       menu.id = DROPDOWN_ID;
       menu.setAttribute('role', 'menu');
+      menu.setAttribute('aria-labelledby', BTN_ID);
       menu.style.display = 'none';
       menu.style.zIndex = '2147483647'; // ensure on top
       menu.style.width = '150px'; // fixed width
@@ -227,6 +256,9 @@
     }
 
     function apply() {
+  // Best-effort dedupe across injectors
+  dedupeGlobal();
+  if (!NAV_READY) return false;
   var raw = location.pathname || '';
   var path = normalizePath(raw);
       if (!shouldDisplay(path)) {
@@ -240,10 +272,18 @@
       if (!host) return false;
 
       // If we already injected for this page, skip
-      if (host.querySelector('#' + BTN_ID)) return true;
+      if (document.getElementById(BTN_ID)) return true;
 
-      var currentKey = getRouteKey(path);
-      host.appendChild(buildDropdown(currentKey));
+      // Cross-script lock to prevent races with assets/product-dropdown.js
+      if (window[LOCK_KEY]) return false;
+      window[LOCK_KEY] = true;
+      try {
+        if (document.getElementById(BTN_ID)) return true;
+        var currentKey = getRouteKey(path);
+        host.appendChild(buildDropdown(currentKey));
+      } finally {
+        setTimeout(function(){ window[LOCK_KEY] = false; }, 0);
+      }
       return true;
     }
 
@@ -284,15 +324,27 @@
       } catch (_) {}
     })();
 
-    // SPA route changes
+    // SPA route changes (guard against double patching)
     function hookHistory(method) {
       var orig = history[method];
       if (typeof orig !== 'function') return;
       history[method] = function () { var ret = orig.apply(this, arguments); refresh(); return ret; };
     }
-    try { hookHistory('pushState'); hookHistory('replaceState'); } catch (_) {}
+    try {
+      if (!window.__ccVdHistoryPatched) {
+        hookHistory('pushState');
+        hookHistory('replaceState');
+        window.__ccVdHistoryPatched = true;
+      }
+    } catch (_) {}
     window.addEventListener('popstate', refresh, true);
     window.addEventListener('hashchange', refresh, true);
     document.addEventListener('visibilitychange', function(){ if (!document.hidden) refresh(); }, true);
+    // Also listen to central navigation events if present
+    try {
+      window.addEventListener('cc:route-change', function(){ NAV_READY = false; refresh(); }, true);
+      window.addEventListener('cc:route-after', refresh, true);
+      window.addEventListener('cc:nav-revealed', function(){ NAV_READY = true; refresh(); }, true);
+    } catch (_) {}
   } catch (_) { /* noop */ }
 })();
