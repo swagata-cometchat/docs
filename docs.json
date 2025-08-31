@@ -304,7 +304,7 @@
         "tab": "Chat Builder",
         "tab-id" : "ai-agent-chat-builder",
         "pages": [
-          "widget/ai-agents"
+          "/ai-agents/chat-widget"
         ]
       },
       {
@@ -5327,6 +5327,10 @@
     {
       "source": "/widget/legacy/html-bootstrap-jquery",
       "destination": "/widget/html/legacy/html-bootstrap-jquery"
+    },
+    {
+      "source": "/widget/ai-agents",
+      "destination": "/ai-agents/chat-widget"
     }
   ],
   "integrations": {
