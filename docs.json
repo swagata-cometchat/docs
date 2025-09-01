@@ -379,6 +379,32 @@
                 ]
               }
             ]
+          },
+          {
+            "dropdown": "Android",
+            "icon": "/images/icons/android.svg",
+            "groups": [
+              {
+                "group": " ",
+                "pages": [
+                  "chat-builder/android/overview",
+                  "chat-builder/android/integration"
+                ]
+              }
+            ]
+          },
+          {
+            "dropdown": "iOS",
+            "icon": "/images/icons/swift.svg",
+            "groups": [
+              {
+                "group": " ",
+                "pages": [
+                  "chat-builder/ios/overview",
+                  "chat-builder/ios/integration"
+                ]
+              }
+            ]
           }
         ]
       },
