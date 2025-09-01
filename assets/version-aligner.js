@@ -266,6 +266,49 @@
         } catch(_) {}
     }
 
+    // Utility: determine if an element looks like the version trigger (e.g., "v6")
+    function isVersionTrigger(el) {
+        try {
+            if (!el) return false;
+            const raw = (el.innerText || el.textContent || '').trim();
+            const clean = raw.replace(/[\u200E\u200F\u2060\u00A0\s]/g, '');
+            return /^v\d+([\.-]\w+)*$/i.test(clean);
+        } catch(_) { return false; }
+    }
+
+    // Enforce a fixed width for the open Radix menu belonging to the version trigger
+    function enforceVersionMenuWidth(px) {
+        try {
+            const openMenus = Array.from(document.querySelectorAll('[data-radix-menu-content][data-state="open"]'));
+            if (!openMenus.length) return;
+            openMenus.forEach((menu) => {
+                // Identify the trigger element via aria-labelledby
+                let trigger = null;
+                const labelId = menu.getAttribute('aria-labelledby');
+                if (labelId) trigger = document.getElementById(labelId) || null;
+                if (!trigger) {
+                    // Fallback: consider the currently focused element if it's a menu trigger
+                    const active = document.activeElement;
+                    if (active && active.getAttribute && active.getAttribute('aria-haspopup') === 'menu') {
+                        trigger = active;
+                    }
+                }
+                if (isVersionTrigger(trigger)) {
+                    const w = String(px) + 'px';
+                    menu.style.width = w;
+                    menu.style.minWidth = w;
+                    menu.style.maxWidth = w;
+                    const wrap = menu.closest('[data-radix-popper-content-wrapper]');
+                    if (wrap) {
+                        wrap.style.width = w;
+                        wrap.style.minWidth = w;
+                        wrap.style.maxWidth = w;
+                    }
+                }
+            });
+        } catch(_) { /* no-op */ }
+    }
+
     function _realign() {
         debugLog('[version-aligner] Starting _realign function...');
         
@@ -281,6 +324,8 @@
             });
             if (visibleMenus.length) {
                 debugLog('[version-aligner] A dropdown is visible, skipping alignment');
+                // Still enforce width for version menu while open
+                enforceVersionMenuWidth(65);
                 return;
             }
         } catch(_) {}
@@ -455,6 +500,8 @@
             if (relevantMutation) {
                 debugLog('[version-aligner] Relevant DOM mutation detected, triggering realign...');
                 triggerRealign();
+                // In case a Radix dropdown just opened, enforce version menu width
+                enforceVersionMenuWidth(65);
             }
         });
 
@@ -510,12 +557,14 @@
     window.addEventListener('popstate', () => {
         debugLog('[version-aligner] popstate event detected');
         triggerRealign();
+        enforceVersionMenuWidth(65);
     });
 
     // Listen for screen size changes
     window.addEventListener('resize', () => {
         debugLog('[version-aligner] resize event detected, new width:', window.innerWidth);
         triggerRealign();
+        enforceVersionMenuWidth(65);
     });
 
     // Also react to central route/nav events to align after reveal
@@ -523,6 +572,15 @@
         window.addEventListener('cc:route-change', triggerRealign, true);
         window.addEventListener('cc:route-after', triggerRealign, true);
         window.addEventListener('cc:nav-revealed', triggerRealign, true);
+    } catch (_) {}
+
+    // Nudge width enforcement shortly after clicks/keys that typically open menus
+    try {
+        const nudge = () => setTimeout(() => enforceVersionMenuWidth(65), 0);
+        document.addEventListener('click', nudge, true);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown') nudge();
+        }, true);
     } catch (_) {}
 
     // Start observing DOM changes
