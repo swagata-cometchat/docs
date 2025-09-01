@@ -9,13 +9,7 @@ html.cc-nav-ready #navbar .nav-tabs {
 }
 /* Note: Which items appear is controlled by nav-filter.js (homepage and product pages) */
 
-/* Right-align chevron in dropdown triggers (product + version) */
-#cc-product-dropdown-button svg {
-  margin-left: auto !important;
-}
-#navbar [data-cc-home-product-button="true"] svg {
-  margin-left: auto !important;
-}
+/* Right-align chevron in version and other dropdown triggers */
 #navbar button[id^="radix-"][aria-haspopup="menu"] svg {
   margin-left: auto !important;
 }
