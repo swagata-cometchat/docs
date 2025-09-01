@@ -2,6 +2,11 @@
 /* 1 —  Version dropdown aligner (no global DOM patches).             */
 /* ------------------------------------------------------------------ */
 (function initVersionAligner() {
+    // Prevent double-initialization if the script is included twice
+    try {
+        if (window.__ccVersionAlignerInitialized__) return;
+        window.__ccVersionAlignerInitialized__ = true;
+    } catch (_) {}
     // Debug mode - can be controlled from console via: window.VERSION_ALIGNER_DEBUG = true
     let DEBUG_MODE = false;
     

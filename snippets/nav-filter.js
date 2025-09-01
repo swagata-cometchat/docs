@@ -5,6 +5,11 @@
   - Now resilient to SPA route changes (pushState/replaceState/popstate)
 */
 (function () {
+  // Prevent re-initialization if this script is loaded multiple times
+  try {
+    if (window.__ccNavFilterInitialized__) return;
+    window.__ccNavFilterInitialized__ = true;
+  } catch (_) {}
   try {
   var lastAppliedFor = null;
   var INITIAL_STYLE_ID = 'cc-hide-all-nav-tabs';
