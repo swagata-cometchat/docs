@@ -282,7 +282,7 @@
         "dropdowns": [
           {
             "dropdown": "Mastra",
-            "icon": "/docs/images/icons/mastra.svg",
+            "icon": "/images/icons/mastra.svg",
             "pages": [
               "/ai-agents/mastra",
               "/ai-agents/actions",
@@ -319,7 +319,7 @@
         "dropdowns": [
           {
             "dropdown": "React",
-            "icon": "/docs/images/icons/react.svg",
+            "icon": "/images/icons/react.svg",
             "groups": [
               {
                 "group": " ",
@@ -340,7 +340,7 @@
           },
           {
             "dropdown": "Next.js",
-            "icon": "/docs/images/icons/nextjs.svg",
+            "icon": "/images/icons/nextjs.svg",
             "groups": [
               {
                 "group": " ",
@@ -361,7 +361,7 @@
           },
           {
             "dropdown": "React Router",
-            "icon": "/docs/images/icons/react-router.svg",
+            "icon": "/images/icons/react-router.svg",
             "groups": [
               {
                 "group": " ",
@@ -387,7 +387,7 @@
         "dropdowns": [
           {
             "dropdown": "React",
-            "icon": "/docs/images/icons/react.svg",
+            "icon": "/images/icons/react.svg",
             "versions": [
               {
                 "version": "v6",
@@ -835,7 +835,7 @@
           },
           {
             "dropdown": "React Native",
-            "icon": "/docs/images/icons/react.svg",
+            "icon": "/images/icons/react.svg",
             "versions": [
               {
                 "version": "v5‎",
@@ -1121,7 +1121,7 @@
           },
           {
             "dropdown": "iOS",
-            "icon": "/docs/images/icons/swift.svg",
+            "icon": "/images/icons/swift.svg",
             "versions": [
               {
                 "version": "v5‎‎",
@@ -1417,7 +1417,7 @@
           },
           {
             "dropdown": "Android",
-            "icon": "/docs/images/icons/android.svg",
+            "icon": "/images/icons/android.svg",
             "versions": [
               {
                 "version": "v5‎‎‎",
@@ -1709,7 +1709,7 @@
           },
           {
             "dropdown": "Flutter",
-            "icon": "/docs/images/icons/flutter.svg",
+            "icon": "/images/icons/flutter.svg",
             "versions": [
               {
                 "version": "v5‎‎‎‎",
@@ -1976,7 +1976,7 @@
           },
           {
             "dropdown": "Angular",
-            "icon": "/docs/images/icons/angular.svg",
+            "icon": "/images/icons/angular.svg",
             "versions": [
               {
                 "version": "v4‎‎‎‎‎",
@@ -2214,7 +2214,7 @@
           },
           {
             "dropdown": "Vue",
-            "icon": "/docs/images/icons/vuejs.svg",
+            "icon": "/images/icons/vuejs.svg",
             "versions": [
               {
                 "version": "v4‎‎‎‎‎‎",
@@ -2361,7 +2361,7 @@
         "dropdowns": [
           {
             "dropdown": "JavaScript",
-            "icon": "/docs/images/icons/js.svg",
+            "icon": "/images/icons/js.svg",
             "versions": [
               {
                 "version": "v4‎‎‎‎‎‎‎",
@@ -2716,7 +2716,7 @@
           },
           {
             "dropdown": "React Native",
-            "icon": "/docs/images/icons/react.svg",
+            "icon": "/images/icons/react.svg",
             "versions": [
               {
                 "version": "v4‎‎‎‎‎‎‎‎",
@@ -3044,7 +3044,7 @@
           },
           {
             "dropdown": "iOS",
-            "icon": "/docs/images/icons/swift.svg",
+            "icon": "/images/icons/swift.svg",
             "versions": [
               {
                 "version": "v4‎‎‎‎‎‎‎‎‎",
@@ -3388,7 +3388,7 @@
           },
           {
             "dropdown": "Android",
-            "icon": "/docs/images/icons/android.svg",
+            "icon": "/images/icons/android.svg",
             "versions": [
               {
                 "version": "v4‎‎‎‎‎‎‎‎‎‎",
@@ -3722,7 +3722,7 @@
           },
           {
             "dropdown": "Flutter",
-            "icon": "/docs/images/icons/flutter.svg",
+            "icon": "/images/icons/flutter.svg",
             "versions": [
               {
                 "version": "v4‎‎‎‎‎‎‎‎‎‎‎",
@@ -3937,7 +3937,7 @@
           },
           {
             "dropdown": "Ionic",
-            "icon": "/docs/images/icons/ionic.svg",
+            "icon": "/images/icons/ionic.svg",
             "versions": [
               {
                 "version": "v4‎‎‎‎‎‎‎‎‎‎‎‎",
@@ -4261,7 +4261,7 @@
         "dropdowns": [
           {
             "dropdown": "HTML",
-            "icon": "/docs/images/icons/html5.svg",
+            "icon": "/images/icons/html5.svg",
             "pages": [
               "/widget/html/overview",
               "/widget/html/integration",
@@ -4277,7 +4277,7 @@
           },
           {
             "dropdown": "WordPress",
-            "icon": "/docs/images/icons/wordpress.svg",
+            "icon": "/images/icons/wordpress.svg",
             "pages": [
               "/widget/wordpress/overview",
               "/widget/wordpress/integration",
@@ -4292,7 +4292,7 @@
           },
           {
             "dropdown": "Squarespace",
-            "icon": "/docs/images/icons/squarespace.svg",
+            "icon": "/images/icons/squarespace.svg",
             "pages": [
               "/widget/squarespace/overview",
               "/widget/squarespace/integration"
@@ -4300,7 +4300,7 @@
           },
           {
             "dropdown": "Wix",
-            "icon": "/docs/images/icons/wix.svg",
+            "icon": "/images/icons/wix.svg",
             "pages": [
               "/widget/wix/overview",
               "/widget/wix/integration"
@@ -4308,7 +4308,7 @@
           },
           {
             "dropdown": "Webflow",
-            "icon": "/docs/images/icons/webflow.svg",
+            "icon": "/images/icons/webflow.svg",
             "pages": [
               "/widget/webflow/overview",
               "/widget/webflow/integration"
