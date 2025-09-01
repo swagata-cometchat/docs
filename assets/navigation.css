@@ -52,3 +52,6 @@ html.cc-nav-ready #navbar .nav-tabs {
   align-items: center;
   gap: 8px;
 }
+
+@media (min-width: 1024px) { #sidebar-content .nav-dropdown-trigger { width: 220px !important; max-width: 220px !important; min-width: 220px !important; flex: 0 0 220px !important; } }
+
