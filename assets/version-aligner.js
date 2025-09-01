@@ -239,6 +239,9 @@
             document.documentElement.classList.remove('cc-version-aligned');
             document.querySelectorAll('#navbar .cc-dup-version').forEach(el => el.classList.remove('cc-dup-version'));
         } catch(_) {}
+
+        // Remove any inline margin adjustments applied to the technology trigger
+        try { const fw = findForwardButton(); if (fw) fw.style.removeProperty('margin-bottom'); } catch(_) {}
     }
 
     function markDuplicateVersionButtons() {
@@ -385,6 +388,8 @@
         try {
             const already = fwBtn && fwBtn.parentNode && fwBtn.parentNode.querySelector('[data-version-aligner-button]');
             if (already) {
+                // Ensure the forward/technology button has no bottom margin when aligned in-row
+                try { if (fwBtn) fwBtn.style.marginBottom = '0px'; } catch(_) {}
                 debugLog('[version-aligner] Version already aligned next to technology; skipping move');
                 setAlignedFlag(true);
                 return;
@@ -444,6 +449,8 @@
         debugLog('[version-aligner] Inserting version button after technology dropdown...');
         try {
             fwBtn.parentNode.insertBefore(verBtn, fwBtn.nextSibling);
+            // Normalize vertical alignment: remove bottom margin from the technology trigger
+            try { if (fwBtn) fwBtn.style.marginBottom = '0px'; } catch(_) {}
             setAlignedFlag(true);
             debugLog('[version-aligner] Version button inserted into sidebar');
         } catch (e) {
