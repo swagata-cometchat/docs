@@ -24,13 +24,6 @@ html.cc-nav-ready #navbar .nav-tabs {
   flex: 0 0 auto;
 }
 
-/* Note: avoid enforcing generic widths on Radix menus here to prevent conflicts
-  with the version dropdown sizing handled by version-aligner */
-
-/* Technology dropdown: no enforced background */
-
-/* Product dropdown: no enforced background */
-
 /* Sidebar technology dropdown width: apply globally via CSS (no JS) */
 #sidebar-content .nav-dropdown-trigger {
   width: 220px !important;
