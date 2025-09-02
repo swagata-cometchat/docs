@@ -293,7 +293,7 @@
                   "/ai-agents/mastra-knowledge-agent",
                   "/ai-agents/mastra-frontend-actions-agent",
                   "/ai-agents/mastra-backend-tools-agent",
-                  "/ai-agents/mastra-coordinator-agent"
+                  "/ai-agents/mastra-orchestrator-agent"
                 ]
               }
             ]
