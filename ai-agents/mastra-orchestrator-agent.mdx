@@ -1,7 +1,7 @@
 ---
 title: "Build Your Orchestration Agent with Mastra"
 sidebarTitle: "Orchestration Agent"
-description: "Create a Mastra orchestrator agent that routes queries to the right specialist agent (billing, support, tech), then connect it to CometChat."
+description: "Create a Mastra orchestrator agent that routes queries to the right specialist (billing, support, tech, manager, human), then connect it to CometChat."
 ---
 
 Give users the right help fast: an orchestrator agent that triages each request and forwards it to the best-fit specialist (billing, support, tech support, manager, or a human rep).
@@ -10,7 +10,7 @@ Give users the right help fast: an orchestrator agent that triages each request 
 
 ## What You’ll Build
 
-* A **Mastra orchestrator/relay agent** that classifies intent and routes to specialist agents.  
+* A **Mastra orchestrator agent** that classifies intent and routes to specialist agents.  
 * Specialist agents (billing, support, tech-support, manager, human-rep).  
 * A routing tool and workflow that coordinate handoffs.  
 * Integration into **CometChat** chats.
@@ -36,14 +36,14 @@ Give users the right help fast: an orchestrator agent that triages each request 
 
 ## How it works
 
-This example demonstrates a “multi-agent orchestration (relay)” pattern:
+This example demonstrates a “multi-agent orchestration” pattern:
 
-- The primary agent (e.g., `relay`) understands the user request and decides which specialist should respond.  
+- The primary agent (the orchestrator) understands the user request and decides which specialist should respond.  
 - The routing tool and workflow handle the handoff, preserving context.  
-- The selected specialist (billing/support/tech/manager/human-rep) answers, and the relay returns the final response.  
+- The selected specialist (billing/support/tech/manager/human-rep) answers, and the orchestrator returns the final response.  
 - This keeps logic modular and makes it easy to add or refine specialist agents.
 
-Key components (source-linked below): the orchestrator/relay agent, specialist agents, orchestrator tool, and orchestrator workflow.
+Key components (source-linked below): the orchestrator agent, specialist agents, orchestrator tool, and orchestrator workflow.
 
 ***
 
@@ -60,13 +60,13 @@ Key components (source-linked below): the orchestrator/relay agent, specialist a
     Implement a routing tool and workflow that determine the best specialist for a request.
   </Step>
   <Step title="Register in server">
-  Register the agents and expose <code>/api/agents/relay/generate</code> (see <a href="https://github.com/cometchat/ai-agent-mastra-examples/blob/main/mastra-orchestrator-agent/src/mastra/index.ts" target="_blank" rel="noreferrer">server entry</a>).
+  Register the agents and expose <code>/api/agents/orchestratorAgent/generate</code> (see <a href="https://github.com/cometchat/ai-agent-mastra-examples/blob/main/mastra-orchestrator-agent/src/mastra/index.ts" target="_blank" rel="noreferrer">server entry</a>).
   </Step>
-  <Step title="Ask the orchestrator (relay)">
-    POST to <code>/api/agents/relay/generate</code> with a <code>messages</code> array and verify routed answers.
+  <Step title="Ask the orchestrator">
+    POST to <code>/api/agents/orchestratorAgent/generate</code> with a <code>messages</code> array and verify routed answers.
   </Step>
   <Step title="Connect to CometChat">
-    In Dashboard → AI Agents, set Provider=Mastra, Agent ID=<code>relay</code>, and point Deployment URL to your public generate endpoint.
+    In Dashboard → AI Agents, set Provider=Mastra, Agent ID=<code>orchestratorAgent</code>, and point Deployment URL to your public generate endpoint.
   </Step>
   <Step title="Deploy & observe">
     Make the API public and monitor which specialist is selected in logs.
@@ -106,7 +106,7 @@ Core files and folders for the Orchestrator Agent (browse source on GitHub):
 **`src/mastra/agents/orchestrator-agent.ts`** ([view in repo](https://github.com/cometchat/ai-agent-mastra-examples/blob/main/mastra-orchestrator-agent/src/mastra/agents/orchestrator-agent.ts)):
 
 Checklist for the orchestrator:
-- Set `name` to **"relay"** so the API path is `/api/agents/relay/*`.  
+- Register the agent with key **"orchestratorAgent"** so the API path is `/api/agents/orchestratorAgent/*`.  
 - Detect intents (billing, support, tech, manager, human rep).  
 - Use the routing tool/workflow to hand off.  
 - Compose a concise final reply.
@@ -125,7 +125,7 @@ Specialists (configure as needed):
 - Routing tool: [orchestrator-tool.ts](https://github.com/cometchat/ai-agent-mastra-examples/blob/main/mastra-orchestrator-agent/src/mastra/tools/orchestrator-tool.ts)  
 - Workflow: [orchestrator-workflow.ts](https://github.com/cometchat/ai-agent-mastra-examples/blob/main/mastra-orchestrator-agent/src/mastra/workflows/orchestrator-workflow.ts)  
 
-Ensure the orchestrator/relay agent calls the tool/workflow with the correct context, and specialists are discoverable by key.
+Ensure the orchestrator agent calls the tool/workflow with the correct context, and specialists are discoverable by key.
 
 ***
 
@@ -133,8 +133,8 @@ Ensure the orchestrator/relay agent calls the tool/workflow with the correct con
 
 **`src/mastra/index.ts`** ([view in repo](https://github.com/cometchat/ai-agent-mastra-examples/blob/main/mastra-orchestrator-agent/src/mastra/index.ts)):
 
-- Register the relay with key **"relay"** → API path `/api/agents/relay/*`.  
-- Register specialist agents and expose only the relay externally.  
+- Register the orchestrator with key **"orchestratorAgent"** → API path `/api/agents/orchestratorAgent/*`.  
+- Register specialist agents and expose only the orchestrator externally.  
 - Keep config and logger settings as per the repo README.  
 
 ***
@@ -148,21 +148,21 @@ Ensure the orchestrator/relay agent calls the tool/workflow with the correct con
 Expected local API base: `http://localhost:4111/api`
 
 <Steps>
-  <Step title="Install dependencies">Use the repo scripts to install dependencies.</Step>
-  <Step title="Start the dev server">Run the local Mastra server as per the README.</Step>
-  <Step title="Ask the orchestrator (relay) agent">POST to <code>/api/agents/relay/generate</code> and verify the routed specialist answers.</Step>
-  <Step title="Observe routing">Check logs to see which specialist was chosen.</Step>
+  <Step title="Install dependencies">Run <code>npm install</code>.</Step>
+  <Step title="Start the dev server">Run <code>npx mastra dev</code> (or <code>npm run dev</code>).</Step>
+  <Step title="Ask the orchestrator agent">POST to <code>/api/agents/orchestratorAgent/generate</code> and verify the routed specialist answers.</Step>
+  <Step title="Observe routing">Responses end with <code>([routedTo] | escalated: yes/no)</code>; check logs for which specialist was chosen.</Step>
 </Steps>
 
 API endpoints exposed by this example:
 
-- POST `/api/agents/relay/generate` — chat with the relay and get routed responses
+- POST `/api/agents/orchestratorAgent/generate` — chat with the orchestrator and get routed responses
 
 ***
 
 ## Step 5 - Deploy the API
 
-Ensure your public route: **`/api/agents/relay/generate`** is reachable.
+Ensure your public route: **`/api/agents/orchestratorAgent/generate`** is reachable.
 
 ***
 
@@ -170,7 +170,7 @@ Ensure your public route: **`/api/agents/relay/generate`** is reachable.
 <Steps>
   <Step title="Open Dashboard">Open the <a href="https://app.cometchat.com/" target="_blank" rel="noreferrer">CometChat Dashboard</a>.</Step>
   <Step title="Navigate">Go to your App → <b>AI Agents</b>.</Step>
-  <Step title="Add agent">Set <b>Provider</b>=Mastra, <b>Agent ID</b>=<code>relay</code>, <b>Deployment URL</b>=your public generate endpoint.</Step>
+  <Step title="Add agent">Set <b>Provider</b>=Mastra, <b>Agent ID</b>=<code>orchestratorAgent</code>, <b>Deployment URL</b>=your public generate endpoint.</Step>
   <Step title="(Optional) Routing">Adjust specialist prompts and routing rules as needed.</Step>
   <Step title="Enable">Save and ensure the agent toggle shows <b>Enabled</b>.</Step>
 </Steps>
@@ -183,7 +183,7 @@ Ensure your public route: **`/api/agents/relay/generate`** is reachable.
 <Steps>
   <Step title="Open variant">From <b>AI Agents</b> click the variant (or Get Started) to enter Chat Builder.</Step>
   <Step title="Customize & Deploy">Select <b>Customize and Deploy</b>.</Step>
-  <Step title="Adjust settings">Theme, layout, features; ensure the Multi-agent Orchestration (relay) agent is attached.</Step>
+  <Step title="Adjust settings">Theme, layout, features; ensure the Orchestrator agent is attached.</Step>
   <Step title="Preview">Use live preview to validate routing and responses.</Step>
 </Steps>
 
@@ -191,26 +191,26 @@ Ensure your public route: **`/api/agents/relay/generate`** is reachable.
 
 ## Step 8 - Integrate
 
-Once your Multi-agent Orchestration Agent is configured, you can integrate it into your app using the CometChat No Code - Widget:
+Once your Orchestrator Agent is configured, you can integrate it into your app using the CometChat No Code - Widget:
 
 <CardGroup>
   <Card title="No Code - Widget" icon={<img src="/docs/images/icons/ai-agents.svg" alt="Widget" />} description="No-code" href="/widget/ai-agents" horizontal />
 </CardGroup>
 
-> **Note:** The **Orchestrator (relay) agent** you connected in earlier steps is already part of the exported configuration, so your end-users will chat with that agent immediately.
+> **Note:** The **Orchestrator agent** you connected in earlier steps is already part of the exported configuration, so your end-users will chat with that agent immediately.
 
 ---
 
 ## Step 9 - Test Your Setup
 
 <Steps>
-  <Step title="Orchestrator responds">POST to <code>/api/agents/relay/generate</code> returns an answer from the chosen specialist.</Step>
-  <Step title="Agent listed"><code>/api/agents</code> includes <code>"relay"</code>.</Step>
+  <Step title="Orchestrator responds">POST to <code>/api/agents/orchestratorAgent/generate</code> returns an answer from the chosen specialist and ends with routing metadata.</Step>
+  <Step title="Agent listed"><code>/api/agents</code> includes <code>"orchestratorAgent"</code>.</Step>
   <Step title="Routing visible">Logs show which specialist handled the request.</Step>
 </Steps>
 
 ```bash
-curl -X POST http://localhost:4111/api/agents/relay/generate \
+curl -X POST http://localhost:4111/api/agents/orchestratorAgent/generate \
   -H "Content-Type: application/json" \
   -d '{
     "messages": [
@@ -232,7 +232,7 @@ curl -X POST http://localhost:4111/api/agents/relay/generate \
 
 * **Wrong specialist**: refine orchestrator prompts, add explicit routing criteria, or fallbacks.  
 * **No response**: verify orchestrator and specialists are registered and reachable.  
-* **Agent not found**: confirm the server registers the agent with key `relay`.  
+* **Agent not found**: confirm the server registers the agent with key `orchestratorAgent`.  
 
 ***
 
