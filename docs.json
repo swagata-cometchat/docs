@@ -2491,6 +2491,7 @@
                           "sdk/javascript/transfer-group-ownership"
                         ]
                       },
+                      "sdk/javascript/ai-moderation",
                       "sdk/javascript/ai-agents",
                       {
                         "group": "Resources",
@@ -3163,6 +3164,7 @@
                           "sdk/ios/transfer-group-ownership"
                         ]
                       },
+                      "sdk/ios/ai-moderation",
                       {
                         "group": "Advanced",
                         "pages": [
@@ -3507,6 +3509,7 @@
                           "sdk/android/transfer-group-ownership"
                         ]
                       },
+                      "sdk/android/ai-moderation",
                       {
                         "group": "Resources",
                         "pages": [
@@ -3841,6 +3844,7 @@
                           "sdk/flutter/transfer-group-ownership"
                         ]
                       },
+                      "sdk/flutter/ai-moderation",
                       {
                         "group": "Resources",
                         "pages": [
