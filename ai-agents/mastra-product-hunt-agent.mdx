@@ -11,6 +11,7 @@ Give your chats superpowers: let an agent call tools to retrieve Product Hunt da
 ## Quick links
 
 - Live demo: [cometchat.github.io/ai-agent-mastra-examples/product-hunt-agent/web](https://cometchat.github.io/ai-agent-mastra-examples/product-hunt-agent/web/)
+- Source code: [GitHub repository](https://github.com/cometchat/ai-agent-mastra-examples/tree/main/product-hunt-agent)
 
 ---
 
@@ -26,11 +27,11 @@ Give your chats superpowers: let an agent call tools to retrieve Product Hunt da
 
 Repo layout in this example:
 
-- `src/mastra/agents/producthunt-agent.ts` — the agent definition
-- `src/mastra/tools/producthunt-tools.ts` — tools: top products, timeframe top, search, confetti
-- `src/services/producthunt.ts` — Product Hunt GraphQL + Algolia helpers and timeframe parsing
-- `src/server.ts` — minimal API server returning JSON and agent chat
-- `web/index.html` — static UI that mounts CometChat and maps the confetti tool
+- [`src/mastra/agents/producthunt-agent.ts`](https://github.com/cometchat/ai-agent-mastra-examples/blob/main/product-hunt-agent/src/mastra/agents/producthunt-agent.ts) — the agent definition
+- [`src/mastra/tools/producthunt-tools.ts`](https://github.com/cometchat/ai-agent-mastra-examples/blob/main/product-hunt-agent/src/mastra/tools/producthunt-tools.ts) — tools: top products, timeframe top, search, confetti
+- [`src/services/producthunt.ts`](https://github.com/cometchat/ai-agent-mastra-examples/blob/main/product-hunt-agent/src/services/producthunt.ts) — Product Hunt GraphQL + Algolia helpers and timeframe parsing
+- [`src/server.ts`](https://github.com/cometchat/ai-agent-mastra-examples/blob/main/product-hunt-agent/src/server.ts) — minimal API server returning JSON and agent chat
+- [`web/index.html`](https://github.com/cometchat/ai-agent-mastra-examples/blob/main/product-hunt-agent/web/index.html) — static UI that mounts CometChat and maps the confetti tool
 
 ---
 
@@ -43,9 +44,9 @@ Repo layout in this example:
 
 Optional quick links in this project:
 
-- Runtime & scripts: `package.json`
-- Server TS build: `tsconfig.server.json`
-- Static page: `web/index.html`
+- Runtime & scripts: [`package.json`](https://github.com/cometchat/ai-agent-mastra-examples/blob/main/product-hunt-agent/package.json)
+- Server TS build: [`tsconfig.server.json`](https://github.com/cometchat/ai-agent-mastra-examples/blob/main/product-hunt-agent/tsconfig.server.json)
+- Static page: [`web/index.html`](https://github.com/cometchat/ai-agent-mastra-examples/blob/main/product-hunt-agent/web/index.html)
 
 ---
 
@@ -68,7 +69,7 @@ Security note: model/provider keys are server‑side; frontend only receives too
 
 ## Step 1 — Define tools
 
-File: `src/mastra/tools/producthunt-tools.ts`
+File: [`src/mastra/tools/producthunt-tools.ts`](https://github.com/cometchat/ai-agent-mastra-examples/blob/main/product-hunt-agent/src/mastra/tools/producthunt-tools.ts)
 
 - Top/all‑time: `get-top-products`
 - Timeframe: `get-top-products-by-timeframe` (supports today/yesterday/this‑week/last‑week/this‑month/last‑month, single date YYYY‑MM‑DD, or `from:YYYY-MM-DD to:YYYY-MM-DD` ranges; default tz `America/New_York`)
@@ -81,7 +82,7 @@ The agent will render compact Markdown tables from tool output for top lists.
 
 ## Step 2 — Create the agent
 
-File: `src/mastra/agents/producthunt-agent.ts`
+File: [`src/mastra/agents/producthunt-agent.ts`](https://github.com/cometchat/ai-agent-mastra-examples/blob/main/product-hunt-agent/src/mastra/agents/producthunt-agent.ts)
 
 Checklist for the agent:
 
@@ -95,7 +96,7 @@ Checklist for the agent:
 
 ## Step 3 — Wire Mastra (optional)
 
-File: `src/mastra/index.ts`
+File: [`src/mastra/index.ts`](https://github.com/cometchat/ai-agent-mastra-examples/blob/main/product-hunt-agent/src/mastra/index.ts)
 
 - Register your agent into Mastra if you prefer the Mastra dev server workflow
 - This demo uses a custom minimal `src/server.ts` for a simple `/api/*` shape
@@ -120,7 +121,7 @@ Environment variables:
 
 ## Step 5 — Frontend actions handler
 
-File: `web/index.html`
+File: [`web/index.html`](https://github.com/cometchat/ai-agent-mastra-examples/blob/main/product-hunt-agent/web/index.html)
 
 - Registers tool handlers:
   - `confetti-tool` (and `confettiTool`) → loads `canvas-confetti` on demand, or uses a fallback renderer
