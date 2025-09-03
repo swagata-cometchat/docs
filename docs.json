@@ -295,6 +295,12 @@
                   "/ai-agents/mastra-backend-tools-agent",
                   "/ai-agents/mastra-orchestrator-agent"
                 ]
+              },
+              {
+                "group": "Tutorials",
+                "pages": [
+                  "/ai-agents/mastra-product-hunt-agent"
+                ]
               }
             ]
           }
