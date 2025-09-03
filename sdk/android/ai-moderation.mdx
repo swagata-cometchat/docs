@@ -35,7 +35,7 @@ When sending text, image, or video messages, the moderation process introduces t
 <Tabs>
 	<Tab title="Java">
 		```java
-		// Check moderation status after sending a message
+		// Check moderation status after sending a message. This check is only applicable for TextMessage & MediaMessage class.
 		if(message.getModerationStatus().equals(ModerationStatus.PENDING)) {
 			// Message is under moderation
 		}
@@ -44,10 +44,19 @@ When sending text, image, or video messages, the moderation process introduces t
 		CometChat.addMessageListener("UNIQUE_LISTENER_ID", new CometChat.MessageListener() {
 			@Override
 			public void onMessageModerated(BaseMessage message) {
-				if(message.getModerationStatus().equals(ModerationStatus.APPROVED)) {
-					// Message approved
-				} else if(message.getModerationStatus().equals(ModerationStatus.DISAPPROVED)) {
-					// Message disapproved
+				if(message instanceof TextMessage){
+					if(((TextMessage) message).getModerationStatus().equals(ModerationStatus.APPROVED)) {
+						// Message approved
+					} else if(((TextMessage) message).getModerationStatus().equals(ModerationStatus.DISAPPROVED)) {
+						// Message disapproved
+					}
+				}
+				else if(message instanceof MediaMessage){
+					if(((MediaMessage) message).getModerationStatus().equals(ModerationStatus.APPROVED)) {
+						// Message approved
+					} else if(((MediaMessage) message).getModerationStatus().equals(ModerationStatus.DISAPPROVED)) {
+						// Message disapproved
+					}
 				}
 			}
 		});
@@ -57,7 +66,7 @@ When sending text, image, or video messages, the moderation process introduces t
 	<Tab title="Kotlin">
 		```kotlin
 
-		// Check moderation status after sending message
+		// Check moderation status after sending message. This check is only applicable for TextMessage & MediaMessage class.
 		if (message.moderationStatus == ModerationStatus.PENDING) {
 			// Message is under moderation
 		}
@@ -65,10 +74,18 @@ When sending text, image, or video messages, the moderation process introduces t
 		// Listen for moderation result
 		CometChat.addMessageListener("UNIQUE_LISTENER_ID", object : CometChat.MessageListener() {
 			override fun onMessageModerated(message: BaseMessage) {
-				if(message.moderationStatus == ModerationStatus.APPROVED) {
-					// Message approved
-				} else if(message.moderationStatus == ModerationStatus.DISAPPROVED) {
-					// Message disapproved
+				if(baseMessage is TextMessage){
+					if(message.moderationStatus == ModerationStatus.APPROVED) {
+						// Message approved
+					} else if(message.moderationStatus == ModerationStatus.DISAPPROVED) {
+						// Message disapproved
+					}
+				} else if(baseMessage is MediaMessage){
+					if(message.moderationStatus == ModerationStatus.APPROVED) {
+						// Message approved
+					} else if(message.moderationStatus == ModerationStatus.DISAPPROVED) {
+						// Message disapproved
+					}
 				}
 			}
 		});

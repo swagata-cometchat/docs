@@ -35,7 +35,7 @@ When sending text, image, or video messages, the moderation process introduces t
 <Tabs>
 	<Tab title="Dart">
 		```dart
-		// Check moderation status after sending a message
+		// Check moderation status after sending a message. This check is only applicable for TextMessage & MediaMessage class. 
 		if(message.moderationStatus.value == ModerationStatusEnum.PENDING.value) {
 			// Message is under moderation
 		}
@@ -45,10 +45,18 @@ When sending text, image, or video messages, the moderation process introduces t
 			// CometChat.addMessageListener("listenerId", this);
 			@override
 			void onMessageModerated(BaseMessage message) {
-				if(message.moderationStatus.value == ModerationStatusEnum.APPROVED.value) {
-					// Message approved
-				} else if(message.moderationStatus.value == ModerationStatusEnum.DISAPPROVED.value) {
-					// Message disapproved
+				if(message is TextMessage) {
+					if(message.moderationStatus?.value == ModerationStatusEnum.APPROVED.value) {
+						// Message approved
+					} else if(message.moderationStatus?.value == ModerationStatusEnum.DISAPPROVED.value) {
+						// Message disapproved
+					}
+				} else if(message is MediaMessage) {
+					if(message.moderationStatus?.value == ModerationStatusEnum.APPROVED.value) {
+						// Message approved
+					} else if(message.moderationStatus?.value == ModerationStatusEnum.DISAPPROVED.value) {
+						// Message disapproved
+					}
 				}
 			}
 		}
