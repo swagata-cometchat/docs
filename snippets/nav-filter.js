@@ -102,7 +102,7 @@
         'Chat & Calling', 'Platform', 'UI Kits', 'SDKs', 'No Code - Widgets', 'APIs', 'Chat Builder'
       ],
       'ai-agents': [
-        'AI Agents', 'AI Agents Builder'
+        'AI Agents', 'Agent Builder'
       ],
       'moderation': [
         'AI Moderation'
