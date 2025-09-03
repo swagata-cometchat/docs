@@ -84,7 +84,7 @@ In your app module `build.gradle` plugins block:
 
 ```gradle
 plugins {
-  id("com.cometchat.builder.settings") version "1.0.0-alpha7"
+  id("com.cometchat.builder.settings") version "5.0.0"
 }
 ```
 
@@ -169,6 +169,40 @@ Prefer plug‑and‑play? Import the preconfigured Builder sample app (from READ
    - Not initialized / not logged in → `SplashActivity`
    - Logged in → `HomeActivity`
 
+### Launch Messages screen (examples)
+
+For a User:
+
+```kotlin
+val UID: String = "UID"
+val intent = Intent(this, MessagesActivity::class.java)
+CometChat.getUser(UID, object : CometChat.CallbackListener<User?>() {
+  override fun onSuccess(user: User?) {
+    intent.putExtra("user", com.google.gson.Gson().toJson(user))
+    startActivity(intent)
+  }
+  override fun onError(e: CometChatException?) {
+    Log.e("TAG", "Error fetching user: ${e?.message}")
+  }
+})
+```
+
+For a Group:
+
+```kotlin
+val GUID: String = "GUID"
+val intent = Intent(this, MessagesActivity::class.java)
+CometChat.getGroup(GUID, object : CometChat.CallbackListener<Group?>() {
+  override fun onSuccess(group: Group?) {
+    intent.putExtra("group", com.google.gson.Gson().toJson(group))
+    startActivity(intent)
+  }
+  override fun onError(e: CometChatException?) {
+    Log.e("TAG", "Error fetching group: ${e?.message}")
+  }
+})
+```
+
 ***
 
 ## Run the App
@@ -193,7 +227,7 @@ Build and run on a device/emulator from Android Studio. Ensure a CometChat user 
 
 ## Troubleshooting
 
-- Plugin not found: Check internet connectivity and use `1.0.0-alpha7`.
+- Plugin not found: Check internet connectivity and use `5.0.0`.
 - Settings not generated: Confirm JSON path and rebuild (Clean/Build).
 - Import errors: Verify package names and imports for `BuilderSettingsHelper` and `CometChatBuilderSettings`.
 
