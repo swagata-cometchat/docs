@@ -278,7 +278,7 @@
         ]
       },
       {
-        "tab": "AI Agents Builder",
+        "tab": "Agent Builder",
         "dropdowns": [
           {
             "dropdown": "Mastra",
@@ -294,6 +294,12 @@
                   "/ai-agents/mastra-frontend-actions-agent",
                   "/ai-agents/mastra-backend-tools-agent",
                   "/ai-agents/mastra-orchestrator-agent"
+                ]
+              },
+              {
+                "group": "Tutorials",
+                "pages": [
+                  "/ai-agents/mastra-product-hunt-agent"
                 ]
               }
             ]
@@ -2485,6 +2491,7 @@
                           "sdk/javascript/transfer-group-ownership"
                         ]
                       },
+                      "sdk/javascript/ai-agents",
                       {
                         "group": "Resources",
                         "pages": [
