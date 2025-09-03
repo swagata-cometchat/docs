@@ -2459,6 +2459,7 @@
                           "sdk/javascript/transfer-group-ownership"
                         ]
                       },
+                      "sdk/javascript/ai-agents",
                       {
                         "group": "Resources",
                         "pages": [
