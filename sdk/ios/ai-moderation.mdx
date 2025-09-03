@@ -35,39 +35,66 @@ When sending text, image, or video messages, the moderation process introduces t
 <Tabs>
 	<Tab title="Swift">
 		```swift
-		// Check moderation status after sending a message
-		if let message = sentMessage as? BaseMessage {
+		// Check moderation status after sending a message. This check is only applicable for TextMessage & MediaMessage class.
+		if let message = sentMessage as? TextMessage {
 		    if message.getModerationStatus() == "pending" {
-		        print("Message is under moderation")
+				// Message is under moderation
+		    }
+		} else if let message = sentMessage as? MediaMessage {
+		    if message.getModerationStatus() == "pending" {
+				// Message is under moderation
 		    }
 		}
 
-		// Listen for moderation result
-		func onMessageModerated(message: BaseMessage) {
-		    if message.getModerationStatus() == "approved" {
-		        print("Message approved")
-		    } else if message.getModerationStatus() == "disapproved" {
-		        print("Message disapproved")
-		    }
+		// Listen for moderation result.
+		func onMessageModerated(moderatedMessage: BaseMessage) {
+			if let message = moderatedMessage as? TextMessage {
+			    if message.getModerationStatus() == "approved" {
+			        // Message approved
+			    } else if message.getModerationStatus() == "disapproved" {
+			        // Message disapproved
+			    }
+			} else if let message = moderatedMessage as? MediaMessage {
+			    if message.getModerationStatus() == "approved" {
+			        // Message approved
+			    } else if message.getModerationStatus() == "disapproved" {
+			        // Message disapproved
+			    }
+			}
 		}
 		```
 	</Tab>
 	<Tab title="Objective-C">
 		```objc
-		// Check moderation status after sending a message
-		if ([sentMessage isKindOfClass:[BaseMessage class]]) {
-		    BaseMessage *message = (BaseMessage *)sentMessage;
+		// Check moderation status after sending a message. This check is only applicable for TextMessage & MediaMessage class.
+		if ([sentMessage isKindOfClass:[TextMessage class]]) {
+		    TextMessage *message = (TextMessage *)sentMessage;
 		    if ([[message getModerationStatus] isEqualToString:@"pending"]) {
-				NSLog(@"Message is under moderation");
+				// Message is under moderation
+			}
+		} else if ([sentMessage isKindOfClass:[MediaMessage class]]) {
+		    MediaMessage *message = (MediaMessage *)sentMessage;
+		    if ([[message getModerationStatus] isEqualToString:@"pending"]) {
+				// Message is under moderation
 			}
 		}
 
 		// Listen for moderation result
 		- (void)onMessageModerated:(BaseMessage *)message {
-		    if ([[message getModerationStatus] isEqualToString:@"approved"]) {
-				NSLog(@"Message approved");
-			} else if ([[message getModerationStatus] isEqualToString:@"disapproved"]) {
-				NSLog(@"Message disapproved");
+			if ([message isKindOfClass:[TextMessage class]]) {
+				TextMessage *textMessage = (TextMessage *)message;
+				if ([[textMessage getModerationStatus] isEqualToString:@"approved"]) {
+					// Message approved
+				} else if ([[textMessage getModerationStatus] isEqualToString:@"disapproved"]) {
+					// Message disapproved
+				}
+			} else if ([message isKindOfClass:[MediaMessage class]]) {
+				MediaMessage *mediaMessage = (MediaMessage *)message;
+				if ([[mediaMessage getModerationStatus] isEqualToString:@"approved"]) {
+					// Message approved
+				} else if ([[mediaMessage getModerationStatus] isEqualToString:@"disapproved"]) {
+					// Message disapproved
+				}
 			}
 		}
 		```

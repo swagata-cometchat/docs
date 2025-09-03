@@ -35,7 +35,7 @@ When sending text, image, or video messages, the moderation process introduces t
 <Tabs>
 	<Tab title="Javascript">
 		```js
-		// Check moderation status after sending a message
+		// Check moderation status after sending a message. This check is only applicable for TextMessage & MediaMessage class.
 		const status = message.getModerationStatus();
 		if (status === CometChat.ModerationStatus.PENDING) {
 			// Message is under moderation
@@ -46,10 +46,12 @@ When sending text, image, or video messages, the moderation process introduces t
 			'UNIQUE_LISTENER_ID',
 			new CometChat.MessageListener({
 				onMessageModerated: (message) => {
-					if (message.getModerationStatus() === CometChat.ModerationStatus.APPROVED) {
-						// Message approved
-					} else if (message.getModerationStatus() === CometChat.ModerationStatus.DISAPPROVED) {
-						// Message disapproved
+					if (message instanceof CometChat.TextMessage || message instanceof CometChat.MediaMessage) {
+						if (message.getModerationStatus() === CometChat.ModerationStatus.APPROVED) {
+							// Message approved
+						} else if (message.getModerationStatus() === CometChat.ModerationStatus.DISAPPROVED) {
+							// Message disapproved
+						}
 					}
 				}
 			})
@@ -58,7 +60,7 @@ When sending text, image, or video messages, the moderation process introduces t
 	</Tab>
 	<Tab title="Typescript">
 		```js
-		// Check moderation status after sending a message
+		// Check moderation status after sending a message. This check is only applicable for TextMessage & MediaMessage class.
 		const status: string = message.getModerationStatus();
 		if (status === CometChat.ModerationStatus.PENDING) {
 			// Message is under moderation
@@ -69,10 +71,12 @@ When sending text, image, or video messages, the moderation process introduces t
 			'UNIQUE_LISTENER_ID',
 			new CometChat.MessageListener({
 				onMessageModerated: (message: CometChat.BaseMessage) => {
-					if (message.getModerationStatus() === CometChat.ModerationStatus.APPROVED) {
-						// Message approved
-					} else if (message.getModerationStatus() === CometChat.ModerationStatus.DISAPPROVED) {
-						// Message disapproved
+					if (message instanceof CometChat.TextMessage || message instanceof CometChat.MediaMessage) {
+						if (message.getModerationStatus() === CometChat.ModerationStatus.APPROVED) {
+							// Message approved
+						} else if (message.getModerationStatus() === CometChat.ModerationStatus.DISAPPROVED) {
+							// Message disapproved
+						}
 					}
 				}
 			})
