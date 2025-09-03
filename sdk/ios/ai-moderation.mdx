@@ -1,0 +1,75 @@
+---
+title: "AI Moderation"
+---
+
+# Overview
+
+AI Moderation in the CometChat SDK helps ensure that your chat application remains safe and compliant by automatically reviewing messages for inappropriate content. This feature leverages AI to moderate messages in real-time, reducing manual intervention and improving user experience.
+
+For a broader understanding of moderation features, see the [Moderation Overview](../../moderation/overview).
+
+# What Triggers Moderation?
+
+Moderation is triggered **only** for the following message types:
+
+- Text Messages
+- Image Messages
+- Video Messages
+
+Other message types are not subject to AI moderation.
+
+# Handling Message Moderation Status
+
+When sending text, image, or video messages, the moderation process introduces the following changes to the message flow:
+
+1. **Initial Status:**
+	 - On successfully sending a text, image, or video message, the response will include the moderation status as `pending`.
+	 - You can fetch this status using the `getModerationStatus()` method, which returns a string `pending`.
+
+2. **Moderation Result Event:**
+	 - Once the moderation service processes the message, a real-time event is triggered in your `MessageListener` as `onMessageModerated`.
+	 - This event provides the message object with the updated moderation status, which will be either `approved` or `disapproved`.
+
+**Example:**
+
+<Tabs>
+	<Tab title="Swift">
+		```swift
+		// Check moderation status after sending a message
+		if let message = sentMessage as? BaseMessage {
+		    if message.getModerationStatus() == "pending" {
+		        print("Message is under moderation")
+		    }
+		}
+
+		// Listen for moderation result
+		func onMessageModerated(message: BaseMessage) {
+		    if message.getModerationStatus() == "approved" {
+		        print("Message approved")
+		    } else if message.getModerationStatus() == "disapproved" {
+		        print("Message disapproved")
+		    }
+		}
+		```
+	</Tab>
+	<Tab title="Objective-C">
+		```objc
+		// Check moderation status after sending a message
+		if ([sentMessage isKindOfClass:[BaseMessage class]]) {
+		    BaseMessage *message = (BaseMessage *)sentMessage;
+		    if ([[message getModerationStatus] isEqualToString:@"pending"]) {
+				NSLog(@"Message is under moderation");
+			}
+		}
+
+		// Listen for moderation result
+		- (void)onMessageModerated:(BaseMessage *)message {
+		    if ([[message getModerationStatus] isEqualToString:@"approved"]) {
+				NSLog(@"Message approved");
+			} else if ([[message getModerationStatus] isEqualToString:@"disapproved"]) {
+				NSLog(@"Message disapproved");
+			}
+		}
+		```
+	</Tab>
+</Tabs>

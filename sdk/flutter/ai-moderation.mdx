@@ -24,7 +24,7 @@ When sending text, image, or video messages, the moderation process introduces t
 
 1. **Initial Status:**
 	 - On successfully sending a text, image, or video message, the response will include the moderation status as `pending`.
-	 - You can fetch this status using the `getModerationStatus()` method, which returns an Enum: `CometChat.ModerationStatus.PENDING`.
+	 - You can fetch this status using the `moderationStatus` property, which returns an Enum: `CometChat.ModerationStatus.PENDING`.
 
 2. **Moderation Result Event:**
 	 - Once the moderation service processes the message, a real-time event is triggered in your `MessageListener` as `onMessageModerated`.
@@ -33,50 +33,25 @@ When sending text, image, or video messages, the moderation process introduces t
 **Example:**
 
 <Tabs>
-	<Tab title="Javascript">
-		```js
+	<Tab title="Dart">
+		```dart
 		// Check moderation status after sending a message
-		const status = message.getModerationStatus();
-		if (status === CometChat.ModerationStatus.PENDING) {
+		if(message.moderationStatus.value == ModerationStatusEnum.PENDING.value) {
 			// Message is under moderation
 		}
 
 		// Listen for moderation result
-		CometChat.addMessageListener(
-			'UNIQUE_LISTENER_ID',
-			new CometChat.MessageListener({
-				onMessageModerated: (message) => {
-					if (message.getModerationStatus() === CometChat.ModerationStatus.APPROVED) {
-						// Message approved
-					} else if (message.getModerationStatus() === CometChat.ModerationStatus.DISAPPROVED) {
-						// Message disapproved
-					}
+		class Class_Name with MessageListener {
+			// CometChat.addMessageListener("listenerId", this);
+			@override
+			void onMessageModerated(BaseMessage message) {
+				if(message.moderationStatus.value == ModerationStatusEnum.APPROVED.value) {
+					// Message approved
+				} else if(message.moderationStatus.value == ModerationStatusEnum.DISAPPROVED.value) {
+					// Message disapproved
 				}
-			})
-		);
-		```
-	</Tab>
-	<Tab title="Typescript">
-		```js
-		// Check moderation status after sending a message
-		const status: string = message.getModerationStatus();
-		if (status === CometChat.ModerationStatus.PENDING) {
-			// Message is under moderation
+			}
 		}
-
-		// Listen for moderation result
-		CometChat.addMessageListener(
-			'UNIQUE_LISTENER_ID',
-			new CometChat.MessageListener({
-				onMessageModerated: (message: CometChat.BaseMessage) => {
-					if (message.getModerationStatus() === CometChat.ModerationStatus.APPROVED) {
-						// Message approved
-					} else if (message.getModerationStatus() === CometChat.ModerationStatus.DISAPPROVED) {
-						// Message disapproved
-					}
-				}
-			})
-		);
 		```
 	</Tab>
 </Tabs>
