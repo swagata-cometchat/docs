@@ -1,0 +1,149 @@
+---
+title: "Getting Started With Chat Builder"
+sidebarTitle: "Integration"
+---
+
+Chat Builder simplifies integrating CometChat’s iOS UI Kit using Visual Chat Builder (VCB) configuration. Design your experience, export settings, and wire them into your app via JSON or QR‑based live sync.
+
+<Frame>
+  <img src="/images/mobile-chat-builder.png" />
+</Frame>
+
+## Complete Integration Workflow
+
+1. Design your chat experience in Chat Builder.
+2. Export your code/settings or connect via QR.
+3. Enable extra features in the CometChat Dashboard if needed.
+4. Optionally preview on device/simulator.
+5. Integrate into your Xcode project.
+6. Customize further with UI Kit styling and components.
+
+***
+
+## Launch the Chat Builder
+
+1. Log in to your CometChat Dashboard: https://app.cometchat.com
+2. Select your application.
+3. Go to Integrate → iOS → Launch Chat Builder.
+
+***
+
+## Enable Features in CometChat Dashboard
+
+If your app needs any of these, enable them from your Dashboard: https://app.cometchat.com
+
+- Stickers
+- Polls
+- Collaborative whiteboard
+- Collaborative document
+- Message translation
+- AI User Copilot: Conversation starter, Conversation summary, Smart reply
+
+How to enable:
+
+<Frame>
+  <img src="/images/91e1727b-dashboard_features-5d33b046f945728c1521aee216f3555a.png" />
+</Frame>
+
+1. Log in to the Dashboard.
+2. Select your app.
+3. Navigate to Chat → Features.
+4. Toggle ON the required features and Save.
+
+***
+
+## Integration with CometChat Chat Builder (iOS)
+
+Installation and configuration options from README‑iOS:
+
+### Install the Builder package
+
+<Tabs>
+<Tab title="CocoaPods">
+
+```ruby
+pod 'CometChatBuilder'
+```
+
+```bash
+pod install
+```
+
+</Tab>
+<Tab title="Swift Package Manager">
+
+1. In Xcode: File → Add Packages.
+2. Enter your repository URL (or local path) for `CometChatBuilder`.
+3. Add the package to your app target.
+
+</Tab>
+</Tabs>
+
+### Option 1: Load from JSON (no‑code)
+
+1. Add `cometchat-builder-settings.json` to your app target (ensure it’s in Target Membership).
+2. Load settings at launch:
+
+```swift
+import CometChatBuilder
+
+func application(_ application: UIApplication,
+                 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+  CometChatBuilderSettings.loadFromJSON()
+  return true
+}
+```
+
+### Option 2: Load via QR Code (live Builder sync)
+
+1. Start scanning from a view controller to sync settings for the current device build:
+
+```swift
+import CometChatBuilder
+
+CometChatBuilder.startScanning(from: self) { appliedStyle in
+  // Apply theme or reload UI if needed
+  print("Chat Builder Style Applied:", appliedStyle.theme)
+}
+```
+
+The SDK will open a QR scanner, fetch settings, and apply them. It handles loading UI and error fallbacks.
+
+***
+
+## Run the App
+
+Build and run on simulator or device from Xcode. Ensure your CometChat initialization and user login logic are in place in your app.
+
+***
+
+## Understanding Your Builder Settings
+
+VCB configuration spans:
+
+- Core messaging experience (typing, media sharing, replies)
+- Deeper user engagement (reactions, mentions, translation, polls)
+- AI User Copilot (smart replies, summaries, starters)
+- Group management
+- Moderator controls
+- Voice & video calling
+- Layout & styling (theme, typography, layout)
+
+***
+
+## Troubleshooting
+
+- For JSON: ensure the file is included in your app bundle’s Target Membership.
+- For QR: confirm a valid code from the Builder and active network.
+- For SPM: confirm package resources are available to your target.
+
+If you need a reference app to compare against, see the iOS UI Kit Sample App:
+https://github.com/cometchat/cometchat-uikit-ios/tree/v5/SampleApp
+
+***
+
+## Next Steps
+
+- UI Kit Theme: [Theme introduction](/ui-kit/ios/theme-introduction)
+- Components Overview: [Components overview](/ui-kit/ios/overview)
+- Methods & APIs: [Methods & APIs](/ui-kit/ios/methods)
