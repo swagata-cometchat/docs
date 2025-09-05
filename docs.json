@@ -1850,6 +1850,7 @@
                       {
                         "group": "Guides",
                         "pages": [
+                          "ui-kit/flutter/guide-overview",
                           "ui-kit/flutter/guide-threaded-messages",
                           "ui-kit/flutter/guide-block-unblock-user",
                           "ui-kit/flutter/guide-new-chat",
