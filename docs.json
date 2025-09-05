@@ -1233,6 +1233,7 @@
                       {
                         "group": "Guides",
                         "pages": [
+                          "ui-kit/ios/guide-overview",
                           "ui-kit/ios/guide-threaded-messages",
                           "ui-kit/ios/guide-block-unblock-user",
                           "ui-kit/ios/guide-new-chat",
