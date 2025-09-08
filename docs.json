@@ -515,6 +515,8 @@
                       {
                         "group": "Guides",
                         "pages": [
+                          "ui-kit/react/guide-overview",
+                          "ui-kit/react/guide-threaded-messages",
                           "ui-kit/react/custom-text-formatter-guide",
                           "ui-kit/react/mentions-formatter-guide",
                           "ui-kit/react/url-formatter-guide",
