@@ -154,6 +154,8 @@ _File: [CometChatMessages.tsx](https://github.com/cometchat/cometchat-uikit-reac
 
 - **Fetch Data / User State**
 
+_File: [CometChatHome.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatHome/CometChatHome.tsx)_
+
 ```tsx
 if (user?.getBlockedByMe?.()) {
     setShowComposerState(false);
@@ -178,6 +180,8 @@ useEffect(() => {
 
 - **Send Block/Unblock Action Handler**
 
+_File: [CometChatHome.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatHome/CometChatHome.tsx)_
+
 ```tsx
 const onUserActionClick = (item: { name: string; icon: string; }) => {
     if (item.name == getLocalizedString("user_details_block")) {
@@ -189,6 +193,8 @@ const onUserActionClick = (item: { name: string; icon: string; }) => {
 ```
 
 - **Live Updates / Observers**
+
+_File: [CometChatHome.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatHome/CometChatHome.tsx)_
 
 ```tsx
 const ccUserBlocked = CometChatUserEvents.ccUserBlocked.subscribe(user => {
@@ -262,14 +268,14 @@ CometChat.blockUsers([UID]).then(
 
 | Feature                | Component / Method                  | File Reference |
 |:-----------------------|:------------------------------------|:---------------|
-| Block user             | `CometChat.blockUsers([UID])`       | CometChatHome.tsx |
-| Unblock user           | `CometChat.unblockUsers([UID])`     | CometChatHome.tsx |
-| Check blocked status   | `user.getBlockedByMe()`             | CometChatMessages.tsx |
-| Block confirmation dlg | `CometChatConfirmDialog`            | CometChatHome.tsx |
-| Blocked composer state | `message-composer-blocked`          | CometChatMessages.tsx |
-| Block user events      | `ccUserBlocked.subscribe()`         | CometChatHome.tsx |
-| Unblock user events    | `ccUserUnblocked.subscribe()`       | CometChatHome.tsx |
-| Update user state      | `user.setBlockedByMe(boolean)`      | CometChatHome.tsx |
+| Block user             | `CometChat.blockUsers([UID])`       | [CometChatHome.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatHome/CometChatHome.tsx) |
+| Unblock user           | `CometChat.unblockUsers([UID])`     | [CometChatHome.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatHome/CometChatHome.tsx) |
+| Check blocked status   | `user.getBlockedByMe()`             | [CometChatMessages.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatMessages/CometChatMessages.tsx) |
+| Block confirmation dlg | `CometChatConfirmDialog`            | [CometChatHome.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatHome/CometChatHome.tsx) |
+| Blocked composer state | `message-composer-blocked`          | [CometChatMessages.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatMessages/CometChatMessages.tsx) |
+| Block user events      | `ccUserBlocked.subscribe()`         | [CometChatHome.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatHome/CometChatHome.tsx) |
+| Unblock user events    | `ccUserUnblocked.subscribe()`       | [CometChatHome.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatHome/CometChatHome.tsx) |
+| Update user state      | `user.setBlockedByMe(boolean)`      | [CometChatHome.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatHome/CometChatHome.tsx) |
 
 ---
 
