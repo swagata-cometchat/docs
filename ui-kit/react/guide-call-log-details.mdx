@@ -45,7 +45,7 @@ The Calls Log Details feature provides users with detailed information about spe
 
 ### 1. Calls Tab Integration Setup
 
-_File: CometChatSelector.tsx_
+_File: [CometChatSelector.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatSelector/CometChatSelector.tsx)_
 
 ```tsx
 {activeTab == "calls" ? (
@@ -62,7 +62,7 @@ _File: CometChatSelector.tsx_
 
 ### 2. Call Details Component Integration
 
-_File: CometChatHome.tsx_
+_File: [CometChatHome.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatHome/CometChatHome.tsx)_
 
 ```tsx
 const CallDetailsView = () => {
@@ -84,7 +84,7 @@ const CallDetailsView = () => {
 
 ### 3. Call Details Main Component Implementation
 
-_File: CometChatCallLogDetails.tsx_
+_File: [CometChatCallLogDetails.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatCallLog/CometChatCallLogDetails.tsx)_
 
 ```tsx
 export const CometChatCallDetails = (props: { selectedItem: any, onBack?: () => void }) => {
@@ -138,7 +138,7 @@ export const CometChatCallDetails = (props: { selectedItem: any, onBack?: () => 
 
 ### 4. Call Information Display Component
 
-_File: CometChatCallLogInfo.tsx_
+_File: [CometChatCallLogInfo.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatCallLog/CometChatCallLogInfo.tsx)_
 
 ```tsx
 export const CometChatCallDetailsInfo = (props: { call: any }) => {
@@ -295,11 +295,11 @@ useEffect(() => {
 
 | Feature               | Component / Method                | File Reference |
 |:----------------------|:-----------------------------------|:----------------|
-| Calls tab integration | `CometChatCallLogs`               | CometChatSelector.tsx |
-| Call details display  | `CometChatCallDetails`            | CometChatCallLogDetails.tsx |
-| Call information      | `CometChatCallDetailsInfo`        | CometChatCallLogInfo.tsx |
-| Call participants     | `CometChatCallDetailsParticipants`| CometChatCallLogParticipants.tsx |
-| Call recordings       | `CometChatCallDetailsRecording`   | CometChatCallLogRecordings.tsx |
-| Call history          | `CometChatCallDetailsHistory`     | CometChatCallLogHistory.tsx |
-| Tab navigation        | `activeTab` state                 | CometChatCallLogDetails.tsx |
-| User status monitoring| `CometChat.addUserListener()`     | CometChatCallLogDetails.tsx |
+| Calls tab integration | `CometChatCallLogs`               | [CometChatSelector.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatSelector/CometChatSelector.tsx) |
+| Call details display  | `CometChatCallDetails`            | [CometChatCallLogDetails.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatCallLog/CometChatCallLogDetails.tsx) |
+| Call information      | `CometChatCallDetailsInfo`        | [CometChatCallLogInfo.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatCallLog/CometChatCallLogInfo.tsx) |
+| Call participants     | `CometChatCallDetailsParticipants`| [CometChatCallLogParticipants.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatCallLog/CometChatCallLogParticipants.tsx) |
+| Call recordings       | `CometChatCallDetailsRecording`   | [CometChatCallLogRecordings.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatCallLog/CometChatCallLogRecordings.tsx) |
+| Call history          | `CometChatCallDetailsHistory`     | [CometChatCallLogHistory.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatCallLog/CometChatCallLogHistory.tsx) |
+| Tab navigation        | `activeTab` state                 | [CometChatCallLogDetails.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatCallLog/CometChatCallLogDetails.tsx) |
+| User status monitoring| `CometChat.addUserListener()`     | [CometChatCallLogDetails.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatCallLog/CometChatCallLogDetails.tsx) |
