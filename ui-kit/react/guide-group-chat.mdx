@@ -46,7 +46,7 @@ Groups Management provides a complete set of features for creating, managing, an
 
 ### 1. Create Group Implementation
 
-_File: `src/components/CometChatCreateGroup/CometChatCreateGroup.tsx`_
+_File: [CometChatCreateGroup.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatCreateGroup/CometChatCreateGroup.tsx)_
 
 ```tsx
 export const CometChatCreateGroup = ({ setShowCreateGroup, onGroupCreated }: CreateGroupProps) => {
@@ -75,7 +75,7 @@ export const CometChatCreateGroup = ({ setShowCreateGroup, onGroupCreated }: Cre
 
 ### 2. Join Group Implementation
 
-_File: `src/components/CometChatJoinGroup/CometChatJoinGroup.tsx`_
+_File: [CometChatJoinGroup.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatJoinGroup/CometChatJoinGroup.tsx)_
 
 ```tsx
 export const CometChatJoinGroup = ({ group, onHide, onProtectedGroupJoin }) => {
@@ -102,7 +102,7 @@ export const CometChatJoinGroup = ({ group, onHide, onProtectedGroupJoin }) => {
 
 ### 3. View Group Members Implementation
 
-_File: `src/components/CometChatHome/CometChatHome.tsx`_
+_File: [CometChatHome.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatHome/CometChatHome.tsx)_
 
 ```tsx
 const GroupMembersView = ({ group }: { group: CometChat.Group }) => {
@@ -131,7 +131,7 @@ const GroupMembersView = ({ group }: { group: CometChat.Group }) => {
 
 ### 4. Add Members to Group Implementation
 
-_File: `src/components/CometChatAddMembers/CometChatAddMembers.tsx`_
+_File: [CometChatAddMembers.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatAddMembers/CometChatAddMembers.tsx)_
 
 ```tsx
 export const CometChatAddMembers = ({ group, onBack }: IAddMembersProps) => {
@@ -163,7 +163,7 @@ export const CometChatAddMembers = ({ group, onBack }: IAddMembersProps) => {
 
 ### 5. Ban Member from Group Implementation
 
-_File: `src/components/CometChatBannedMembers/CometChatBannedMembers.tsx`_
+_File: [CometChatBannedMembers.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatBannedMembers/CometChatBannedMembers.tsx)_
 
 ```tsx
 export const CometChatBannedMembers = ({ group }: bannedMembersProp) => {
@@ -193,7 +193,7 @@ export const CometChatBannedMembers = ({ group }: bannedMembersProp) => {
 
 ### 6. Change Member Scope Implementation
 
-_File: `src/components/CometChatHome/CometChatHome.tsx`_
+_File: [CometChatHome.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatHome/CometChatHome.tsx)_
 
 ```tsx
 const changeMemberScope = async (member: CometChat.GroupMember, newScope: string) => {
@@ -219,7 +219,7 @@ const changeMemberScope = async (member: CometChat.GroupMember, newScope: string
 
 ### 7. Transfer Group Ownership Implementation
 
-_File: `src/components/CometChatTransferOwnership/CometChatTransferOwnership.tsx`_
+_File: [CometChatTransferOwnership.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatTransferOwnership/CometChatTransferOwnership.tsx)_
 
 ```tsx
 export const CometChatTransferOwnership = ({ group, onClose }: ITransferOwnershipProps) => {
@@ -325,13 +325,13 @@ const handleGroupOperation = async (operation: () => Promise<any>) => {
 
 | Feature            | Component / Method             | File Reference |
 |--------------------|--------------------------------|----------------|
-| Create group       | `CometChatCreateGroup`         | CometChatCreateGroup.tsx |
-| Join group         | `CometChatJoinGroup`           | CometChatJoinGroup.tsx |
-| View members       | `CometChatGroupMembers`        | CometChatHome.tsx |
-| Add members        | `CometChatAddMembers`          | CometChatAddMembers.tsx |
-| Ban members        | `CometChatBannedMembers`       | CometChatBannedMembers.tsx |
-| Change scope       | `updateGroupMemberScope()`     | CometChatHome.tsx |
-| Transfer ownership | `CometChatTransferOwnership`   | CometChatTransferOwnership.tsx |
+| Create group       | `CometChatCreateGroup`         | [CometChatCreateGroup.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatCreateGroup/CometChatCreateGroup.tsx) |
+| Join group         | `CometChatJoinGroup`           | [CometChatJoinGroup.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatJoinGroup/CometChatJoinGroup.tsx) |
+| View members       | `CometChatGroupMembers`        | [CometChatHome.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatHome/CometChatHome.tsx) |
+| Add members        | `CometChatAddMembers`          | [CometChatAddMembers.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatAddMembers/CometChatAddMembers.tsx) |
+| Ban members        | `CometChatBannedMembers`       | [CometChatBannedMembers.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatBannedMembers/CometChatBannedMembers.tsx) |
+| Change scope       | `updateGroupMemberScope()`     | [CometChatHome.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatHome/CometChatHome.tsx) |
+| Transfer ownership | `CometChatTransferOwnership`   | [CometChatTransferOwnership.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatTransferOwnership/CometChatTransferOwnership.tsx) |
 | Group events       | `CometChatGroupEvents`         | Various components |
 | Member management  | `CometChat.GroupMembersRequestBuilder` | Various components |
 
