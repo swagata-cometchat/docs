@@ -9,9 +9,9 @@ Implement user blocking functionality to prevent unwanted communication in your 
 
 The Block Users feature allows users to prevent specific users from sending them messages, effectively cutting off communication from unwanted contacts.
 
-- **What**: Block Users feature allows users to prevent specific users from sending them messages.  
-- **Why**: Provides privacy control, prevents harassment, and allows users to manage their communication preferences.  
-- **Result**: Your app will allow users to block/unblock other users, hide message composers for blocked users, and provide appropriate UI feedback for blocked states.  
+- Block Users feature allows users to prevent specific users from sending them messages.  
+- Provides privacy control, prevents harassment, and allows users to manage their communication preferences.  
+- Your app will allow users to block/unblock other users, hide message composers for blocked users, and provide appropriate UI feedback for blocked states.  
 
 ---
 
@@ -29,7 +29,7 @@ The Block Users feature allows users to prevent specific users from sending them
 ## Components
 
 | Component / Class                  | Role |
-|-----------------------------------|------|
+|:-----------------------------------|:-----|
 | **CometChat.blockUsers()**        | SDK method to block specific users |
 | **CometChat.unblockUsers()**      | SDK method to unblock previously blocked users |
 | **CometChatUserEvents.ccUserBlocked** | Event listener for when a user is blocked |
@@ -261,7 +261,7 @@ CometChat.blockUsers([UID]).then(
 ## Summary / Feature Matrix
 
 | Feature                | Component / Method                  | File Reference |
-|------------------------|-------------------------------------|----------------|
+|:-----------------------|:------------------------------------|:---------------|
 | Block user             | `CometChat.blockUsers([UID])`       | CometChatHome.tsx |
 | Unblock user           | `CometChat.unblockUsers([UID])`     | CometChatHome.tsx |
 | Check blocked status   | `user.getBlockedByMe()`             | CometChatMessages.tsx |
