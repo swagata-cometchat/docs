@@ -159,6 +159,8 @@ case "updatePrivateChatUser": {
 
 - **Fetch Data / Group Members**
 
+_File: [CometChatHome.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatHome/CometChatHome.tsx)_
+
 ```tsx
 <CometChatGroupMembers
     group={currentGroup}
@@ -170,6 +172,8 @@ case "updatePrivateChatUser": {
 ```
 
 - **Load User Data / Conversation State**
+
+_File: [CometChatHome.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatHome/CometChatHome.tsx)_
 
 ```tsx
 const startPrivateChatFromGroup = async (user: CometChat.User, group: CometChat.Group) => {
@@ -193,6 +197,8 @@ const startPrivateChatFromGroup = async (user: CometChat.User, group: CometChat.
 
 - **Send Private Message / Action Handler**
 
+_File: [CometChatHome.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatHome/CometChatHome.tsx)_
+
 ```tsx
 const sendPrivateMessageFromGroup = async (messageText: string, receiverId: string) => {
     const textMessage = new CometChat.TextMessage(
@@ -213,6 +219,8 @@ const sendPrivateMessageFromGroup = async (messageText: string, receiverId: stri
 ```
 
 - **Live Updates / Context Switching**
+
+_Files: [CometChatHome.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatHome/CometChatHome.tsx), [appReducer.ts](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/context/appReducer.ts)_
 
 ```tsx
 useEffect(() => {
@@ -296,15 +304,15 @@ const startPrivateChatFromGroup = async (user: CometChat.User, group: CometChat.
 ## Summary / Feature Matrix
 
 | Feature                 | Component / Method            | File Reference |
-|--------------------------|-------------------------------|----------------|
-| Group member selection   | `CometChatGroupMembers`       | CometChatHome.tsx |
-| Private chat initiation  | `startPrivateChatFromGroup()` | CometChatHome.tsx |
-| Private chat interface   | `PrivateChatFromGroupView`    | CometChatHome.tsx |
-| Context preservation     | `updatePreviousGroup`         | appReducer.ts |
-| Private message sending  | `sendPrivateMessageFromGroup()` | CometChatHome.tsx |
-| Return to group          | `returnToGroup()`             | CometChatHome.tsx |
-| Member options           | `options` in CometChatGroupMembers | CometChatHome.tsx |
-| State management         | `updateShowPrivateChat`       | appReducer.ts |
+|-------------------------|--------------------------------|----------------|
+| Group member selection  | `CometChatGroupMembers`        | [CometChatHome.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatHome/CometChatHome.tsx) |
+| Private chat initiation | `startPrivateChatFromGroup()`  | [CometChatHome.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatHome/CometChatHome.tsx) |
+| Private chat interface  | `PrivateChatFromGroupView`     | [CometChatHome.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatHome/CometChatHome.tsx) |
+| Context preservation    | `updatePreviousGroup`          | [appReducer.ts](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/context/appReducer.ts) |
+| Private message sending | `sendPrivateMessageFromGroup()`| [CometChatHome.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatHome/CometChatHome.tsx) |
+| Return to group         | `returnToGroup()`              | [CometChatHome.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatHome/CometChatHome.tsx) |
+| Member options          | `options` in CometChatGroupMembers | [CometChatHome.tsx](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/components/CometChatHome/CometChatHome.tsx) |
+| State management        | `updateShowPrivateChat`        | [appReducer.ts](https://github.com/cometchat/cometchat-uikit-react/blob/v6/sample-app/src/context/appReducer.ts) |
 
 ---
 
