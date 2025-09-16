@@ -299,7 +299,8 @@
               {
                 "group": "Tutorials",
                 "pages": [
-                  "/ai-agents/mastra-product-hunt-agent"
+                  "/ai-agents/mastra-product-hunt-agent",
+                  "/ai-agents/mastra-knowlege-agent-pdf"
                 ]
               }
             ]

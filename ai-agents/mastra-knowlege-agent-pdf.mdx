@@ -1,0 +1,183 @@
+---
+title: "Build a Knowledge Agent with Mastra"
+sidebarTitle: "Knowledge Agent"
+description: "Create a Mastra agent that can talk to PDF"
+---
+
+This guide walks you through how to build a **Knowledge Retrieval Agent** using [Mastra](https://mastra.ai) and connect it with CometChat. The Knowledge Agent enables your users to ask questions and receive grounded answers from your own documents or knowledge base.
+
+---
+
+## What You’ll Build
+
+- A Mastra agent that retrieves relevant information from a knowledge base.  
+- An API endpoint to interact with the agent.  
+- Integration of the agent into CometChat via the AI Agents dashboard.
+
+> **Source Code**: [cometchat/ai-agent-mastra-examples/mastra-knowledge-agent-pdf](https://github.com/cometchat/ai-agent-mastra-examples/tree/main/mastra-knowledge-agent-pdf)
+
+---
+
+## Prerequisites
+
+- [Node.js](https://nodejs.org/) v16 or above.  
+- A [CometChat](https://www.cometchat.com/) app setup.  
+- An OpenAI API key.  
+- [Mastra CLI](https://mastra.ai/docs/getting-started) installed.  
+- Some documents (Markdown, TXT, etc.) to serve as your knowledge base.
+
+---
+
+## Project Setup
+
+Clone the example repository:
+
+```bash
+git clone https://github.com/cometchat/ai-agent-mastra-examples.git
+cd ai-agent-mastra-examples/mastra-knowledge-agent-pdf
+npm install
+```
+
+Project structure:
+
+```
+knowledge-agent/
+  ├── docs/                     # your knowledge files
+  ├── src/
+  │    ├── agents/knowledge-agent.ts
+  │    ├── tools/retriever-tool.ts
+  │    └── index.ts
+  ├── .env
+  ├── package.json
+  └── README.md
+```
+
+---
+
+## Step 1: Implement the Retriever Tool
+
+[Source: retriever-tool.ts](https://github.com/cometchat/ai-agent-mastra-examples/blob/main/mastra-knowledge-agent-pdf/src/tools/retriever-tool.ts)
+
+```ts
+import { createTool } from '@mastra/core/tools';
+import { z } from 'zod';
+
+export const retrieverTool = createTool({
+  id: 'knowledge_retriever',
+  description: 'Retrieve relevant passages from knowledge docs based on user query',
+  inputSchema: z.object({
+    query: z.string(),
+    top_k: z.number().optional().default(3),
+  }),
+  outputSchema: z.object({
+    passages: z.array(
+      z.object({
+        text: z.string(),
+        source: z.string(),
+      })
+    ),
+  }),
+  execute: async ({ context }) => {
+    const { query, top_k } = context;
+    // Implement retrieval logic here
+    return { passages: [] };
+  }
+});
+```
+
+---
+
+## Step 2: Create the Knowledge Agent
+
+[Source: knowledge-agent.ts](https://github.com/cometchat/ai-agent-mastra-examples/blob/main/mastra-knowledge-agent-pdf/src/agents/knowledge-agent.ts)
+
+```ts
+import { Agent } from '@mastra/core/agent';
+import { openai } from '@ai-sdk/openai';
+import { retrieverTool } from '../tools/retriever-tool';
+
+export const knowledgeAgent = new Agent({
+  name: 'Knowledge Agent',
+  instructions: `
+You are a Knowledge Retriever Bot.
+- Use the retriever tool to fetch relevant passages from knowledge base
+- Answer only with retrieved info
+- Cite the source when possible
+- If no relevant info found, say you don’t know
+  `,
+  model: openai('gpt-4o-mini'),
+  tools: {
+    knowledge_retriever: retrieverTool,
+  },
+});
+```
+
+---
+
+## Step 3: Register the Agent
+
+[Source: index.ts](https://github.com/cometchat/ai-agent-mastra-examples/blob/main/mastra-knowledge-agent-pdf/src/index.ts)
+
+```ts
+import { Mastra } from '@mastra/core/mastra';
+import { LibSQLStore } from '@mastra/libsql';
+import { knowledgeAgent } from './agents/knowledge-agent';
+
+export const mastra = new Mastra({
+  agents: {
+    knowledge: knowledgeAgent,
+  },
+  storage: new LibSQLStore({ url: 'file:./mastra.db' }),
+});
+```
+
+Start the dev server:
+
+```bash
+npm run dev
+```
+
+---
+
+## Step 4: Test the Endpoint
+
+Mastra automatically exposes the API:
+
+```bash
+curl -X POST http://localhost:4111/api/agents/knowledge/generate   -H "Content-Type: application/json"   -d '{"messages":[{"role":"user","content":"What is covered in our docs?"}]}'
+```
+
+Expected response:
+
+```json
+{
+  "reply": "The docs cover..."
+}
+```
+
+---
+
+## Step 5: Deploy and Connect to CometChat
+
+1. Deploy the project (e.g., Vercel, Railway, or AWS).  
+2. Copy the deployed endpoint URL.  
+3. In **CometChat Dashboard → AI Agents**, add a new agent:  
+   - Agent ID: `knowledge`  
+   - Endpoint: `https://your-deployed-url/api/agents/knowledge/generate`  
+
+---
+
+## Next Steps
+
+- Add more documents to the `docs/` folder.  
+- Use embeddings + vector DB (Pinecone, Weaviate) for large datasets.  
+- Extend the agent with memory or multi-tool workflows.  
+
+---
+
+## Repository Links
+
+- **Knowledge Agent Example Code**: [GitHub Repository](https://github.com/cometchat/ai-agent-mastra-examples/tree/main/mastra-knowledge-agent-pdf)  
+- **Retriever Tool Implementation**: [retriever-tool.ts](https://github.com/cometchat/ai-agent-mastra-examples/blob/main/mastra-knowledge-agent-pdf/src/tools/retriever-tool.ts)  
+- **Knowledge Agent Definition**: [knowledge-agent.ts](https://github.com/cometchat/ai-agent-mastra-examples/blob/main/mastra-knowledge-agent-pdf/src/agents/knowledge-agent.ts)  
+- **Mastra Setup**: [index.ts](https://github.com/cometchat/ai-agent-mastra-examples/blob/main/mastra-knowledge-agent-pdf/src/index.ts)  
