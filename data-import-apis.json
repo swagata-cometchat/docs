@@ -389,6 +389,7 @@
                                                         "type": "object"
                                                     },
                                                     "mentionedUserDetails": {
+                                                        "description": "A map of users mentioned in the message text (data.text). Each key is the mentioned user’s unique identifier (UID), and the value is an object containing that user’s details.",
                                                         "properties": {
                                                             "<uid>": {
                                                                 "description": "A map where each key is a user’s unique identifier (UID) and the value is that user’s details. The &lt;uid&gt; will be replaced by the mentioned user’s primary key.",
