@@ -389,7 +389,7 @@
                                                         "type": "object"
                                                     },
                                                     "mentionedUserDetails": {
-                                                        "description": "A map of users mentioned in the message text (data.text). Each key is the mentioned user’s unique identifier (UID), and the value is an object containing that user’s details.",
+                                                        "description": "The description should say it is optional and should contain the user details if data.text contains a mention of the user with CometChat's mention template i.e. <@uid:UID>",
                                                         "properties": {
                                                             "<uid>": {
                                                                 "description": "A map where each key is a user’s unique identifier (UID) and the value is that user’s details. The &lt;uid&gt; will be replaced by the mentioned user’s primary key.",
@@ -467,7 +467,7 @@
                                                 "type": "text",
                                                 "category": "message",
                                                 "data": {
-                                                    "text": "Hi there, <@uid:example-uid-new>",
+                                                    "text": "Hi there",
                                                     "attachments": [
                                                         {
                                                             "name": "hi.png",
