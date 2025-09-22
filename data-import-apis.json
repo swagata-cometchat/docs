@@ -389,7 +389,7 @@
                                                         "type": "object"
                                                     },
                                                     "mentionedUserDetails": {
-                                                        "description": "The description should say it is optional and should contain the user details if data.text contains a mention of the user with CometChat's mention template i.e. <@uid:UID>",
+                                                        "description": "A map of users mentioned in the message text (data.text). Each key is the mentioned user’s unique identifier (UID), and the value is an object containing that user’s details.",
                                                         "properties": {
                                                             "<uid>": {
                                                                 "description": "A map where each key is a user’s unique identifier (UID) and the value is that user’s details. The &lt;uid&gt; will be replaced by the mentioned user’s primary key.",
@@ -467,7 +467,7 @@
                                                 "type": "text",
                                                 "category": "message",
                                                 "data": {
-                                                    "text": "Hi there",
+                                                    "text": "Hi there, <@uid:example-uid-new>",
                                                     "attachments": [
                                                         {
                                                             "name": "hi.png",
@@ -2866,6 +2866,14 @@
                             "custom"
                         ]
                     },
+                    "quotedMessageId": {
+                        "description": "ID of the message being quoted.\nIf provided, the send message response will include a `quotedMessage` node\nin the response containing the referenced message object.",
+                        "type": "string",
+                        "default": "message",
+                        "enum": [
+                            "message"
+                        ]
+                    },
                     "type": {
                         "description": "Type of the message.",
                         "type": "string"
@@ -2963,6 +2971,22 @@
                     },
                     "maxPerDayPerConversation": {
                         "type": "integer"
+                    },
+                    "includeMessageObjectSetting": {
+                        "description": "Includes the message object in the SMS payload",
+                        "type": "boolean"
+                    },
+                    "includeSenderMetadataSetting": {
+                        "description": "Includes sender metadata in the message object",
+                        "type": "boolean"
+                    },
+                    "includeReceiverMetadataSetting": {
+                        "description": "Includes receiver metadata in the message object",
+                        "type": "boolean"
+                    },
+                    "includeMessageMetadataSetting": {
+                        "description": "Includes message metadata in the message object",
+                        "type": "boolean"
                     }
                 },
                 "type": "object"
@@ -3863,6 +3887,14 @@
                     },
                     "category": {
                         "description": "Category of the message. The available categories are message and custom.",
+                        "type": "string",
+                        "default": "message",
+                        "enum": [
+                            "message"
+                        ]
+                    },
+                    "quotedMessageId": {
+                        "description": "ID of the message being quoted.\nIf provided, the send message response will include a `quotedMessage` node\nin the response containing the referenced message object.",
                         "type": "string",
                         "default": "message",
                         "enum": [
