@@ -16228,7 +16228,7 @@
                         "type": "integer"
                     },
                     "includeMessageObjectSetting": {
-                        "description": "Includes the message object in the SMS payload",
+                        "description": "Includes the message object in the email payload",
                         "type": "boolean"
                     },
                     "includeSenderMetadataSetting": {
@@ -18068,6 +18068,22 @@
                     },
                     "maxPerDayPerConversation": {
                         "type": "integer"
+                    },
+                    "includeMessageObjectSetting": {
+                        "description": "Includes the message object in the SMS payload",
+                        "type": "boolean"
+                    },
+                    "includeSenderMetadataSetting": {
+                        "description": "Includes sender metadata in the message object",
+                        "type": "boolean"
+                    },
+                    "includeReceiverMetadataSetting": {
+                        "description": "Includes receiver metadata in the message object",
+                        "type": "boolean"
+                    },
+                    "includeMessageMetadataSetting": {
+                        "description": "Includes message metadata in the message object",
+                        "type": "boolean"
                     }
                 },
                 "type": "object"
