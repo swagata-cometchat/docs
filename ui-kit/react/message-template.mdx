@@ -70,7 +70,11 @@ MessageTemplate provides you with methods that allow you to alter various proper
 
    The `statusInfoView` method allows you to assign a custom status info view to the Message Bubble. By default, it displays the receipt and timestamp.
 
-9. **options**
+9. **replyView**
+
+   The `replyView` method allows you to assign a custom reply view to the Message Bubble. By default, it displays the preview of the replied message.
+
+10. **options**
 
    The `options` lets you set the list of actions that a user can perform on a message. This includes actions like reacting to, editing, or deleting a message.
 
@@ -1272,7 +1276,7 @@ const CustomMessageTemplate = () => {
     };
 
     const getStatusInfo = (message) => {
-        if (message instanceof ) {
+        if (message instanceof CometChat.TextMessage) {
             const timestamp = message.getSentAt();
             const formattedTime = formatTime(timestamp);
             return (
@@ -1303,6 +1307,180 @@ export { CustomMessageTemplate };
 <Tab title="css">
 ```css
 .status-info {
+  display: flex;
+  width: 57px;
+  height: 24px;
+  justify-content: flex-end;
+  align-items: center;
+  border-radius: 1000px;
+  color: #727272;
+  text-align: right;
+  font: 400 10px/120% Roboto;
+  font-style: normal;
+}
+
+.cometchat .cometchat-message-bubble__body {
+  background: none;
+}
+
+.cometchat .cometchat-message-bubble .cometchat-text-bubble {
+  padding: 8px;
+}
+```
+
+</Tab>
+
+</Tabs>
+
+#### ReplyView
+
+The `replyView` method of MessageTemplate allows you to add a reply view to your message bubbles. In the example below, we will add a custom reply view to every text message in the MessageList.
+
+<Frame>
+  <img src="/images/3bcc4b59-wEy7hI74xIqgAAAAABJRU5ErkJggg.png" />
+</Frame>
+
+<Tabs>
+<Tab title="TypeScript">
+```ts
+import React, { useEffect, useState } from "react";
+import {
+  CometChatMessageList,
+  CometChatUIKit,
+  CometChatUIKitConstants,
+} from "@cometchat/chat-uikit-react";
+import { CometChat } from "@cometchat/chat-sdk-javascript";
+
+const CustomMessageTemplate = () => {
+  const [templates, setTemplates] = React.useState<CometChatMessageTemplate[]>(
+    []
+  );
+  const [chatGroup, setChatGroup] = React.useState<CometChat.Group>();
+
+  useEffect(() => {
+    CometChat.getGroup("guid").then((group) => {
+      setChatGroup(group);
+    });
+
+    let definedTemplates: CometChatMessageTemplate[] =
+      CometChatUIKit.getDataSource().getAllMessageTemplates();
+    const template = definedTemplates.map((templates) => {
+      if (
+        templates.type === CometChatUIKitConstants.MessageTypes.text &&
+        templates.category === CometChatUIKitConstants.MessageCategory.message
+      ) {
+        templates.replyView = (message: CometChat.BaseMessage) =>
+          getReplyView(message);
+        return templates;
+      }
+      return templates;
+    });
+    setTemplates(template);
+  }, []);
+
+  const formatTime = (timestamp: number): string => {
+    const date = new Date(timestamp * 1000); // Convert to milliseconds
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const period = hours >= 12 ? "PM" : "AM";
+    const formattedHours = hours % 12 || 12;
+    const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+    return `${formattedHours}:${formattedMinutes} ${period}`;
+  };
+
+  const getReplyView = (message: CometChat.BaseMessage) => {
+    if (message instanceof CometChat.TextMessage) {
+      const timestamp = message.getSentAt();
+      const formattedTime = formatTime(timestamp);
+      return <div className="reply-view">{formattedTime}</div>;
+    } else {
+      return null;
+    }
+  };
+
+  return (
+    <div>
+      {chatGroup && (
+        <CometChatMessageList group={chatGroup} templates={templates} />
+      )}
+    </div>
+  );
+};
+
+export { CustomMessageTemplate };
+```
+
+</Tab>
+
+<Tab title="JavaScript">
+```js
+import React, { useEffect, useState } from "react";
+import { CometChatMessageList, CometChatUIKit, CometChatUIKitConstants } from '@cometchat/chat-uikit-react';
+import { CometChat } from "@cometchat/chat-sdk-javascript";
+
+const CustomMessageTemplate = () => {
+    const [templates, setTemplates] = React.useState([]);
+    const [chatGroup, setChatGroup] = React.useState();
+
+    useEffect(() => {
+        CometChat.getGroup("guid").then((group) => {
+            setChatGroup(group);
+        })
+
+        let definedTemplates = CometChatUIKit.getDataSource().getAllMessageTemplates();
+        const template = definedTemplates.map((templates) => {
+            if (templates.type === CometChatUIKitConstants.MessageTypes.text &&
+                templates.category === CometChatUIKitConstants.MessageCategory.message) {
+                templates.replyView = (message) => getReplyView(message)
+                return templates;
+            }
+            return templates
+        })
+        setTemplates(template);
+    }, []);
+
+    const formatTime = (timestamp) => {
+        const date = new Date(timestamp * 1000); // Convert to milliseconds
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const period = hours >= 12 ? 'PM' : 'AM';
+        const formattedHours = hours % 12 || 12;
+        const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+        return `${formattedHours}:${formattedMinutes} ${period}`;
+    };
+
+    const getReplyView = (message) => {
+        if (message instanceof CometChat.TextMessage) {
+            const timestamp = message.getSentAt();
+            const formattedTime = formatTime(timestamp);
+            return (
+                <div className="reply-view">
+                    {formattedTime}
+                </div>
+            );
+        } else {
+            return null;
+        }
+    };
+
+    return (
+        <div>
+            {chatGroup && <CometChatMessageList
+                group={chatGroup}
+                templates={templates}
+            />}
+        </div>
+    );
+};
+
+export { CustomMessageTemplate };
+```
+
+</Tab>
+
+<Tab title="css">
+```css
+.reply-view {
   display: flex;
   width: 57px;
   height: 24px;
