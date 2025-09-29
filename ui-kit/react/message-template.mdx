@@ -1334,74 +1334,41 @@ export { CustomMessageTemplate };
 
 #### ReplyView
 
-The `replyView` method of MessageTemplate allows you to add a reply view to your message bubbles. In the example below, we will add a custom reply view to every text message in the MessageList.
+The `replyView` method of MessageTemplate allows you to add a reply view to your message bubbles. In the example below, we will style the existing reply view in the MessageList.
 
+<p align="center"><i>Default Reply View</i></p>
 <Frame>
-  <img src="/images/3bcc4b59-wEy7hI74xIqgAAAAABJRU5ErkJggg.png" />
+  <img src="/images/react-uikit-default-reply-view.png" alt="Default Reply View" />
 </Frame>
+
+<p align="center"><i>Custom Reply View</i></p>
+<Frame>
+  <img src="/images/react-uikit-custom-reply-view.png" alt="Custom Reply View" />
+</Frame>
+
 
 <Tabs>
 <Tab title="TypeScript">
 ```ts
 import React, { useEffect, useState } from "react";
 import {
-  CometChatMessageList,
-  CometChatUIKit,
-  CometChatUIKitConstants,
+  CometChatMessageList
 } from "@cometchat/chat-uikit-react";
 import { CometChat } from "@cometchat/chat-sdk-javascript";
 
 const CustomMessageTemplate = () => {
-  const [templates, setTemplates] = React.useState<CometChatMessageTemplate[]>(
-    []
-  );
   const [chatGroup, setChatGroup] = React.useState<CometChat.Group>();
 
   useEffect(() => {
     CometChat.getGroup("guid").then((group) => {
       setChatGroup(group);
     });
-
-    let definedTemplates: CometChatMessageTemplate[] =
-      CometChatUIKit.getDataSource().getAllMessageTemplates();
-    const template = definedTemplates.map((templates) => {
-      if (
-        templates.type === CometChatUIKitConstants.MessageTypes.text &&
-        templates.category === CometChatUIKitConstants.MessageCategory.message
-      ) {
-        templates.replyView = (message: CometChat.BaseMessage) =>
-          getReplyView(message);
-        return templates;
-      }
-      return templates;
-    });
-    setTemplates(template);
   }, []);
-
-  const formatTime = (timestamp: number): string => {
-    const date = new Date(timestamp * 1000); // Convert to milliseconds
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const period = hours >= 12 ? "PM" : "AM";
-    const formattedHours = hours % 12 || 12;
-    const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
-    return `${formattedHours}:${formattedMinutes} ${period}`;
-  };
-
-  const getReplyView = (message: CometChat.BaseMessage) => {
-    if (message instanceof CometChat.TextMessage) {
-      const timestamp = message.getSentAt();
-      const formattedTime = formatTime(timestamp);
-      return <div className="reply-view">{formattedTime}</div>;
-    } else {
-      return null;
-    }
-  };
 
   return (
     <div>
       {chatGroup && (
-        <CometChatMessageList group={chatGroup} templates={templates} />
+        <CometChatMessageList group={chatGroup} />
       )}
     </div>
   );
@@ -1415,60 +1382,21 @@ export { CustomMessageTemplate };
 <Tab title="JavaScript">
 ```js
 import React, { useEffect, useState } from "react";
-import { CometChatMessageList, CometChatUIKit, CometChatUIKitConstants } from '@cometchat/chat-uikit-react';
+import { CometChatMessageList } from '@cometchat/chat-uikit-react';
 import { CometChat } from "@cometchat/chat-sdk-javascript";
 
 const CustomMessageTemplate = () => {
-    const [templates, setTemplates] = React.useState([]);
     const [chatGroup, setChatGroup] = React.useState();
 
     useEffect(() => {
         CometChat.getGroup("guid").then((group) => {
             setChatGroup(group);
         })
-
-        let definedTemplates = CometChatUIKit.getDataSource().getAllMessageTemplates();
-        const template = definedTemplates.map((templates) => {
-            if (templates.type === CometChatUIKitConstants.MessageTypes.text &&
-                templates.category === CometChatUIKitConstants.MessageCategory.message) {
-                templates.replyView = (message) => getReplyView(message)
-                return templates;
-            }
-            return templates
-        })
-        setTemplates(template);
     }, []);
-
-    const formatTime = (timestamp) => {
-        const date = new Date(timestamp * 1000); // Convert to milliseconds
-        const hours = date.getHours();
-        const minutes = date.getMinutes();
-        const period = hours >= 12 ? 'PM' : 'AM';
-        const formattedHours = hours % 12 || 12;
-        const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-        return `${formattedHours}:${formattedMinutes} ${period}`;
-    };
-
-    const getReplyView = (message) => {
-        if (message instanceof CometChat.TextMessage) {
-            const timestamp = message.getSentAt();
-            const formattedTime = formatTime(timestamp);
-            return (
-                <div className="reply-view">
-                    {formattedTime}
-                </div>
-            );
-        } else {
-            return null;
-        }
-    };
 
     return (
         <div>
-            {chatGroup && <CometChatMessageList
-                group={chatGroup}
-                templates={templates}
-            />}
+            {chatGroup && <CometChatMessageList group={chatGroup} />}
         </div>
     );
 };
@@ -1480,25 +1408,19 @@ export { CustomMessageTemplate };
 
 <Tab title="css">
 ```css
-.reply-view {
-  display: flex;
-  width: 57px;
-  height: 24px;
-  justify-content: flex-end;
-  align-items: center;
-  border-radius: 1000px;
-  color: #727272;
-  text-align: right;
-  font: 400 10px/120% Roboto;
-  font-style: normal;
+.cometchat
+  .cometchat-message-bubble-outgoing
+  .cometchat-message-bubble__body {
+  --cometchat-primary-color: #f76808;
+  --cometchat-extended-primary-color-700: rgba(251, 251, 251, 0.192);
 }
 
-.cometchat .cometchat-message-bubble__body {
-  background: none;
+.cometchat .cometchat-message-bubble-incoming .bubble-view{
+    --cometchat-primary-color: #f76808;
 }
 
-.cometchat .cometchat-message-bubble .cometchat-text-bubble {
-  padding: 8px;
+.cometchat-message-composer__header .composer-view{
+    --cometchat-primary-color: #f76808;
 }
 ```
 
