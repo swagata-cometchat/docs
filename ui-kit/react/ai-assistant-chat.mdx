@@ -852,3 +852,85 @@ export function AIAssistantChatDemo() {
 ```
 </Tab>
 </Tabs>
+
+#### Templates
+
+[CometChatMessageTemplate](/ui-kit/react/message-template) is a pre-defined structure for creating message views that can be used as a starting point or blueprint for creating message views often known as message bubbles. For more information, you can refer to [CometChatMessageTemplate](/ui-kit/react/message-template).
+
+You can set message Templates to AIAssistantChat by using the following code snippet.
+
+<Tabs>
+<Tab title="TypeScript">
+```ts
+import React from "react";
+import { CometChat } from "@cometchat/chat-sdk-javascript";
+import {
+  CometChatAIAssistantChat,
+  ChatConfigurator
+} from "@cometchat/chat-uikit-react";
+
+export function AIAssistantChatDemo() {
+  const [chatUser, setChatUser] = React.useState<CometChat.User>();
+  React.useEffect(() => {
+    CometChat.getUser("uid").then((user) => {
+      setChatUser(user);
+    });
+  }, []);
+
+  const getTemplates = () => {
+    let templates = ChatConfigurator.getDataSource().getAllMessageTemplates();
+    templates.map((data) => {
+      data.footerView = (message) => {}; //custom view here
+    });
+    return templates;
+  };
+
+  return chatUser ? (
+    <div>
+      <CometChatAIAssistantChat user={chatUser} templates={getTemplates()} />
+    </div>
+  ) : null;
+}
+```
+
+</Tab>
+
+<Tab title="JavaScript">
+```js
+import React from "react";
+import { CometChat } from "@cometchat/chat-sdk-javascript";
+import {
+  CometChatAIAssistantChat,
+  ChatConfigurator
+} from "@cometchat/chat-uikit-react";
+
+export function AIAssistantChatDemo() {
+  const [chatUser, setChatUser] = React.useState(null);
+
+  React.useEffect(() => {
+    CometChat.getUser("uid").then((user) => {
+      setChatUser(user);
+    });
+  }, []);
+
+  const getTemplates = () => {
+    let templates = ChatConfigurator.getDataSource().getAllMessageTemplates();
+    templates.map((data) => {
+      data.footerView = (message) => {}; //custom view here
+    });
+    return templates;
+  };
+
+  return chatUser ? (
+    <div>
+      <CometChatAIAssistantChat user={chatUser} templates={getTemplates()} />
+    </div>
+  ) : null;
+}
+```
+
+</Tab>
+
+</Tabs>
+
+***
