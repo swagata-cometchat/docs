@@ -53,16 +53,18 @@ import React from 'react';
 import { SafeAreaView } from 'react-native';
 import { 
   CometChatThemeProvider, 
-  CometChatI18Provider, 
-} from '@cometchat-pro/react-native-chat-ui-kit';
+  CometChatI18nProvider, 
+} from '@cometchat/chat-uikit-react-native';
 
 const App = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <CometChatThemeProvider theme={{ mode: 'light' }}>
-        <CometChatI18Provider>
+        <CometChatI18nProvider
+         autoDetectLanguage={true}
+        >
           {/* Your Components */}
-        </CometChatI18Provider>
+        </CometChatI18nProvider>
       </CometChatThemeProvider>
     </SafeAreaView>
   );
@@ -80,8 +82,8 @@ import React from 'react';
 import { SafeAreaView } from 'react-native';
 import { 
   CometChatThemeProvider, 
-  CometChatI18Provider, 
-} from '@cometchat-pro/react-native-chat-ui-kit';
+  CometChatI18nProvider, 
+} from '@cometchat/chat-uikit-react-native';
 import marathi from "./marathi.json";
 
 const App = () => {
@@ -101,11 +103,11 @@ const App = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <CometChatThemeProvider theme={{ mode: 'light' }}>
-        <CometChatI18Provider
+        <CometChatI18nProvider
           selectedLanguage="custom"
           translations={translations}>
           {/* Your Components */}
-        </CometChatI18Provider>
+        </CometChatI18nProvider>
       </CometChatThemeProvider>
     </SafeAreaView>
   );
@@ -124,7 +126,7 @@ import { Text, TouchableOpacity } from 'react-native';
 import { 
   CometChatUsers,
   useCometChatTranslation 
-} from '@cometchat-pro/react-native-chat-ui-kit';
+} from '@cometchat/chat-uikit-react-native';
 
 const CustomComponent = () => {
   const LocalizedText = () => {
@@ -163,9 +165,6 @@ Below are the things which the developer can customize:
 * **Add custom strings**: A developer can add custom strings in the localization for a particular language.
 * **Add a new language**: The developer can add completely new languages.
 * **Disable auto detection**: The developer can disable auto detection of device language.
-* **Disable date/time localization**: The developer can disable date/time localization.
-* **Set custom timezone**: The developer can set custom timezone for date/time.
-* **Custom date/time format**: The developer can pass custom string format for date/time.
 * **Handle missing keys**: The developer can handle missing localization key.
 * **Set fallback language**: The developer can set fallback language.
 
