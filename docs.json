@@ -1252,6 +1252,14 @@
                           "ui-kit/ios/guide-group-ownership"
                         ]
                       },
+                      {
+                        "group": "Migration Guide",
+                        "pages": [
+                          "ui-kit/ios/upgrading-from-v4",
+                          "ui-kit/ios/property-changes"
+                        ]
+                      },
+
                       "ui-kit/ios/link/sample",
                       "ui-kit/ios/link/figma",
                       "ui-kit/ios/link/changelog"
