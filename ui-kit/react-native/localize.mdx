@@ -40,6 +40,26 @@ The `CometChatLocalizationProvider` component accepts the following props:
 
 Users can provide new languages by adding a new key in the translations object.
 
+## Prerequisites
+
+To enable localization features in your React Native application, you need to install the `react-native-localize` package. This package provides native device locale detection and is required for the automatic language detection functionality.
+
+### Installation
+
+Install the required dependency:
+
+```bash
+npm install react-native-localize
+```
+
+For React Native 0.60 and above, the package will be auto-linked. For older versions, you may need to manually link the package:
+
+```bash
+react-native link react-native-localize
+```
+
+**Note**: After installation, you may need to rebuild your app to ensure the native modules are properly linked.
+
 ## Usage
 
 Here is how you can implement custom localization:
@@ -160,13 +180,13 @@ CometChat UI-Kit provides a `useCometChatTranslation` hook to access translation
 
 Below are the things which the developer can customize:
 
-* **Set a supported language**: The developer can set a language out of the 19 supported languages.
-* **Customize default localization strings**: The developer can customize default localization strings for a particular language.
-* **Add custom strings**: A developer can add custom strings in the localization for a particular language.
-* **Add a new language**: The developer can add completely new languages.
-* **Disable auto detection**: The developer can disable auto detection of device language.
-* **Handle missing keys**: The developer can handle missing localization key.
-* **Set fallback language**: The developer can set fallback language.
+* **Set a supported language** (`selectedLanguage`): The developer can set a language out of the 19 supported languages.
+* **Customize default localization strings** (`translations`): The developer can customize default localization strings for a particular language.
+* **Add custom strings** (`translations`): A developer can add custom strings in the localization for a particular language.
+* **Add a new language** (`translations`): The developer can add completely new languages.
+* **Disable auto detection** (`autoDetectLanguage`): The developer can disable auto detection of device language.
+* **Handle missing keys** : The developer can handle missing localization key.
+* **Set fallback language** (`fallbackLanguage`): The developer can set fallback language.
 
 By using the `CometChatLocalizationProvider` component and `useCometChatTranslation` hook, you can provide a user-friendly, localized experience to your users, enhancing the overall user experience within your application.
 
