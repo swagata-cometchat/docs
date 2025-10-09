@@ -3551,6 +3551,7 @@
                         ]
                       },
                       "sdk/android/ai-moderation",
+                      "sdk/android/ai-agents",
                       {
                         "group": "Resources",
                         "pages": [
