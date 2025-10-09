@@ -139,6 +139,45 @@ title: "Property Changes"
 | hideSeparator | bool | Toggle visibility of separator between items. |
 | selectionIcon | Widget? | Custom selection icon widget. |
 
+## Group Members
+
+### New Properties
+| Name | Type | Description |
+| ------------------------- | -------------- | ---------------------------------------------------------------------------------- |
+| height | double? | Provides height to the widget. |
+| width | double? | Provides width to the widget. |
+| controllerTag | String? | Tag to access the widget's GetXController. |
+| searchKeyword | String? | Used to set searchKeyword to fetch initial list with. |
+| onLoad | OnLoad< GroupMember >? | Callback triggered when list is fetched and loaded. |
+| onEmpty | OnEmpty? | Callback triggered when the list is empty. |
+| leadingView | Widget? Function(BuildContext, GroupMember)? | Custom widget for leading view of each group member item. |
+| titleView | Widget? Function(BuildContext, GroupMember)? | Custom widget for title view of each group member item. |
+| usersStatusVisibility | bool | Hide status indicator of user which is visible on user avatar (default: true). |
+| hideKickMemberOption | bool? | Defines whether a member can be kicked or not. |
+| hideBanMemberOption | bool? | Defines whether a member can be banned or not. |
+| hideScopeChangeOption | bool? | Defines whether a member's scope can be changed or not. |
+| setOptions | Function? | Sets list of actions available on the long press of list item. |
+| addOptions | Function? | Adds into the current list of actions available on the long press of list item. |
+
+### Renamed Properties
+| V4 Name | V5 Name | Type | Description |
+| ------------------------- | -------------- | -------------- | ---------------------------------------------------------------------------------- |
+| groupMemberStyle | style | GroupMembersStyle → CometChatGroupMembersStyle | Style configuration (type changed from GroupMembersStyle to CometChatGroupMembersStyle). |
+| tailView | trailingView | Function → Function | Custom widget for trailing view (renamed from tailView to trailingView). |
+| disableUsersPresence | usersStatusVisibility | bool → bool | Controls user status visibility (inverted logic: disableUsersPresence=false becomes usersStatusVisibility=true). |
+
+### Removed Properties
+| Name | Type | Description |
+| ----------- | ------------ | ---------------------------------------------------------------------------------- |
+| theme | CometChatTheme? | Theme configuration for the group members component. |
+| title | String? | Sets title for the list. |
+| errorStateText | String? | Text to be displayed when error occurs. |
+| emptyStateText | String? | Text to be displayed when the list is empty. |
+| listItemStyle | ListItemStyle? | Style configuration for individual list items. |
+| avatarStyle | AvatarStyle? | Style configuration for avatar components. |
+| statusIndicatorStyle | StatusIndicatorStyle? | Style configuration for status indicator. |
+| groupScopeStyle | GroupScopeStyle? | Styling properties for group scope (integrated into main style). |
+
 ## Message Header
 
 ### New Properties
