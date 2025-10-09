@@ -6,7 +6,7 @@ title: "Localize"
 
 CometChat UI Kit provides language localization to adapt to the language of a specific country or region. This document outlines how a developer can customize localization provided by UI Kit to their requirements.
 
-The UI Kit provides a `CometChatLocalizationProvider` component that allows developers to pass custom translations and control localization behavior throughout their application.
+`CometChatI18nProvider` is a context provider that enables developers to supply custom translations and manage localization across their application.
 
 Presently, the UI Kit supports 19 languages for localization, which are:
 
@@ -30,15 +30,21 @@ Presently, the UI Kit supports 19 languages for localization, which are:
 
 ## Customization
 
-The UI Kit provides a `CometChatLocalizationProvider` component that allows developers to pass custom translations. Developers can override existing translations or add new ones.
+The `CometChatI18nProvider` component enables developers to pass custom translations. Developers can override existing translations or add new ones.
 
-The `CometChatLocalizationProvider` component accepts the following props:
+The `CometChatI18nProvider` component accepts the following props:
 
 * `selectedLanguage`: The language to use for translations. Defaults to the user's device language, or defaults to English if `autoDetectLanguage` is false.
 * `autoDetectLanguage`: Whether to automatically detect the user's device language.
 * `translations`: An object containing the translation overrides for each language.
 
 Users can provide new languages by adding a new key in the translations object.
+
+<Warning>
+
+To ensure the app dynamically adapts to the device's language settings and properly displays localized content, it must be wrapped in the CometChatI18nProvider. Without this wrapper, automatic language detection and custom translations will not work in the app's UI.
+
+</Warning>
 
 ## Prerequisites
 
@@ -96,19 +102,18 @@ import {
   CometChatThemeProvider, 
   CometChatI18nProvider, 
 } from '@cometchat/chat-uikit-react-native';
-import marathi from "./marathi.json";
 
 const App = () => {
   const translations = {
     // Overridden translations
-    "en-us": {
-      chat: 'Welcome to the CometChat App',
+    "en-US": {
+      CHATS: 'Welcome to the CometChat App',
     },
-    "en-uk": {
-      chat: 'CometChat ऐप में आपका स्वागत है',
+    "en-GB": {
+      CHATS: 'Welcome to CometChat',
     },
     custom: {
-      chat: "Welcome"
+      CHATS: "Welcome"
     },
   };
 
@@ -145,15 +150,15 @@ const CustomComponent = () => {
   return (
     <View style={{ padding: 20 }}>
       <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
-        {t("welcome_message")}
+        {t("WELCOME_MESSAGE")}
       </Text>
       <TouchableOpacity 
         style={{ marginTop: 10, padding: 10, backgroundColor: '#007bff' }}
         onPress={() => {
-          console.log(t("button_clicked"));
+          console.log(t("BUTTON_CLICKED"));
         }}>
         <Text style={{ color: 'white', textAlign: 'center' }}>
-          {t("click_here")}
+          {t("CLICK_HERE")}
         </Text>
       </TouchableOpacity>
     </View>
@@ -177,5 +182,5 @@ Below are the things which the developer can customize:
 * **Handle missing keys** : The developer can handle missing localization key.
 * **Set fallback language** (`fallbackLanguage`): The developer can set fallback language.
 
-By using the `CometChatLocalizationProvider` component and `useCometChatTranslation` hook, you can provide a user-friendly, localized experience to your users, enhancing the overall user experience within your application.
+By using the `CometChatI18nProvider` component and `useCometChatTranslation` hook, you can provide a user-friendly, localized experience to your users, enhancing the overall user experience within your application.
 
