@@ -52,14 +52,6 @@ Install the required dependency:
 npm install react-native-localize
 ```
 
-For React Native 0.60 and above, the package will be auto-linked. For older versions, you may need to manually link the package:
-
-```bash
-react-native link react-native-localize
-```
-
-**Note**: After installation, you may need to rebuild your app to ensure the native modules are properly linked.
-
 ## Usage
 
 Here is how you can implement custom localization:
@@ -83,7 +75,7 @@ const App = () => {
         <CometChatI18nProvider
          autoDetectLanguage={true}
         >
-          {/* Your Components */}
+          {/* Other Components */}
         </CometChatI18nProvider>
       </CometChatThemeProvider>
     </SafeAreaView>
@@ -126,7 +118,7 @@ const App = () => {
         <CometChatI18nProvider
           selectedLanguage="custom"
           translations={translations}>
-          {/* Your Components */}
+          {/* Other Components */}
         </CometChatI18nProvider>
       </CometChatThemeProvider>
     </SafeAreaView>
@@ -142,32 +134,29 @@ const App = () => {
 <Tab title="TypeScript">
 ```ts
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { 
-  CometChatUsers,
   useCometChatTranslation 
 } from '@cometchat/chat-uikit-react-native';
 
 const CustomComponent = () => {
-  const LocalizedText = () => {
-    const { t } = useCometChatTranslation();
-    return <Text>Hi Localize {t("custom_app_bar_options")}</Text>;
-  };
-  // or useTranslation hook
+  const { t } = useCometChatTranslation();
 
   return (
-    <CometChatUsers
-      AppBarOptions={() => {
-        return (
-        <LocalizedText/>
-          <TouchableOpacity
-            onPress={() => {
-              //do something
-            }}>
-          </TouchableOpacity>
-        );
-      }}
-    />
+    <View style={{ padding: 20 }}>
+      <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+        {t("welcome_message")}
+      </Text>
+      <TouchableOpacity 
+        style={{ marginTop: 10, padding: 10, backgroundColor: '#007bff' }}
+        onPress={() => {
+          console.log(t("button_clicked"));
+        }}>
+        <Text style={{ color: 'white', textAlign: 'center' }}>
+          {t("click_here")}
+        </Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 ```
