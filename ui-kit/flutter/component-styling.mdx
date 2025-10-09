@@ -224,6 +224,47 @@ ThemeData(
 
 </Tabs>
 
+### AI Assistant Chat History
+
+Elevate your ai assistant chat history experience with customizable chat history styles.
+
+<Frame>
+  <img src="/images/7dd6eb5e-group_members_styling-b9b1f40be76f7e4137dbd7dc7e10141c.png" />
+</Frame>
+
+<Tabs>
+<Tab title="Dart">
+```dart
+ThemeData(
+    extensions: [
+          CometChatAiAssistantChatHistoryStyle(
+            dateSeparatorStyle: CometChatDateStyle(
+              backgroundColor: Color(0xFFFBAA75),
+              textStyle: TextStyle(color: Color(0xFFF76808)),
+            ),
+            backgroundColor: Color(0xFFFFF1E9),
+            headerBackgroundColor: Color(0xFFF76808),
+            headerTitleTextStyle: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+            closeIconColor: Colors.white,
+            newChatIconColor: Color(0xFFF76808),
+            newChatTextColor: Color(0xFFF76808),
+            newChaTitleStyle: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+    ]
+)
+```
+
+</Tab>
+
+</Tabs>
+
 ## Base Components
 
 ### Avatar

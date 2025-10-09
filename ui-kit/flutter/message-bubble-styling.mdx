@@ -150,6 +150,7 @@ Designed to style bubbles for **messages received from others**, with properties
 * **Sticker bubbles**: Customize stickers sent by others.
 * **Call bubbles**: Style voice and video call bubbles.
 * **Sender name**: Customize the display style for sender names.
+* **Ai Assistant bubbles**: Customize how ai assistant messages appear.
 * Additional customizations like reactions, timestamps, avatars, and borders.
 
 <Frame>
@@ -723,6 +724,34 @@ ThemeData(extensions: [
           color: Color(0xFFF76808),
         ),
         backgroundColor: Color(0xFFFEEDE1))
+  ]);
+```
+
+</Tab>
+
+</Tabs>
+
+<Frame>
+  <img src="/images/9e8d6bf0-call_action_bubble_customized-748c529ae36e3aefb3573cd2fb6189b4.png" />
+</Frame>
+
+### AI Assistant Bubble
+
+<Frame>
+  <img src="/images/4390f72f-call_action_bubble-779db8d45094ff6579493a16ee34909c.png" />
+</Frame>
+
+Customize ai assistant bubbles with unique background colors.
+
+<Tabs>
+<Tab title="Dart">
+```dart
+ThemeData(extensions: [
+            CometChatAiAssistantBubbleStyle(
+              backgroundColor: Colors.black,
+              border: Border.all(color: Colors.blueAccent, width: 1),
+              textColor: Colors.greenAccent,
+          ),
   ]);
 ```
 
