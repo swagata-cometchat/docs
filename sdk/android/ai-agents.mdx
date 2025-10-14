@@ -39,6 +39,7 @@ Notes:
 <Tabs>
     <Tab title="Java">
         ```java
+        String LISTENERS_TAG = "UNIQUE_LISTENER_ID";
 
         CometChat.addAIAssistantListener(LISTENERS_TAG, new CometChat.AIAssistantListener() {
             @Override
@@ -51,6 +52,8 @@ Notes:
     </Tab>
     <Tab title="Kotlin">
         ```kotlin
+
+        val LISTENERS_TAG = "UNIQUE_LISTENER_ID"
 
         CometChat.addAIAssistantListener(LISTENERS_TAG, object : CometChat.AIAssistantListener() {
             override fun onAIAssistantEventReceived(aiAssistantBaseEvent: AIAssistantBaseEvent) {
@@ -84,6 +87,8 @@ These events are received via the **`MessageListener`** after the run completes.
     <Tab title="Java">
         ```java
 
+        String listenerId = "UNIQUE_LISTENER_ID";
+
         CometChat.addMessageListener(listenerId, new CometChat.MessageListener() {
             @Override
             public void onAIAssistantMessageReceived(AIAssistantMessage aiAssistantMessage) {
@@ -105,6 +110,8 @@ These events are received via the **`MessageListener`** after the run completes.
     </Tab>
     <Tab title="Kotlin">
         ```kotlin
+
+        val listenerId = "UNIQUE_LISTENER_ID"
 
         CometChat.addMessageListener(listenerId, object : CometChat.MessageListener() {
             override fun onAIAssistantMessageReceived(aiAssistantMessage: AIAssistantMessage) {
