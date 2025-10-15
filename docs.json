@@ -304,6 +304,28 @@
                 ]
               }
             ]
+          },
+          {
+            "dropdown": "Vercel AI",
+            "icon": "/images/icons/vercel.png",
+            "pages": [
+              "/ai-agents/vercel",
+              "/ai-agents/actions",
+              "/ai-agents/tools",
+              {
+                "group": "Guides",
+                "pages": [
+                  "/ai-agents/vercel-knowledge-agent"
+                ]
+              },
+              {
+                "group": "Tutorials",
+                "pages": [
+                  "/ai-agents/mastra-product-hunt-agent",
+                  "/ai-agents/mastra-knowlege-agent-pdf"
+                ]
+              }
+            ]
           }
         ]
       },
