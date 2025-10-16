@@ -737,28 +737,38 @@ ThemeData(extensions: [
 
 ### AI Assistant Bubble
 
+AI Assistant bubbles display messages and interactions from an AI assistant within the chat interface.
+
+**Default**
+
 <Frame>
-  <img src="/images/4390f72f-call_action_bubble-779db8d45094ff6579493a16ee34909c.png" />
+  <img src="/images/flutter_ai_agent_default_bubble.png" />
 </Frame>
 
-Customize ai assistant bubbles with unique background colors.
+**Customization**
+
+<Frame>
+  <img src="/images/flutter_ai_agent_customize_bubble.png" />
+</Frame>
+
+**Customizing Bubble**
 
 <Tabs>
 <Tab title="Dart">
 ```dart
-ThemeData(extensions: [
-            CometChatAiAssistantBubbleStyle(
-              backgroundColor: Colors.black,
-              border: Border.all(color: Colors.blueAccent, width: 1),
-              textColor: Colors.greenAccent,
-          ),
-  ]);
+ThemeData(
+  extensions: [
+    CometChatAiAssistantBubbleStyle(
+      backgroundColor: Colors.transparent,
+      textColor: const Color(0xFF141414),
+      textStyle: const TextStyle(
+        fontFamily: 'TimesNewRoman', // Add this in pubspec.yaml under fonts
+      ),
+    ),
+  ],
+);
 ```
 
 </Tab>
 
 </Tabs>
-
-<Frame>
-  <img src="/images/9e8d6bf0-call_action_bubble_customized-748c529ae36e3aefb3573cd2fb6189b4.png" />
-</Frame>

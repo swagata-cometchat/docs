@@ -4,10 +4,10 @@ title: "AI Assistant Chat History"
 
 ## Overview
 
-`AI Assistant Chat History` is a [Composite Widget](/ui-kit/flutter/components-overview#composite-components) that displays a list of ai assistant chat history.
+The `AI Assistant Chat History` widget is a pre-built user interface widget designed to display the conversation history between users and an AI assistant within a chat application. It provides a structured and visually appealing way to present past interactions, making it easy for users to review previous messages and context.
 
 <Frame>
-  <img src="/images/a19b9468-message_list-c0dcfa379075f8be9f7ad1d857e6cab4.png" />
+  <img src="/images/flutter_ai_assistant_chat_history.png" />
 </Frame>
 
 ## Usage
@@ -231,12 +231,34 @@ You can set the `style` to the `CometChatAIAssistantChatHistory` Widget to custo
 <Tabs>
 <Tab title="Dart">
 ```dart
+final ccColor = CometChatThemeHelper.getColorPalette(context);
 CometChatAIAssistantChatHistory(
   user: user, // A user or group object is required to launch this widget.
   style: CometChatAiAssistantChatHistoryStyle(
-     backgroundColor: Color(0xFFFEEDE1),
-  )
-)
+    backgroundColor: const Color(0xFFFFFAF6),
+    headerBackgroundColor: const Color(0xFFFFFAF6),
+    headerTitleTextColor: ccColor.textPrimary,
+    headerTitleTextStyle: const TextStyle(
+      fontFamily: 'TimesNewRoman', // Add this in pubspec.yaml under fonts
+    ),
+    newChatIconColor: ccColor.iconSecondary,
+    newChatTextColor: ccColor.textPrimary,
+    newChaTitleStyle: const TextStyle(
+      fontFamily: 'TimesNewRoman',
+    ),
+    dateSeparatorStyle: CometChatDateStyle(
+      textStyle: const TextStyle(
+        fontFamily: 'TimesNewRoman',
+      ),
+      textColor: ccColor.textTertiary,
+      backgroundColor: const Color(0xFFFFFAF6),
+    ),
+    itemTextStyle: const TextStyle(
+      fontFamily: 'TimesNewRoman',
+    ),
+    itemTextColor: ccColor.textPrimary,
+  ),
+),
 ```
 
 </Tab>
@@ -244,7 +266,7 @@ CometChatAIAssistantChatHistory(
 </Tabs>
 
 <Frame>
-  <img src="/images/43be6937-message_list_styling-87dfbbb28ddf18e45d5281c3f23d3722.png" />
+  <img src="/images/flutter_ai_assistant_chat_history_style.png" />
 </Frame>
 
 ***
@@ -253,25 +275,21 @@ CometChatAIAssistantChatHistory(
 
 These are a set of small functional customizations that allow you to fine-tune the overall experience of the widget. With these, you can change text, set custom icons, and toggle the visibility of UI elements.
 
-<Frame>
-  <img src="/images/a19b9468-message_list-c0dcfa379075f8be9f7ad1d857e6cab4.png" />
-</Frame>
-
 <Tabs>
 <Tab title="Dart">
 ```dart
 CometChatAIAssistantChatHistory(
   user: user, // A user or group object is required to launch this widget.
- backButton: IconButton(
-                      icon: Icon(
-                        Icons.ac_unit,
-                        color: Colors.red,
-                      ),
-                      onPressed: () {
-                        // TODO("Not yet implemented")
+  backButton: IconButton(
+    icon: const Icon(
+      Icons.ac_unit,
+      color: Colors.red,
+    ),
+    onPressed: () {
+      // TODO: Implement back button action
     },
+  ),
 ),
-)
 ```
 
 </Tab>
@@ -306,6 +324,8 @@ Below is a list of customizations along with corresponding code snippets:
 | `backButton`                | `Widget?`                               | Custom widget for the back button.                            |
 | `width`                     | `double?`                               | Sets the width of the list.                                   |
 | `height`                    | `double?`                               | Sets the height of the list.                                  |
+| `hideStickyDate`            | `bool?`                                 | Hide the sticky date separator.                                  |
+| `hideDateSeparator`         | `bool?`                                 | Hide the date separator.                                  |
 
 ***
 
@@ -331,19 +351,6 @@ CometChatAIAssistantChatHistory(
   },
 )
 ```
-
-</Tab>
-
-</Tabs>
-
-<Tabs>
-<Tab title="Android">
-![Image](/images/49078272-message_list_date_time_separator_cometchat_screens-d90f711f80300c16d7f229543e3b7b23.png)
-
-</Tab>
-
-<Tab title="iOS">
-![Image](/images/b552b788-message_list_date_time_separator_cometchat_screens-dad8d61b105cdb2a5b3a9e5401c1a51c.png)
 
 </Tab>
 
