@@ -1559,6 +1559,13 @@
                           "ui-kit/android/guide-group-chat"
                         ]
                       },
+                      {
+                        "group": "Migration Guide",
+                        "pages": [
+                          "ui-kit/android/upgrading-from-v4",
+                          "ui-kit/android/property-changes"
+                        ]
+                      },
                       "ui-kit/android/link/sample",
                       "ui-kit/android/link/figma",
                       "ui-kit/android/link/changelog"
