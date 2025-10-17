@@ -70,7 +70,7 @@ Key modules:
     Run <code>python server.py</code> once (or <code>uvicorn server:app</code>) to initialize folders. Use the ingest endpoint or the provided knowledge samples as a starting point.
   </Step>
   <Step title="Run locally">
-    Start FastAPI: <code>uvicorn server:app --reload --host 0.0.0.0 --port 8000</code>. Verify <code>GET /health</code> returns <code>{"status": "healthy"}</code>.
+    Start FastAPI: <code>uvicorn server:app --reload --host 0.0.0.0 --port 8000</code>. Verify <code>GET /health</code> returns <code>`{"status": "healthy"}`</code>.
   </Step>
   <Step title="Create a tunnel">
     Expose <code>/agent</code> publicly with ngrok, Cloudflare Tunnel, or Render so CometChat can reach it.
