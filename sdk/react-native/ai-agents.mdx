@@ -37,31 +37,34 @@ Notes:
 - `Text Message` events are always emitted and carry the assistant’s reply incrementally.
 
 <Tabs>
-    <Tab title="Java">
-        ```java
+    <Tab title="JavaScript">
+        ```js
+        const listnerId = "unique_listener_id";
 
-        String LISTENERS_TAG = "UNIQUE_LISTENER_ID";
-
-        CometChat.addAIAssistantListener(LISTENERS_TAG, new CometChat.AIAssistantListener() {
-            @Override
-            public void onAIAssistantEventReceived(AIAssistantBaseEvent aiAssistantBaseEvent) {
-                Log.d(TAG, "AIAssistant event received successfully: " + aiAssistantBaseEvent.toString());
+        // Adding the AIAssistantListener
+        CometChat.addAIAssistantListener(listnerId, {
+            onAIAssistantEventReceived: (message) => {
+                console.log("AIAssistant event received successfully", message);
             }
         });
 
+        // Removing the AIAssistantListener
+        CometChat.removeAIAssistantListener(listnerId);
         ```
     </Tab>
-    <Tab title="Kotlin">
-        ```kotlin
+    <Tab title="TypeScript">
+        ```ts
+        const listnerId: string = "unique_listener_id";
 
-        val LISTENERS_TAG = "UNIQUE_LISTENER_ID"
-
-        CometChat.addAIAssistantListener(LISTENERS_TAG, object : CometChat.AIAssistantListener() {
-            override fun onAIAssistantEventReceived(aiAssistantBaseEvent: AIAssistantBaseEvent) {
-                Log.d(TAG, "AIAssistant event received successfully: " + aiAssistantBaseEvent.toString())
+        // Adding the AIAssistantListener
+        CometChat.addAIAssistantListener(listnerId, {
+            onAIAssistantEventReceived: (message: CometChat.AIAssistantBaseEvent) => {
+                console.log("AIAssistant event received successfully", message);
             }
-        })
+        });
 
+        // Removing the AIAssistantListener
+        CometChat.removeAIAssistantListener(listnerId);
         ```
     </Tab>
 </Tabs>
@@ -85,49 +88,47 @@ These events are received via the **`MessageListener`** after the run completes.
 - `AIToolArgumentMessage`: The arguments that were passed to a tool.
 
 <Tabs>
-    <Tab title="Java">
-        ```java
+    <Tab title="JavaScript">
+        ```js
+        const listnerId = "unique_listener_id";
 
-        String listenerId = "UNIQUE_LISTENER_ID";
-
-        CometChat.addMessageListener(listenerId, new CometChat.MessageListener() {
-            @Override
-            public void onAIAssistantMessageReceived(AIAssistantMessage aiAssistantMessage) {
-                Log.d(TAG, "AIAssistantMessage received successfully: " + aiAssistantMessage.toString());
-            }
-
-            @Override
-            public void onAIToolResultReceived(AIToolResultMessage aiToolResultMessage) {
-                Log.d(TAG, "AIToolResultMessage received successfully: " + aiToolResultMessage.toString());
-            }
-
-            @Override
-            public void onAIToolArgumentsReceived(AIToolArgumentMessage aiToolArgumentMessage) {
-                Log.d(TAG, "AIToolArgumentMessage received successfully: " + aiToolArgumentMessage.toString());
-            }
+        // Adding the MessageListener
+        CometChat.addMessageListener(listnerId, {
+            onAIAssistantMessageReceived: (message) => {
+                console.log("AI Assistant message received successfully", message);
+            },
+            onAIToolResultReceived: (message) => {
+                console.log("AI Tool result message received successfully", message);
+            },
+            onAIToolArgumentsReceived: (message) => {
+                console.log("AI Tool argument message received successfully", message);
+            },
         });
 
+        // Removing the MessageListener
+        CometChat.removeMessageListener(listnerId);
         ```
     </Tab>
-    <Tab title="Kotlin">
-        ```kotlin
+    <Tab title="TypeScript">
 
-        val listenerId = "UNIQUE_LISTENER_ID"
+        ```ts
+        const listnerId: string = "unique_listener_id";
 
-        CometChat.addMessageListener(listenerId, object : CometChat.MessageListener() {
-            override fun onAIAssistantMessageReceived(aiAssistantMessage: AIAssistantMessage) {
-                Log.d(TAG, "AIAssistantMessage received successfully: " + aiAssistantMessage.toString())
-            }
+        // Adding the MessageListener
+        CometChat.addMessageListener(listnerId, {
+            onAIAssistantMessageReceived: (message: CometChat.AIAssistantMessage) => {
+                console.log("AI Assistant message received successfully", message);
+            },
+            onAIToolResultReceived: (message: CometChat.AIToolResultMessage) => {
+                console.log("AI Tool result message received successfully", message);
+            },
+            onAIToolArgumentsReceived: (message: CometChat.AIToolArgumentMessage) => {
+                console.log("AI Tool argument message received successfully", message);
+            },
+        });
 
-            override fun onAIToolResultReceived(aiToolResultMessage: AIToolResultMessage) {
-                Log.d(TAG, "AIToolResultMessage received successfully: " + aiToolResultMessage.toString())
-            }
-
-            override fun onAIToolArgumentsReceived(aiToolArgumentMessage: AIToolArgumentMessage) {
-                Log.d(TAG, "AIToolArgumentMessage received successfully: " + aiToolArgumentMessage.toString())
-            }
-        })
-
+        // Removing the MessageListener
+        CometChat.removeMessageListener(listnerId);
         ```
     </Tab>
 </Tabs>

@@ -925,7 +925,8 @@
                           "ui-kit/react-native/incoming-call",
                           "ui-kit/react-native/outgoing-call",
                           "ui-kit/react-native/call-buttons",
-                          "ui-kit/react-native/call-logs"
+                          "ui-kit/react-native/call-logs",
+                          "ui-kit/react-native/ai-assistant-chat-history"
                         ]
                       },
                       {
@@ -943,6 +944,12 @@
                           "ui-kit/react-native/apple-privacy-manifest-guide",
                           "ui-kit/react-native/mentions-formatter-guide",
                           "ui-kit/react-native/shortcut-formatter-guide"
+                        ]
+                      },
+                      {
+                        "group": "Guides",
+                        "pages": [
+                          "ui-kit/react-native/guide-ai-agent"
                         ]
                       },
                       "ui-kit/react-native/link/sample",
@@ -1252,6 +1259,14 @@
                           "ui-kit/ios/guide-group-ownership"
                         ]
                       },
+                      {
+                        "group": "Migration Guide",
+                        "pages": [
+                          "ui-kit/ios/upgrading-from-v4",
+                          "ui-kit/ios/property-changes"
+                        ]
+                      },
+
                       "ui-kit/ios/link/sample",
                       "ui-kit/ios/link/figma",
                       "ui-kit/ios/link/changelog"
@@ -1561,6 +1576,13 @@
                           "ui-kit/android/guide-ai-agent"
                         ]
                       },
+                      {
+                        "group": "Migration Guide",
+                        "pages": [
+                          "ui-kit/android/upgrading-from-v4",
+                          "ui-kit/android/property-changes"
+                        ]
+                      },
                       "ui-kit/android/link/sample",
                       "ui-kit/android/link/figma",
                       "ui-kit/android/link/changelog"
@@ -1840,7 +1862,8 @@
                           "ui-kit/flutter/incoming-call",
                           "ui-kit/flutter/outgoing-call",
                           "ui-kit/flutter/call-buttons",
-                          "ui-kit/flutter/call-logs"
+                          "ui-kit/flutter/call-logs",
+                          "ui-kit/flutter/ai-assistant-chat-history"
                         ]
                       },
                       {
@@ -1867,7 +1890,15 @@
                           "ui-kit/flutter/guide-new-chat",
                           "ui-kit/flutter/guide-message-privately",
                           "ui-kit/flutter/guide-call-log-details",
-                          "ui-kit/flutter/guide-group-chat"
+                          "ui-kit/flutter/guide-group-chat",
+                          "ui-kit/flutter/guide-message-agentic-flow"
+                        ]
+                      },
+                      {
+                        "group": "Migration Guide",
+                        "pages": [
+                          "ui-kit/flutter/upgrading-from-v4",
+                          "ui-kit/flutter/property-changes"
                         ]
                       },
                       "ui-kit/flutter/link/sample",
@@ -2879,6 +2910,7 @@
                           "sdk/react-native/transfer-group-ownership"
                         ]
                       },
+                      "sdk/react-native/ai-agents",
                       {
                         "group": "Resources",
                         "pages": [
@@ -3207,6 +3239,7 @@
                         ]
                       },
                       "sdk/ios/ai-moderation",
+                      "sdk/ios/ai-agents",
                       {
                         "group": "Advanced",
                         "pages": [
@@ -3888,6 +3921,7 @@
                         ]
                       },
                       "sdk/flutter/ai-moderation",
+                      "sdk/flutter/ai-agents",
                       {
                         "group": "Resources",
                         "pages": [
