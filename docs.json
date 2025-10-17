@@ -1875,6 +1875,13 @@
                           "ui-kit/flutter/guide-group-chat"
                         ]
                       },
+                      {
+                        "group": "Migration Guide",
+                        "pages": [
+                          "ui-kit/flutter/upgrading-from-v4",
+                          "ui-kit/flutter/property-changes"
+                        ]
+                      },
                       "ui-kit/flutter/link/sample",
                       "ui-kit/flutter/link/changelog"
                     ]
