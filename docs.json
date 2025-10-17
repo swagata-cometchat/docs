@@ -1845,7 +1845,8 @@
                           "ui-kit/flutter/incoming-call",
                           "ui-kit/flutter/outgoing-call",
                           "ui-kit/flutter/call-buttons",
-                          "ui-kit/flutter/call-logs"
+                          "ui-kit/flutter/call-logs",
+                          "ui-kit/flutter/ai-assistant-chat-history"
                         ]
                       },
                       {
@@ -1872,7 +1873,8 @@
                           "ui-kit/flutter/guide-new-chat",
                           "ui-kit/flutter/guide-message-privately",
                           "ui-kit/flutter/guide-call-log-details",
-                          "ui-kit/flutter/guide-group-chat"
+                          "ui-kit/flutter/guide-group-chat",
+                          "ui-kit/flutter/guide-message-agentic-flow"
                         ]
                       },
                       {
