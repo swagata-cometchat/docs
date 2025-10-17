@@ -224,7 +224,7 @@ To fit your app's design requirements, you can customize the appearance of the c
 
 Using Style you can customize the look and feel of the widget in your app, These parameters typically control elements such as the color, size, shape, and fonts used within the widget.
 
-##### 1. CometChatAiAssistantChatHistoryStyle
+##### 1. CometChatAIAssistantChatHistoryStyle
 
 You can set the `style` to the `CometChatAIAssistantChatHistory` Widget to customize the styling.
 
@@ -234,7 +234,7 @@ You can set the `style` to the `CometChatAIAssistantChatHistory` Widget to custo
 final ccColor = CometChatThemeHelper.getColorPalette(context);
 CometChatAIAssistantChatHistory(
   user: user, // A user or group object is required to launch this widget.
-  style: CometChatAiAssistantChatHistoryStyle(
+  style: CometChatAIAssistantChatHistoryStyle(
     backgroundColor: const Color(0xFFFFFAF6),
     headerBackgroundColor: const Color(0xFFFFFAF6),
     headerTitleTextColor: ccColor.textPrimary,
@@ -313,7 +313,7 @@ Below is a list of customizations along with corresponding code snippets:
 | `onLoad`                    | `OnLoad<BaseMessage>?`                  | Callback triggered when the list is loaded.                   |
 | `onEmpty`                   | `OnEmpty?`                              | Callback triggered when the list is empty.                    |
 | `onNewChatButtonClicked`    | `VoidCallback?`                         | Callback triggered when the new chat button is clicked.       |
-| `style`                     | `CometChatAiAssistantChatHistoryStyle?` | Sets the style for the AI Assistant chat history.             |
+| `style`                     | `CometChatAIAssistantChatHistoryStyle?` | Sets the style for the AI Assistant chat history.             |
 | `dateSeparatorPattern`      | `String Function(DateTime dateTime)?`   | Custom pattern for the date separator.                        |
 | `dateTimeFormatterCallback` | `DateTimeFormatterCallback?`            | Callback to format the date and time.                         |
 | `emptyStateText`            | `String?`                               | Text to display when the list is empty.                       |
