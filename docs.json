@@ -3901,6 +3901,7 @@
                         ]
                       },
                       "sdk/flutter/ai-moderation",
+                      "sdk/flutter/ai-agents",
                       {
                         "group": "Resources",
                         "pages": [
