@@ -3219,6 +3219,7 @@
                         ]
                       },
                       "sdk/ios/ai-moderation",
+                      "sdk/ios/ai-agents",
                       {
                         "group": "Advanced",
                         "pages": [
