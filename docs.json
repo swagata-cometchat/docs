@@ -285,8 +285,6 @@
             "icon": "/images/icons/mastra.svg",
             "pages": [
               "/ai-agents/mastra",
-              "/ai-agents/actions",
-              "/ai-agents/tools",
               {
                 "group": "Guides",
                 "pages": [
@@ -301,6 +299,44 @@
                 "pages": [
                   "/ai-agents/mastra-product-hunt-agent",
                   "/ai-agents/mastra-knowlege-agent-pdf"
+                ]
+              }
+            ]
+          },
+          {
+            "dropdown": "Vercel AI",
+            "icon": "/images/icons/vercel.png",
+            "pages": [
+              "/ai-agents/vercel", 
+              {
+                "group": "Guides",
+                "pages": [
+                  "/ai-agents/vercel-knowledge-agent"
+                ]
+              },
+              {
+                "group": "Tutorials",
+                "pages": [
+                  "/ai-agents/vercel-product-hunt-agent"
+                ]
+              }
+            ]
+          },
+          {
+            "dropdown": "AG2",
+            "icon": "/images/icons/ag2.svg",
+            "pages": [
+              "/ai-agents/ag2",
+              {
+                "group": "Guides",
+                "pages": [
+                  "/ai-agents/ag2-knowledge-agent"
+                ]
+              },
+              {
+                "group": "Tutorials",
+                "pages": [
+                  "/ai-agents/ag2-product-hunt-agent"
                 ]
               }
             ]
