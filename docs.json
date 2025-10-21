@@ -285,8 +285,6 @@
             "icon": "/images/icons/mastra.svg",
             "pages": [
               "/ai-agents/mastra",
-              "/ai-agents/actions",
-              "/ai-agents/tools",
               {
                 "group": "Guides",
                 "pages": [
@@ -309,9 +307,7 @@
             "dropdown": "Vercel AI",
             "icon": "/images/icons/vercel.png",
             "pages": [
-              "/ai-agents/vercel",
-              "/ai-agents/actions",
-              "/ai-agents/tools",
+              "/ai-agents/vercel", 
               {
                 "group": "Guides",
                 "pages": [
@@ -331,8 +327,6 @@
             "icon": "/images/icons/ag2.svg",
             "pages": [
               "/ai-agents/ag2",
-              "/ai-agents/actions",
-              "/ai-agents/tools",
               {
                 "group": "Guides",
                 "pages": [
