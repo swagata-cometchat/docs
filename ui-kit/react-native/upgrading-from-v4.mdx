@@ -64,29 +64,37 @@ In **v5**, the composite approach is replaced with smaller, modular components l
 
 In **v4**, theming was managed using the CometChatTheme class, which included two key properties: Typography and Palette. The Palette property provided methods like `setAccent50()`, `setPrimary()`, and `setMode()` for configuring colors and themes. The theming system relied heavily on React’s Context API, utilizing CometChatThemeProvider and CometChatThemeContext to retrieve and update theme settings. While Context is a core concept in React, it wasn’t the most intuitive or efficient approach for theming.
 
-The reliance on Context for theming introduced several challenges. Customizing themes often required developers to consume the theme from the context and then explicitly update values programmatically, which added unnecessary complexity. For example, switching between light and dark modes required interacting with the theme’s context and invoking specific methods like `setMode()`. This process was less straightforward compared to the traditional approach of using CSS class names or data attributes to define themes dynamically. Furthermore, this method wasn’t as idiomatic to modern frontend development practices, where CSS-based theming provides simplicity, flexibility, and better alignment with browser capabilities.
+The v4 approach required developers to instantiate theme objects and call multiple setter methods to achieve the desired styling. For example, switching between light and dark modes required calling `myTheme.palette.setMode("dark")` on the theme instance. While this approach provided granular control, it involved verbose configuration with multiple method calls for each theme property. Customizing themes required understanding the specific setter methods available for both Palette and Typography classes, making the theming process more complex and requiring more boilerplate code.
 
 
 ```tsx App.tsx (v4)
-import React, { useState } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import { CometChatTheme } from '@cometchat/chat-uikit-react-native';
-import { CometChatContextProvider } from '@cometchat/chat-uikit-react-native';
 
 const App = () => {
-  const [theme] = useState(new CometChatTheme({}));
-
-  const changeThemeMode = (mode: "light" | "dark") => {
-    let newTheme = new CometChatTheme({});
-    newTheme.palette.setMode(mode);
-    // Apply the new theme
-  }
+  // Initialize theme with setter methods
+  let myTheme: CometChatTheme = new CometChatTheme({});
+  
+  // Configure colors using setter methods
+  myTheme.palette.setPrimary({
+    light: "#6851D6",
+    dark: "#6851D6",
+  });
+  myTheme.palette.setAccent({
+    light: "#f76808",
+    dark: "#f76808",
+  });
+  
+  // Set theme mode
+  myTheme.palette.setMode("light");
+  
+  // Configure typography
+  myTheme.typography.setName({ fontSize: 22, fontWeight: "800" });
 
   return (
     <View style={{ flex: 1 }}>
-      <CometChatContextProvider theme={theme}>
-        {/* Your app components */}
-      </CometChatContextProvider>
+      {/* Your app components with theme applied */}
     </View>
   );
 };
