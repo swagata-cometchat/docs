@@ -99,7 +99,7 @@
     // Fallback to tab labels for dropdown-only tabs (from docs.json top-level tabs)
     var allowedLabelsByRoute = {
       'chat-call': [
-        'Chat & Calling', 'Platform', 'UI Kits', 'SDKs', 'No Code - Widgets', 'APIs', 'Chat Builder'
+        'Chat & Calling', 'Platform', 'UI Kits', 'SDKs', 'Widget Builder', 'APIs', 'Chat Builder'
       ],
       'ai-agents': [
         'AI Agents', 'Agent Builder'
