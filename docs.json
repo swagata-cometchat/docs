@@ -1580,7 +1580,8 @@
                           "ui-kit/android/incoming-call",
                           "ui-kit/android/outgoing-call",
                           "ui-kit/android/call-buttons",
-                          "ui-kit/android/call-logs"
+                          "ui-kit/android/call-logs",
+                          "ui-kit/android/ai-assistant-chat-history"
                         ]
                       },
                       {
@@ -1607,7 +1608,8 @@
                           "ui-kit/android/guide-new-chat",
                           "ui-kit/android/guide-message-privately",
                           "ui-kit/android/guide-call-log-details",
-                          "ui-kit/android/guide-group-chat"
+                          "ui-kit/android/guide-group-chat",
+                          "ui-kit/android/guide-ai-agent"
                         ]
                       },
                       {
