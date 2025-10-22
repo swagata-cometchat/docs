@@ -47,12 +47,12 @@ title: "Property Changes"
 | V4 Name | V5 Name | Type | Description |
 | ------------------------- | -------------- | -------------- | ---------------------------------------------------------------------------------- |
 | `hideSubmitIcon` | `hideSubmitButton` | boolean | Hide the submit (selection) button. |
-| `disableUsersPresence` | `usersStatusVisibility` | boolean | Toggle user status visibility *(inverted logic: `disableUsersPresence=false` → `usersStatusVisibility=true`)*. |
-| `hideReceipt` / `disableReceipt` | `receiptsVisibility` | boolean | Controls receipt visibility *(inverted logic: `hideReceipt=false` → `receiptsVisibility=true`)*. |
+| `disableUsersPresence` | `usersStatusVisibility` | boolean | Toggle user status visibility. |
+| `hideReceipt` / `disableReceipt` | `receiptsVisibility` | boolean | Controls receipt visibility. |
 | `tailView` | `TrailingView` | function | Custom tail/trailing view for a conversation item. |
 | `ListItemView` | `ItemView` | function | Completely overrides the default rendering of each conversation item in the list. |
 | `AppBarOption` | `AppBarOptions` | function | Functional component for rendering options in the app bar. |
-| `showBackButton` | `hideBackButton` | boolean | In v5, the prop is inverted *(showBackButton=false → hideBackButton=true)*. |
+| `showBackButton` | `hideBackButton` | boolean | In v5, the prop is inverted (showBackButton=false → hideBackButton=true). |
 | `conversationsStyle` | `style` | object | Style object for conversations (renamed and type changed). |
 | `EmptyStateView` | `EmptyView` | function | Custom view for the empty state. |
 | `ErrorStateView` | `ErrorView` | function | Custom view for the error state. |
@@ -116,7 +116,7 @@ title: "Property Changes"
 | --------------------- | -------------- | -------------- | ---------------------------------------------------------------------------------- |
 | `usersStyle` | `style` | object | Custom styling for the users list. |
 | `TailView` | `TrailingView` | function | Function that returns a custom trailing view for a user. |
-| `disableUsersPresence` | `usersStatusVisibility` | boolean | Toggle user status visibility *(inverted logic: `disableUsersPresence=false` → `usersStatusVisibility=true`)*. |
+| `disableUsersPresence` | `usersStatusVisibility` | boolean | Toggle user status visibility|
 | `ListItemView` | `ItemView` | function | Function that returns a custom list item view. |
 
 
@@ -235,7 +235,7 @@ title: "Property Changes"
 | ------------------------- | -------------- | -------------- | ---------------------------------------------------------------------------------- |
 | `TailView` | `TrailingView` | function | Custom trailing view for a group member item. |
 | `groupMemberStyle` | `style` | object | Style object for group member (renamed and type changed). |
-| `disableUsersPresence` | `usersStatusVisibility` | boolean | Toggle user status visibility *(inverted logic: `disableUsersPresence=false` → `usersStatusVisibility=true`)*. |
+| `disableUsersPresence` | `usersStatusVisibility` | boolean | Toggle user status visibility |
 | `ListItemView` | `ItemView` | function | Completely overrides the default rendering of each group member item. |
 | `EmptyStateView` | `EmptyView` | function | Custom view for the empty state. |
 | `ErrorStateView` | `ErrorView` | function | Custom view for the error state. |
@@ -285,8 +285,8 @@ title: "Property Changes"
 | ------------------------- | -------------- | -------------- | ---------------------------------------------------------------------------------- |
 | `ListItemView` | `ItemView` | function | Custom item view. |
 | `AppBarOptions` | `TrailingView` | function | Custom trailing view. |
-| `hideBackIcon` | `showBackButton` | boolean | In v5, the prop is inverted *(hideBackIcon=true → showBackButton=false)*. |
-| `disableUsersPresence` | `usersStatusVisibility` | boolean | Toggle user status visibility *(inverted logic: `disableUsersPresence=false` → `usersStatusVisibility=true`)*. |
+| `hideBackIcon` | `showBackButton` | boolean | In v5, the prop is inverted (hideBackIcon=true → showBackButton=false). |
+| `disableUsersPresence` | `usersStatusVisibility` | boolean | Toggle user status visibility  |
 | `style` | `style` | object | Style object for message header (renamed and type changed). |
 
 ### Removed Properties
@@ -367,7 +367,7 @@ title: "Property Changes"
 | `EmptyStateView` | `EmptyView` | `() => JSX.Element` | Custom component to display for the empty state. |
 | `ErrorStateView` | `ErrorView` | `() => JSX.Element` | Custom component to display for the error state. |
 | `LoadingStateView` | `LoadingView` | `() => JSX.Element` | Custom component to display for the loading state. |
-| `hideReceipt` / `disableReceipt` | `receiptsVisibility` | `boolean` | Controls receipt visibility *(inverted logic: `hideReceipt=false` → `receiptsVisibility=true`)*. |
+| `hideReceipt` / `disableReceipt` | `receiptsVisibility` | `boolean` | Controls receipt visibility. |
 | `showAvatar` | `avatarVisibility` | `boolean` | Toggle visibility for avatar. |
 | `dateSeparatorPattern` | `dateSeparatorPattern` | `(date: number) => string` | Signature clarified with parameter name. |
 
