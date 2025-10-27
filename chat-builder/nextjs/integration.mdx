@@ -454,6 +454,21 @@ When you enable the **Without Sidebar** option for the Sidebar, the following be
 * **User Chats (`chatType = "user"`)**: Displays one-on-one chats only, either for a currently selected user or the default user.
 * **Group Chats (`chatType = "group"`)**: Displays group chats exclusively, either for a currently selected group or the default group.
 
+
+**Group Action Messages**
+
+You can control the visibility of group action messages using the showGroupActionMessages prop:
+
+```
+<CometChatApp 
+  showGroupActionMessages={true}
+/>
+```
+
+- If `showGroupActionMessages` is `true (default)`, group action messages will be **visible**.
+
+- If `showGroupActionMessages` is `false`, group action messages will be **hidden**.
+
 ***
 
 ### **Step 6: Run Your App**
