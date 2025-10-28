@@ -344,7 +344,7 @@
         ]
       },
       {
-        "tab": "Chat Builder",
+        "tab": "UI Kit Builder",
         "tab-id" : "ai-agent-chat-builder",
         "pages": [
           "/ai-agents/chat-widget"
@@ -357,7 +357,7 @@
         ]
       },
       {
-        "tab": "Chat Builder",
+        "tab": "UI Kit Builder",
         "tab-id" : "chat-builder",
         "dropdowns": [
           {
@@ -4414,7 +4414,7 @@
         ]
       },
       {
-        "tab": "No Code - Widgets",
+        "tab": "Widget Builder",
         "dropdowns": [
           {
             "dropdown": "HTML",
