@@ -448,6 +448,19 @@
                 ]
               }
             ]
+          },
+          {
+            "dropdown": "Flutter",
+            "icon": "/images/icons/flutter.svg",
+            "groups": [
+              {
+                "group": " ",
+                "pages": [
+                  "chat-builder/flutter/overview",
+                  "chat-builder/flutter/integration"
+                ]
+              }
+            ]
           }
         ]
       },
