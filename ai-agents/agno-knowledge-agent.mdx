@@ -1,0 +1,158 @@
+---
+title: "Build Your Knowledge Agent with Agno"
+sidebarTitle: "Knowledge Agent"
+description: "Spin up an Agno-powered knowledge agent with FastAPI, ingest docs into namespaces, and stream grounded answers (with citations) into CometChat."
+---
+
+Imagine a FastAPI service that ingests your documentation, stores it in a vector database, and streams Agno agent responses with citations that CometChat can consume in real time.
+
+***
+
+## What You'll Build
+
+* An **Agno** agent that joins conversations as a documentation expert.
+* An ingestion pipeline that writes markdown artifacts into `knowledge_agent/data/knowledge/<namespace>`.
+* Retrieval and answering logic that always cites the sources it used.
+* An `/agent` SSE endpoint that mirrors the Vercel examples so CometChat can subscribe without changes.
+
+***
+
+## Prerequisites
+
+* Python 3.10 or newer (3.11 recommended).
+* `OPENAI_API_KEY` with access to GPT-4o or any compatible model.
+* Optional: alternate OpenAI base URL or model IDs if you self-host OpenAI-compatible APIs.
+* curl or an API client (Hoppscotch, Postman) to call the FastAPI endpoints.
+
+***
+
+## Quick links
+
+- Repo root: [ai-agent-agno-examples](https://github.com/cometchat/ai-agent-agno-examples)
+- Project folder: [`knowledge_agent/`](https://github.com/cometchat/ai-agent-agno-examples/tree/main/knowledge_agent)
+- Server guide: [`README.md#knowledge-agent`](https://github.com/cometchat/ai-agent-agno-examples#knowledge-agent)
+- API reference: [`knowledge_agent/main.py`](https://github.com/cometchat/ai-agent-agno-examples/blob/main/knowledge_agent/main.py)
+- Knowledge helpers: [`knowledge_agent/knowledge_manager.py`](https://github.com/cometchat/ai-agent-agno-examples/blob/main/knowledge_agent/knowledge_manager.py)
+
+***
+
+## How it works
+
+This example recreates the Vercel knowledge base workflow using Agno:
+
+- **Ingest** — `collect_documents` accepts URLs, markdown, plain text, uploads, or multipart forms. Sources are deduplicated by a SHA-256 hash and normalized into markdown.
+- **Store** — `KnowledgeManager` keeps one `ChromaDb` collection per namespace, with metadata persisted under `knowledge_agent/data/knowledge/<namespace>`.
+- **Retrieve** — Searches hit the vector DB via Agno's `Knowledge` class, returning ranked snippets and the metadata used for citations.
+- **Answer** — `create_agent` enables `search_knowledge` and `add_knowledge_to_context`, forcing every response to cite sources via the system prompt.
+- **Stream** — `/agent` streams `RunOutputEvent` payloads over SSE with the same JSON schema used by CometChat’s adapters.
+
+***
+
+## Setup
+
+<Steps>
+  <Step title="Clone & install">
+    <code>git clone https://github.com/cometchat/ai-agent-agno-examples.git</code>, then inside the repo run:<br/><code>python3 -m venv .venv && source .venv/bin/activate && pip install -e .</code>
+  </Step>
+  <Step title="Configure environment">
+    Create <code>.env</code> (or export env vars) with at least <code>OPENAI_API_KEY</code>. Optional overrides: <code>OPENAI_BASE_URL</code>, <code>KNOWLEDGE_OPENAI_MODEL</code>, <code>KNOWLEDGE_STORAGE_PATH</code>, <code>KNOWLEDGE_CHROMA_PATH</code>.
+  </Step>
+  <Step title="Start the server">
+    Launch FastAPI with <code>uvicorn knowledge_agent.main:app --host 0.0.0.0 --port 8000 --reload</code>. The app exposes health, ingestion, search, generate, and streaming endpoints.
+  </Step>
+</Steps>
+
+***
+
+## Project Structure
+
+- FastAPI & wiring
+  - [`knowledge_agent/main.py`](https://github.com/cometchat/ai-agent-agno-examples/blob/main/knowledge_agent/main.py)
+  - [`knowledge_agent/schemas.py`](https://github.com/cometchat/ai-agent-agno-examples/blob/main/knowledge_agent/schemas.py)
+  - [`knowledge_agent/config.py`](https://github.com/cometchat/ai-agent-agno-examples/blob/main/knowledge_agent/config.py)
+- Knowledge + ingestion
+  - [`knowledge_agent/knowledge_manager.py`](https://github.com/cometchat/ai-agent-agno-examples/blob/main/knowledge_agent/knowledge_manager.py)
+  - [`knowledge_agent/ingestion.py`](https://github.com/cometchat/ai-agent-agno-examples/blob/main/knowledge_agent/ingestion.py)
+  - [`knowledge_agent/data/`](https://github.com/cometchat/ai-agent-agno-examples/tree/main/knowledge_agent/data)
+- Constants & helpers
+  - [`KnowledgeAgentSettings`](https://github.com/cometchat/ai-agent-agno-examples/blob/main/knowledge_agent/config.py#L7)
+  - [`collect_documents`](https://github.com/cometchat/ai-agent-agno-examples/blob/main/knowledge_agent/ingestion.py#L147)
+  - [`KnowledgeManager.create_agent`](https://github.com/cometchat/ai-agent-agno-examples/blob/main/knowledge_agent/knowledge_manager.py#L101)
+
+***
+
+## Step 1 - Configure the Knowledge Agent
+
+`KnowledgeManager.create_agent` builds an Agno agent bound to the current namespace:
+
+- Uses `OpenAIChat` with `OPENAI_API_KEY`, optional custom base URL, and temperature from settings.
+- Enables `search_knowledge=True` and `add_knowledge_to_context=True` so retrieved snippets feed the model.
+- Injects a system prompt that demands a knowledge search before every reply and enforces the `"Sources: <file>.md"` footer.
+- Reuses the namespace-specific `ChromaDb` collection initialised in `_get_namespace`.
+
+***
+
+## Step 2 - Ingest Knowledge
+
+`POST /api/tools/ingest` accepts JSON or multipart payloads. Highlights:
+
+- Up to 30 sources per call, 6 MB per file, 200 kB per inline text/markdown.
+- URLs, PDFs, HTML pages, plain text, and uploads are normalized to markdown with metadata and timestamps.
+- Duplicate hashes are skipped with a `"duplicate-content"` reason; existing files return `"already-ingested"`.
+- Responses provide `saved`, `skipped`, `errors`, and the resolved namespace.
+
+Example JSON payload:
+
+```bash
+curl -X POST http://localhost:8000/api/tools/ingest \
+  -H "Content-Type: application/json" \
+  -d '{
+        "namespace": "default",
+        "sources": [
+          { "type": "url", "value": "https://docs.agno.com/concepts/agents/overview" },
+          { "type": "markdown", "title": "Playbook", "value": "# Notes\n\nAgno rocks!" }
+        ]
+      }'
+```
+
+***
+
+## Step 3 - Search & Validate
+
+`POST /api/tools/searchDocs` lets you confirm retrieval before opening the agent to users:
+
+- Required body: `{"query": "How do I add tools?"}` with optional `namespace` and `max_results`.
+- Returns ranked snippets with metadata (hashes, distances converted to scores).
+- Empty queries immediately return an error so the UI can prompt the operator.
+
+***
+
+## Step 4 - Chat & Stream
+
+- `POST /api/agents/knowledge/generate` handles non-streaming responses.
+- `POST /agent` streams `RunOutputEvent` JSON blocks that include tool calls, intermediate reasoning, and the final message.
+
+Streaming example (SSE):
+
+```bash
+curl -N http://localhost:8000/agent \
+  -H "Content-Type: application/json" \
+  -d '{
+        "threadId": "thread_1",
+        "messages": [
+          { "role": "user", "content": "Summarize the agent lifecycle." }
+        ]
+      }'
+```
+
+The response structure matches the Vercel adapter, so CometChat can reuse the same parsing logic.
+
+***
+
+## Step 5 - Connect to CometChat
+
+- Deploy the FastAPI service behind HTTPS (e.g., Fly.io, Render, Railway, or your own Kubernetes cluster).
+- Add auth headers or gateway middleware if you need to validate incoming requests from CometChat.
+- In the CometChat dashboard, point the Agno agent’s **Deployment URL** at the `/agent` endpoint; use **Headers** for bearer tokens or basic auth if required.
+
+With that, you have a fully grounded Agno agent that streams into CometChat’s UI.

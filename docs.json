@@ -304,6 +304,25 @@
             ]
           },
           {
+            "dropdown": "Agno",
+            "icon": "/images/icons/agno.svg",
+            "pages": [
+              "/ai-agents/agno",
+              {
+                "group": "Guides",
+                "pages": [
+                  "/ai-agents/agno-knowledge-agent"
+                ]
+              },
+              {
+                "group": "Tutorials",
+                "pages": [
+                  "/ai-agents/agno-product-hunt-agent"
+                ]
+              }
+            ]
+          },
+          {
             "dropdown": "Vercel AI",
             "icon": "/images/icons/vercel.png",
             "pages": [
