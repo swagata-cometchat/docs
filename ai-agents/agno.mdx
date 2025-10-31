@@ -63,7 +63,9 @@ Navigate to **AI Agent → Get Started** and then **AI Agents → Add Agent**.
   </Step>
 </Steps>
 
-> **Tip:** The Agno examples stream Server-Sent Events (SSE) that match CometChat’s format. Keep the **Agent ID** and **Deployment URL** stable so you don’t need to reconnect.
+> **Tip:** The Agno examples stream newline-delimited JSON events using CometChat’s Bring Your Own Agent format. Keep the **Agent ID** and **Deployment URL** stable so you don’t need to reconnect.
+
+CometChat includes `thread_id`, `run_id`, the recent `messages`, and optional `namespace` (or `toolParams.namespace`) in every `/stream` request. Echo those IDs back in each event so UI Kit Builder variants can stitch partial responses correctly.
 
 ---
 
@@ -166,7 +168,7 @@ uvicorn knowledge_agent.main:app --host 0.0.0.0 --port 8000 --reload
 
     Key points:
 
-    - `knowledge_agent/main.py` exposes `/api/tools/ingest`, `/api/tools/searchDocs`, `/api/agents/knowledge/generate`, and `/agent` for SSE streaming.
+    - `knowledge_agent/main.py` exposes `/api/tools/ingest`, `/api/tools/searchDocs`, `/api/agents/knowledge/generate`, and `/stream` (newline-delimited JSON with `text_delta`, `tool_*`, `text_done`, `done`, `error`).
     - `KnowledgeManager` creates an Agno agent bound to a per-namespace vector store and enforces retrieval-before-answer behavior with citations.
     - Configure secrets via `.env` (`OPENAI_API_KEY`, optional `KNOWLEDGE_*` overrides). The example persists markdown under `knowledge_agent/data/knowledge/<namespace>`.
   </Accordion>
@@ -181,9 +183,9 @@ uvicorn product_hunt_agent.main:app --host 0.0.0.0 --port 8001 --reload
     Highlights:
 
     - `/api/top`, `/api/top-week`, `/api/top-range`, and `/api/search` surface Algolia + GraphQL data for Product Hunt launches.
-    - `/api/chat` and `/agent` share the same RunOutput schema as the knowledge agent, so CometChat receives consistent SSE payloads.
+    - `/api/chat` and `/stream` share the same newline-delimited event schema as the knowledge agent, so CometChat receives consistent payloads (`text_delta`, `tool_*`, `text_done`, `done`).
     - Provide `PRODUCTHUNT_API_TOKEN` for live data (the agent falls back gracefully when it’s absent) and customize tool prompts in `agent_builder.py`.
   </Accordion>
 </AccordionGroup>
 
-> Deploy behind HTTPS and secure with auth headers or gateway middleware before pointing CometChat at the `/agent` endpoint.
+> Deploy behind HTTPS and secure with auth headers or gateway middleware before pointing CometChat at the `/stream` endpoint.

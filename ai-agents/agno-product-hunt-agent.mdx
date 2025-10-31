@@ -12,7 +12,7 @@ An Agno agent can double as a launch strategist—fetching Product Hunt rankings
 
 * A **FastAPI** service that wraps an Agno agent with Product Hunt tools.
 * Tooling for Algolia search, GraphQL leaderboards, natural timeframe parsing, and confetti payloads.
-* `/api/chat` and `/agent` endpoints that share CometChat-compatible payloads.
+* `/api/chat` and `/stream` endpoints that share CometChat-compatible newline-delimited JSON payloads.
 * Optional Product Hunt GraphQL integration (falls back gracefully when no token is provided).
 
 ***
@@ -40,8 +40,8 @@ An Agno agent can double as a launch strategist—fetching Product Hunt rankings
 
 - **Agent** — `create_product_hunt_agent` configures an `OpenAIChat` model, system prompt, and five tools (`getTopProducts`, `getTopProductsThisWeek`, `getTopProductsByTimeframe`, `searchProducts`, `triggerConfetti`).
 - **Data** — `services.py` wraps Product Hunt’s GraphQL API (with token), Algolia search, timezone-aware timeframe parsing, and safe fallbacks when the API token is missing.
-- **API** — FastAPI routes in `main.py` expose REST endpoints for ranked lists and search, plus `/api/chat` and `/agent` for conversations and SSE streaming.
-- **Parity** — The SSE payload mirrors CometChat’s Vercel examples, letting you reuse the same UI parsing logic.
+- **API** — FastAPI routes in `main.py` expose REST endpoints for ranked lists and search, plus `/api/chat` and `/stream` for conversations and newline-delimited event streaming.
+- **Parity** — The streaming payload mirrors CometChat’s Bring Your Own Agent format (`text_delta`, `tool_*`, `text_done`, `done`, `error`), so existing UI logic can be reused.
 
 ***
 
@@ -55,7 +55,7 @@ An Agno agent can double as a launch strategist—fetching Product Hunt rankings
     Create <code>.env</code> with <code>OPENAI_API_KEY</code>. Add <code>PRODUCTHUNT_API_TOKEN</code> for GraphQL access. Optional knobs: <code>PRODUCTHUNT_DEFAULT_TIMEZONE</code>, <code>OPENAI_BASE_URL</code>, <code>PRODUCT_OPENAI_MODEL</code>.
   </Step>
   <Step title="Run the server">
-    Start FastAPI: <code>uvicorn product_hunt_agent.main:app --host 0.0.0.0 --port 8001 --reload</code>. Health check: <code>GET /healthz</code>.
+    Start FastAPI: <code>uvicorn product_hunt_agent.main:app --host 0.0.0.0 --port 8001 --reload</code>. Health check: <code>GET /healthz</code>; streaming lives at <code>POST /stream</code>.
   </Step>
 </Steps>
 
@@ -126,25 +126,29 @@ curl -X POST http://localhost:8001/api/chat \
       }'
 ```
 
-Stream responses (SSE):
+Stream responses (newline-delimited JSON):
 
 ```bash
-curl -N http://localhost:8001/agent \
+curl -N http://localhost:8001/stream \
   -H "Content-Type: application/json" \
   -d '{
-        "threadId": "launch-room",
+        "thread_id": "launch-room",
+        "run_id": "run-457",
         "messages": [
           { "role": "user", "content": "Show me the top launches last week." }
         ]
       }'
 ```
 
+Each line is a JSON object with `type` (e.g., `text_delta`, `tool_call_start`, `tool_result`, `text_done`, `done`) plus the echoed `thread_id` and `run_id`.
+
 ***
 
 ## Step 5 - Connect to CometChat
 
 - Deploy the service behind HTTPS and protect it with auth headers (use the agent’s **Headers** field when registering in CometChat).
-- Point the Agno agent variant at your `/agent` endpoint; reuse the same **Agent ID** from UI Kit Builder.
+- Point the Agno agent variant at your `/stream` endpoint; reuse the same **Agent ID** from UI Kit Builder.
 - When the agent triggers `triggerConfetti`, listen for the tool event in your frontend to launch celebratory animations.
+- Echo `thread_id` and `run_id` in every streamed line so CometChat can correlate partial tool events and message chunks.
 
 You now have an Agno Product Hunt agent ready to ship inside CometChat-powered experiences.

@@ -13,7 +13,7 @@ Imagine a FastAPI service that ingests your documentation, stores it in a vector
 * An **Agno** agent that joins conversations as a documentation expert.
 * An ingestion pipeline that writes markdown artifacts into `knowledge_agent/data/knowledge/<namespace>`.
 * Retrieval and answering logic that always cites the sources it used.
-* An `/agent` SSE endpoint that mirrors the Vercel examples so CometChat can subscribe without changes.
+* A `/stream` endpoint that outputs newline-delimited JSON events so CometChat can subscribe without changes.
 
 ***
 
@@ -44,7 +44,7 @@ This example recreates the Vercel knowledge base workflow using Agno:
 - **Store** — `KnowledgeManager` keeps one `ChromaDb` collection per namespace, with metadata persisted under `knowledge_agent/data/knowledge/<namespace>`.
 - **Retrieve** — Searches hit the vector DB via Agno's `Knowledge` class, returning ranked snippets and the metadata used for citations.
 - **Answer** — `create_agent` enables `search_knowledge` and `add_knowledge_to_context`, forcing every response to cite sources via the system prompt.
-- **Stream** — `/agent` streams `RunOutputEvent` payloads over SSE with the same JSON schema used by CometChat’s adapters.
+- **Stream** — `/stream` emits newline-delimited JSON events (`text_delta`, `tool_*`, `text_done`, `done`, `error`) that match CometChat’s Bring Your Own Agent expectations. Every event echoes the caller’s `thread_id` and `run_id`.
 
 ***
 
@@ -58,7 +58,7 @@ This example recreates the Vercel knowledge base workflow using Agno:
     Create <code>.env</code> (or export env vars) with at least <code>OPENAI_API_KEY</code>. Optional overrides: <code>OPENAI_BASE_URL</code>, <code>KNOWLEDGE_OPENAI_MODEL</code>, <code>KNOWLEDGE_STORAGE_PATH</code>, <code>KNOWLEDGE_CHROMA_PATH</code>.
   </Step>
   <Step title="Start the server">
-    Launch FastAPI with <code>uvicorn knowledge_agent.main:app --host 0.0.0.0 --port 8000 --reload</code>. The app exposes health, ingestion, search, generate, and streaming endpoints.
+    Launch FastAPI with <code>uvicorn knowledge_agent.main:app --host 0.0.0.0 --port 8000 --reload</code>. The app exposes health, ingestion, search, generate, and `/stream` endpoints (newline-delimited JSON).
   </Step>
 </Steps>
 
@@ -130,22 +130,23 @@ curl -X POST http://localhost:8000/api/tools/ingest \
 ## Step 4 - Chat & Stream
 
 - `POST /api/agents/knowledge/generate` handles non-streaming responses.
-- `POST /agent` streams `RunOutputEvent` JSON blocks that include tool calls, intermediate reasoning, and the final message.
+- `POST /stream` streams newline-delimited JSON events that include tool calls, intermediate reasoning, text deltas, and completion markers.
 
-Streaming example (SSE):
+Streaming example (newline-delimited JSON):
 
 ```bash
-curl -N http://localhost:8000/agent \
+curl -N http://localhost:8000/stream \
   -H "Content-Type: application/json" \
   -d '{
-        "threadId": "thread_1",
+        "thread_id": "thread_1",
+        "run_id": "run_001",
         "messages": [
           { "role": "user", "content": "Summarize the agent lifecycle." }
         ]
       }'
 ```
 
-The response structure matches the Vercel adapter, so CometChat can reuse the same parsing logic.
+Each line is a JSON object with a `type` field such as `text_delta`, `tool_call_start`, `tool_result`, `text_done`, or `done`. `thread_id` and `run_id` are echoed back so CometChat can correlate partial events.
 
 ***
 
@@ -153,6 +154,7 @@ The response structure matches the Vercel adapter, so CometChat can reuse the sa
 
 - Deploy the FastAPI service behind HTTPS (e.g., Fly.io, Render, Railway, or your own Kubernetes cluster).
 - Add auth headers or gateway middleware if you need to validate incoming requests from CometChat.
-- In the CometChat dashboard, point the Agno agent’s **Deployment URL** at the `/agent` endpoint; use **Headers** for bearer tokens or basic auth if required.
+- In the CometChat dashboard, point the Agno agent’s **Deployment URL** at the `/stream` endpoint; use **Headers** for bearer tokens or basic auth if required.
+- Provide `namespace` (or `toolParams.namespace` from CometChat) when you need to target non-default knowledge stores; the service normalizes values before lookup.
 
-With that, you have a fully grounded Agno agent that streams into CometChat’s UI.
+With that, you have a fully grounded Agno agent that streams CometChat-compatible events into your UI.
