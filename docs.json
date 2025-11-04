@@ -276,7 +276,7 @@
         "pages": [
           "ai-agents"
         ]
-      },
+      }, 
       {
         "tab": "Agent Builder",
         "dropdowns": [
@@ -340,10 +340,18 @@
                 ]
               }
             ]
-          },
-          {
-            "dropdown": "CometChat AG-UI",
+          }
+        ]
+      },
+      {
+          "tab": "Bring Your Own Agent",
             "pages": [
+              {
+                "group": "Integration",
+                "pages": [
+                  "/ai-agents/cometchat-ag-ui-integration"
+                ]
+              },
               "/ai-agents/cometchat-ag-ui-overview",
               {
                 "group": "Guides",
@@ -357,17 +365,9 @@
                   "/ai-agents/cometchat-ag-ui-express",
                   "/ai-agents/cometchat-ag-ui-nestjs"
                 ]
-              },
-              {
-                "group": "Integration",
-                "pages": [
-                  "/ai-agents/cometchat-ag-ui-integration"
-                ]
               }
             ]
-          }
-        ]
-      },
+          },
       {
         "tab": "UI Kit Builder",
         "tab-id" : "ai-agent-chat-builder",
