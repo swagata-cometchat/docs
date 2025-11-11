@@ -276,15 +276,31 @@
         "pages": [
           "ai-agents"
         ]
-      }, 
+      },
       {
         "tab": "Agent Builder",
+        "pages": [
+          "/ai-agents/agent-builder/overview",
+          {
+            "group": "Advanced",
+            "pages": [
+              "/ai-agents/agent-builder/instructions",
+              "/ai-agents/agent-builder/tools/overview",
+              "/ai-agents/agent-builder/mcp/overview"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Bring Your Own Agent",
         "dropdowns": [
           {
             "dropdown": "Mastra",
             "icon": "/images/icons/mastra.svg",
             "pages": [
               "/ai-agents/mastra",
+              "/ai-agents/mastra-actions",
+              "/ai-agents/mastra-tools",
               {
                 "group": "Guides",
                 "pages": [
@@ -308,6 +324,8 @@
             "icon": "/images/icons/agno.svg",
             "pages": [
               "/ai-agents/agno",
+              "/ai-agents/agno-actions",
+              "/ai-agents/agno-tools",
               {
                 "group": "Guides",
                 "pages": [
@@ -326,7 +344,9 @@
             "dropdown": "Vercel AI",
             "icon": "/images/icons/vercel.png",
             "pages": [
-              "/ai-agents/vercel", 
+              "/ai-agents/vercel",
+              "/ai-agents/vercel-actions",
+              "/ai-agents/vercel-tools",
               {
                 "group": "Guides",
                 "pages": [
@@ -346,6 +366,8 @@
             "icon": "/images/icons/ag2.svg",
             "pages": [
               "/ai-agents/ag2",
+              "/ai-agents/ag2-actions",
+              "/ai-agents/ag2-tools",
               {
                 "group": "Guides",
                 "pages": [
@@ -359,36 +381,33 @@
                 ]
               }
             ]
+          },
+          {
+            "dropdown": "AG-UI",
+            "icon": "/images/icons/agui.svg",
+            "pages": [
+              "/ai-agents/ag-ui",
+              "/ai-agents/ag-ui-actions",
+              "/ai-agents/ag-ui-tools",
+              {
+            "group": "Guides",
+            "pages": [
+              "/ai-agents/cometchat-ag-ui-byoa"
+            ]
+          },
+          {
+            "group": "Implementation",
+            "pages": [
+              "/ai-agents/cometchat-ag-ui-express",
+              "/ai-agents/cometchat-ag-ui-nestjs"
+            ]
+          }
+            ]
           }
         ]
       },
       {
-          "tab": "Bring Your Own Agent",
-            "pages": [
-              {
-                "group": "Integration",
-                "pages": [
-                  "/ai-agents/cometchat-ag-ui-integration"
-                ]
-              },
-              "/ai-agents/cometchat-ag-ui-overview",
-              {
-                "group": "Guides",
-                "pages": [
-                  "/ai-agents/cometchat-ag-ui-byoa"
-                ]
-              },
-              {
-                "group": "Implementation",
-                "pages": [
-                  "/ai-agents/cometchat-ag-ui-express",
-                  "/ai-agents/cometchat-ag-ui-nestjs"
-                ]
-              }
-            ]
-          },
-      {
-        "tab": "UI Kit Builder",
+        "tab": "Widget Builder",
         "tab-id" : "ai-agent-chat-builder",
         "pages": [
           "/ai-agents/chat-widget"
@@ -5545,6 +5564,14 @@
     {
       "source": "/widget/ai-agents",
       "destination": "/ai-agents/chat-widget"
+    },
+    {
+      "source": "/ai-agents/actions",
+      "destination": "/ai-agents/mastra-actions"
+    },
+    {
+      "source": "/ai-agents/tools",
+      "destination": "/ai-agents/mastra-tools"
     }
   ],
   "integrations": {
