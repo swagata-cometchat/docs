@@ -299,6 +299,8 @@
             "icon": "/images/icons/mastra.svg",
             "pages": [
               "/ai-agents/mastra",
+              "/ai-agents/mastra-actions",
+              "/ai-agents/mastra-tools",
               {
                 "group": "Guides",
                 "pages": [
@@ -322,6 +324,8 @@
             "icon": "/images/icons/agno.svg",
             "pages": [
               "/ai-agents/agno",
+              "/ai-agents/agno-actions",
+              "/ai-agents/agno-tools",
               {
                 "group": "Guides",
                 "pages": [
@@ -340,7 +344,9 @@
             "dropdown": "Vercel AI",
             "icon": "/images/icons/vercel.png",
             "pages": [
-              "/ai-agents/vercel", 
+              "/ai-agents/vercel",
+              "/ai-agents/vercel-actions",
+              "/ai-agents/vercel-tools",
               {
                 "group": "Guides",
                 "pages": [
@@ -360,6 +366,8 @@
             "icon": "/images/icons/ag2.svg",
             "pages": [
               "/ai-agents/ag2",
+              "/ai-agents/ag2-actions",
+              "/ai-agents/ag2-tools",
               {
                 "group": "Guides",
                 "pages": [
@@ -379,6 +387,8 @@
             "icon": "/images/icons/agui.svg",
             "pages": [
               "/ai-agents/ag-ui",
+              "/ai-agents/ag-ui-actions",
+              "/ai-agents/ag-ui-tools",
               {
             "group": "Guides",
             "pages": [
@@ -5554,6 +5564,14 @@
     {
       "source": "/widget/ai-agents",
       "destination": "/ai-agents/chat-widget"
+    },
+    {
+      "source": "/ai-agents/actions",
+      "destination": "/ai-agents/mastra-actions"
+    },
+    {
+      "source": "/ai-agents/tools",
+      "destination": "/ai-agents/mastra-tools"
     }
   ],
   "integrations": {
