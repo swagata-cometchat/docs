@@ -1,52 +1,38 @@
 ---
-title: "MCP Connections"
+title: "MCP"
 sidebarTitle: "MCP"
-description: "Add Model Context Protocol data sources to the Agent Builder."
+description: "Connect Model Context Protocol endpoints to enrich your agent with external knowledge and tools."
 ---
 
 import { Callout } from 'mintlify';
 
-## Overview
+## What is MCP?
 
-Model Context Protocol (MCP) lets the Agent Builder ingest real-time context from any compliant server. Use it to surface knowledge-base articles, product catalogue entries, tickets, or custom data without writing additional tooling. Each connection is scoped per environment so staging agents can use sandbox data while production agents read live sources.
+Model Context Protocol (MCP) expands your agent’s context, tools, and integrations. It provides a standard way to connect agents with external services and data sources—ideal for knowledge bases, internal systems, or advanced workflows that go beyond simple API calls.
 
-## Prepare your MCP server
+## Add an MCP endpoint
 
-- Ensure the server supports Server-Sent Events (SSE) or HTTP streaming, as required by the MCP spec.
-- Expose resources with descriptive metadata so the agent understands what each document contains.
-- Configure authentication (API key, Basic Auth, JWT) before you connect it to CometChat.
+1. In Agent Builder, open the **MCP** section of your agent configuration.
+2. Click **+ Add Endpoint**.
+3. Supply the endpoint details:
+   - **Endpoint Name*** – descriptive label for teammates.
+   - **Endpoint URL*** – full URL to your MCP server (for example `https://example.com/mcp-server`).
+   - **Description** – explain what the endpoint provides so you can distinguish multiple connections later.
+   - **Icon URL** – optional image to represent the endpoint (for example `https://example.com/icon.png`).
+4. Save to register the endpoint with your agent.
 
-## Connect MCP in the dashboard
+## Using MCP-powered tools and context
 
-1. Go to **AI Agents → MCP**.
-2. Select **Connect MCP**.
-3. Provide a connection name (what teammates will see in the builder) and the MCP server URL.
-4. Add any headers or query parameters needed for authentication. Secrets are stored encrypted.
-5. Choose which environments (Staging, Production) can access the connection.
+- Once configured, MCP endpoints and the tools they expose appear in the `@` picker alongside native tools.
+- Embed MCP resources directly in instructions to show the agent when to use them.
+- During conversations, the agent can automatically discover MCP-provided tools and contextual data.
 
-## Attach MCP to an agent
-
-1. Open an agent in the builder.
-2. In the **Context** tab, enable the MCP connection you just created.
-3. Optionally limit the connection to specific actions or workflows using context rules.
-4. Save your changes—the agent now has access to the MCP resource during runs.
-
-## Test the connection
-
-1. Use the **Test** console inside the builder and ask a question that should use MCP data.
-2. Open the **Context Inspector** to view the chunks the MCP server returned.
-3. Confirm identifiers you need later (order IDs, document IDs) come back in the payload so tools can consume them.
-
-<Callout type="info" title="Tip">
-Combine MCP context with custom tools for end-to-end workflows. The agent can read product specs via MCP and then pass the product ID to a fulfilment tool.
+<Callout type="info" title="Chain MCP with tools">
+Reference identifiers returned from MCP (like `order_id` or `ticket_number`) inside your custom API tools so the agent can complete the workflow end-to-end.
 </Callout>
 
-## Troubleshooting
+## Best practices
 
-| Symptom | Fix |
-| --- | --- |
-| No context appears in the inspector | Verify the MCP server URL and ensure it returns results for the query you asked. |
-| 401 errors when connecting | Update the authentication header or rotate the API key in the dashboard. |
-| Responses are too long | Adjust the server-side filters or limit the number of documents returned per request. |
-| Wrong environment data | Double-check that the connection is enabled for the environment you are testing (Staging vs Production). |
-
+- Choose MCP servers with reliable uptime and predictable response times.
+- Document each endpoint’s capabilities so teammates know when to enable it.
+- Monitor responses in the Test console and update endpoints or filters as data changes.

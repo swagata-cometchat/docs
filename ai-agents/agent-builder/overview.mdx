@@ -1,215 +1,88 @@
 ---
 title: "Agent Builder"
 sidebarTitle: "Overview"
-description: "Create, test, and launch AI agents with the CometChat Agent Builder."
+description: "Create, configure, and launch AI agents directly inside CometChat."
 ---
 
-import { Columns, Steps, Step, CardGroup, Card, Callout } from 'mintlify';
+import { Columns, Steps, Step, Callout } from 'mintlify';
 
 {/* Hero */}
 <div className="relative w-full flex items-center justify-center" style={{ height: '20rem', overflow: 'hidden' }}>
   <div className="absolute inset-0 bg-primary dark:bg-primary-light" style={{ opacity: 0.05 }}/>
 
-  <div style={{maxWidth: '70rem', marginLeft: 'auto', marginRight: 'auto', paddingLeft: '1.25rem', paddingRight: '1.25rem' }}> 
+  <div style={{ maxWidth: '70rem', marginLeft: 'auto', marginRight: 'auto', paddingLeft: '1.25rem', paddingRight: '1.25rem' }}>
     <Columns cols={2} className="items-center gap-x-12">
       <div className="flex flex-col justify-center h-full text-center md:text-left">
         <h1 className="text-gray-700 dark:text-white" style={{ fontSize: '2.2rem', fontWeight: '600' }}>Agent Builder</h1>
         <p className="text-lg text-gray-600">
-          Ship an on-brand assistant without wiring screens by hand. Draft behaviour, connect data, preview instantly, and deploy to production UI in minutes.
-        </p> 
+          Stand up production-ready assistants without external orchestration. Pick a model, wire native tools and MCPs, and deploy to CometChat surfaces in minutes.
+        </p>
       </div>
       <div className="flex flex-col items-center justify-center h-full">
-        <img 
-          src="/images/ai-agent-chat-builder-preview.png" 
-          alt="Agent Builder preview" 
+        <img
+          src="/images/ai-agent-chat-builder-preview.png"
+          alt="Agent Builder preview"
           className="w-full max-w-[340px]"
         />
       </div>
     </Columns>
   </div>
-</div> 
+</div>
 
-<div style={{marginTop: '2rem', marginBottom: '2rem', maxWidth: '70rem', marginLeft: 'auto', marginRight: 'auto', paddingLeft: '1.25rem', paddingRight: '1.25rem' }}>
+<div style={{ marginTop: '2rem', marginBottom: '2rem', maxWidth: '70rem', marginLeft: 'auto', marginRight: 'auto', paddingLeft: '1.25rem', paddingRight: '1.25rem' }}>
 
 ## Overview
 
-CometChat Agent Builder gives product teams a guided flow to create AI copilots that feel native to their experience. Define your agent’s purpose, wire actions and tools, and publish to production UI (widgets or SDKs) without worrying about transport protocols or chat plumbing.
+Agent Builder provides the capability to create, configure, and customize AI agents directly within CometChat. It supports selecting models, integrating ready-to-use tools, APIs, and MCPs, and deploying agents without relying on any external management or orchestration platforms.
 
-### What you get out of the box
-- Built-in guardrails with conversation history, rate limits, and safe-tool invocation.
-- UI previews for web widget and UI Kit surfaces while you iterate.
-- Environment-aware tokens so stage and production apps can use the same agent safely.
-- Analytics and debugging tools directly within the dashboard.
+### Why teams use Agent Builder
+- Choose from hosted or custom models without changing your UI.
+- Centralize tools, authentication, and instructions in one dashboard.
+- Promote agents between staging and production with environment-specific secrets.
 
-## Integration Steps
+## Getting Started
+
+### How to create an agent – step-by-step guide
 
 <Steps className="mt-6">
-  <Step title="Open the CometChat dashboard" description="Start from your CometChat app.">
+  <Step title="Create or open an app" description="Set the foundation.">
     <p className="text-gray-600 dark:text-gray-300">
-      Sign in at <a href="https://app.cometchat.com" target="_blank" rel="noreferrer">app.cometchat.com ↗</a> and pick the app where the agent should live. Permissions mirror your CometChat roles, so invite teammates before you start if they need to collaborate.
-    </p>
-    <img 
-      src="/images/add-agents.png" 
-      alt="App dashboard with Add Agent action" 
-      className="rounded-lg border border-gray-200 dark:border-gray-700 mt-4"
-    />
-  </Step>
-
-  <Step title="Navigate to AI Agents" description="Find the Agent Builder workspace.">
-    <p className="text-gray-600 dark:text-gray-300">
-      From the left navigation, open <strong>AI Agents → Agent Builder</strong>. The list view shows every agent, its environment, status, and connected surfaces. Use the filter to jump between test and live deployments.
+      Sign in at <a href="https://app.cometchat.com" target="_blank" rel="noreferrer">app.cometchat.com ↗</a>. Create a new app or open an existing one where the agent will live.
     </p>
   </Step>
 
-  <Step title="Create an agent" description="Name, persona, and contact details.">
+  <Step title="Navigate to Agent Builder" description="Access the workspace.">
     <p className="text-gray-600 dark:text-gray-300">
-      Click <strong>Create Agent</strong>. Give it a clear name, short description, and optional avatar. Choose your model provider or select <strong>Custom HTTP</strong> if you plan to connect your own inference endpoint. Draft an initial greeting so users understand how the agent can help.
-    </p>
-    <Callout className="mt-4" type="info" title="Tip">
-      Start with sandbox credentials. You can promote the agent and swap secrets later without repeating the setup.
-    </Callout>
-  </Step>
-
-  <Step title="Follow the setup instructions" description="Credentials and runtime behaviour.">
-    <p className="text-gray-600 dark:text-gray-300">
-      The builder auto-generates instructions based on the provider you select. Supply API keys, system prompt, temperature, and fallback behaviour. Preview responses as you tweak settings to guarantee tone and format.
+      From the dashboard, go to <strong>AI Agent → Agent Builder</strong> and select <strong>Add AI Agent</strong>.
     </p>
   </Step>
 
-  <Step title="Connect tools & MCPs" description="Augment the agent with actions.">
-    <p className="text-gray-600 dark:text-gray-300">
-      Attach <strong>Tools</strong> (custom APIs, Google Workspace, or first-party extensions) and <strong>MCP</strong> connections so the agent can fetch data or trigger workflows. For each capability you add, describe the parameters and validation rules&mdash;this becomes part of the agent’s run-time schema.
-    </p>
+  <Step title="Fill in agent details" description="Define the basics.">
+    <p className="text-gray-600 dark:text-gray-300">Provide the required metadata before you can create the agent:</p>
+    <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 mt-3">
+      <li><strong>Agent Name*</strong> – enter a clear, memorable name.</li>
+      <li><strong>Icon URL*</strong> – supply an image URL for the agent avatar.</li>
+      <li><strong>Description</strong> – describe the agent’s purpose so teammates can recognise it later.</li>
+    </ul>
   </Step>
 
-  <Step title="Test the experience" description="Verify the run end-to-end.">
+  <Step title="Create the agent" description="Launch configuration.">
     <p className="text-gray-600 dark:text-gray-300">
-      Use the right-hand test console to chat with your agent. Toggle between user personas, simulate tool failures, and watch structured events stream in inspector view. Fix guardrail or schema issues here before exposing the agent to customers.
-    </p>
-  </Step>
-
-  <Step title="Add to your frontend" description="Ship the experience without rebuilding UI.">
-    <p className="text-gray-600 dark:text-gray-300">
-      When the agent feels ready, pick a delivery surface:
-    </p>
-    <CardGroup cols={3} className="mt-4">
-      <Card title="Chat Widget" icon={<img src="/docs/images/icons/ai-agents.svg" alt="Widget" />} description="Drop-in embed" href="/ai-agents/chat-widget" horizontal />
-      <Card title="UI Kits" icon={<img src="/docs/images/icons/react.svg" alt="UI Kits" />} description="React & React Native" href="https://www.cometchat.com/docs/ui-kit/react/ai-assistant-chat" horizontal />
-      <Card title="SDKs" icon={<img src="/docs/images/icons/js.svg" alt="SDKs" />} description="Headless JavaScript, Android, iOS & Flutter" href="/sdk/javascript/ai-agents" horizontal />
-    </CardGroup>
-    <p className="text-gray-600 dark:text-gray-300 mt-4">
-      Copy the generated keys into your app. The Agent Builder keeps production and staging credentials separate so you can test safely.
+      Click <strong>Add</strong> once all required fields are complete. Agent Builder redirects you to the configuration page where you can connect models, instructions, tools, and MCP endpoints.
     </p>
   </Step>
 </Steps>
 
-<Callout className="mt-10" type="success" title="Ready to go live">
-  Promote the agent from <strong>Draft</strong> to <strong>Live</strong> once every surface passes QA. The dashboard keeps a full revision history so you can roll back quickly.
+<Callout className="mt-8" type="info" title="Next up">
+  After creation, configure instructions, tools, and MCPs from the left-hand tabs. Detailed guidance lives in the <a href="/docs/ai-agents/agent-builder/integration">Instructions</a>, <a href="/docs/ai-agents/agent-builder/tools/overview">Tools</a>, and <a href="/docs/ai-agents/agent-builder/mcp/overview">MCP</a> sections.
 </Callout>
 
-## Advanced
+## Advanced Configuration
 
-### Connect tools and MCPs together
+### Instructions
+Instructions define how your agent behaves, what it knows, and how it should respond. Use them to set tone, outline guardrails, and describe hand-off rules. The instructions editor supports `@` mentions so you can reference specific tools and MCP resources inline—this gives the agent unambiguous guidance about when to invoke each capability.
 
-When tools and MCP connections are both enabled, the agent can reason over structured data and trigger workflows in the same run. Use the <strong>Tool Invocation</strong> inspector inside the test console to confirm your schema keys match the payload your backend expects. If you are chaining MCP context with a tool call, pass identifiers (document IDs, meeting IDs, etc.) as part of the tool parameters so your service knows what the agent referenced.
-
-### Tools
-
-#### Overview
-
-Tools expose deterministic skills to your agent—anything from “create a Zendesk ticket” to “fetch real-time order status.” Each tool defines its own JSON schema so the agent knows which fields it must collect before execution.
-
-#### Custom API tools
-
-1. Go to <strong>AI Agents → Tools → Create Tool</strong>.
-2. Enter a display name that humans recognise (for example, <code>Zendesk Ticket Creator</code>).
-3. Provide execution text that tells the agent when to call it: <code>Use this when a customer asks for a new support ticket.</code>
-4. Define the tool name using lowercase-with-underscores. The name becomes the key in your action schema.
-5. Describe the expected payload under <strong>Parameters</strong>. A typical schema looks like:
-
-```json
-{
-  "type": "object",
-  "properties": {
-    "ticket_subject": {
-      "type": "string",
-      "description": "Short summary that will become the Zendesk subject"
-    },
-    "priority": {
-      "type": "string",
-      "enum": ["low", "normal", "high", "urgent"]
-    }
-  },
-  "required": ["ticket_subject"]
-}
-```
-
-6. Add authentication headers or secrets if your webhook requires them. Headers are encrypted at rest.
-7. Connect the tool to an <strong>Action</strong> so the agent sees it. In your action schema, include a property whose key matches the tool name exactly.
-
-<Callout className="mt-6" type="warning" title="Validate payloads">
-  Run a few chats in the test console. Confirm the tool receives well-formed JSON before giving the agent production access to downstream APIs.
-</Callout>
-
-#### Google Suite tools
-
-Google Suite tools bundle OAuth and service account flows so your agent can look up calendar events, draft emails, or read documents securely.
-
-1. Create a Google Cloud project (or reuse an existing one) and enable the required APIs—Calendar, Gmail, Drive, etc.
-2. Generate a service account with domain-wide delegation, then download the JSON key. Store it in a secret manager; you only need the file to copy values into the Agent Builder.
-3. In <strong>AI Agents → Tools → Create Tool</strong>, choose <strong>Google Suite</strong> as the tool type.
-4. Paste the service account email, client ID, and private key. Add the scopes your workflow needs, such as <code>https://www.googleapis.com/auth/calendar</code>.
-5. Set the <strong>User to Impersonate</strong> (usually a shared inbox or administrator) so Google accepts requests.
-6. Define the parameter schema that passes context to the tool. The builder populates common fields automatically, but you can extend it for custom use cases.
-7. Save and test. The test console displays live Google API responses so you can confirm authorisation before launch.
-
-### MCP
-
-#### Overview
-
-Model Context Protocol (MCP) connections let your agent pull just-in-time context—knowledge bases, product catalogue search, or any data source exposed over MCP. Each connection shows up as a context provider inside the builder, and responses are cached per run to stay within provider budgets.
-
-#### Setup in Agent Builder
-
-1. Navigate to <strong>AI Agents → MCP</strong> and click <strong>Connect MCP</strong>.
-2. Supply the MCP server URL and label it so your teammates know what it surfaces (for example, <code>Support KB</code>).
-3. Add authentication if the server requires API keys or Basic Auth.
-4. Choose which agent(s) can access the connection. Stage and production apps can use separate secrets.
-5. In the Agent Builder flow, open the <strong>Context</strong> panel and enable the MCP connection for the agent you are editing.
-6. Use the test console’s <strong>Context Inspector</strong> to confirm the MCP server returns relevant documents.
-
-<Callout className="mt-6" type="info" title="Chain MCP with tools">
-  When an MCP snippet holds the identifier you need (for example, <code>order_id</code>), capture it in the tool parameters so the downstream action operates on the exact record the agent referenced.
-</Callout>
+### Tools and MCPs
+Attach tools for deterministic actions (custom APIs, Google Suite, or other integrations) and link MCP endpoints for richer context. You can embed any of these capabilities directly inside instructions using the `@` menu, ensuring the agent knows exactly when and how to rely on them.
 
 </div>
-
-{/* Footer */}
-<div className="flex flex-col w-full mt-8" style={{ background: 'black' }}>
-<div className="bg-black text-gray-400 py-6 px-8 flex flex-col md:flex-row justify-between items-center rounded-t-xl">
-  <div className="mb-4 md:mb-0">
-    2025 © CometChat
-  </div>
-  <div className="flex space-x-6 items-center">
-    <a href="https://www.linkedin.com/company/cometchat" target="_blank" className="flex items-center space-x-1 hover:text-white transition-colors">
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.762 2.239 5 5 5h14c2.762 0 5-2.238 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 11.268h-3v-5.604c0-1.337-.026-3.059-1.865-3.059-1.865 0-2.15 1.455-2.15 2.96v5.703h-3v-10h2.881v1.367h.041c.402-.76 1.384-1.561 2.847-1.561 3.044 0 3.606 2.003 3.606 4.609v5.585z"/>
-      </svg>
-      <span>LinkedIn</span>
-    </a>
-    <a href="https://x.com/cometchat" target="_blank" className="flex items-center space-x-1 hover:text-white transition-colors">
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M22.162 5.656c-.793.352-1.645.589-2.54.696a4.468 4.468 0 0 0 1.958-2.46 9.043 9.043 0 0 1-2.845 1.088 4.496 4.496 0 0 0-7.664 4.1 12.758 12.758 0 0 1-9.272-4.7 4.493 4.493 0 0 0 1.393 6.002 4.46 4.46 0 0 1-2.035-.562v.057a4.497 4.497 0 0 0 3.606 4.41 4.503 4.503 0 0 1-2.029.077 4.502 4.502 0 0 0 4.198 3.12 9.01 9.01 0 0 1-5.575 1.922c-.362 0-.721-.021-1.077-.063a12.73 12.73 0 0 0 6.901 2.021c8.282 0 12.808-6.86 12.808-12.808 0-.195-.005-.388-.014-.58a9.152 9.152 0 0 0 2.25-2.336z"/>
-      </svg>
-      <span>Twitter</span>
-    </a>
-    <a href="https://github.com/cometchat" target="_blank" className="flex items-center space-x-1 hover:text-white transition-colors">
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577v-2.17c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.084-.729.084-.729 1.205.084 1.84 1.236 1.84 1.236 1.07 1.835 2.807 1.305 3.495.997.108-.775.418-1.305.76-1.605-2.665-.3-5.467-1.332-5.467-5.932 0-1.31.467-2.382 1.235-3.222-.123-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.3 1.23a11.5 11.5 0 0 1 3.003-.404 11.5 11.5 0 0 1 3.003.404c2.292-1.552 3.298-1.23 3.298-1.23.653 1.653.241 2.873.118 3.176.77.84 1.233 1.912 1.233 3.222 0 4.61-2.807 5.628-5.48 5.922.429.369.813 1.096.813 2.211v3.281c0 .319.218.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-      </svg>
-      <span>GitHub</span>
-    </a>
-  </div>
-</div>
-</div>
-
