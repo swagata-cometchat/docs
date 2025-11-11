@@ -6,28 +6,9 @@ description: "Create, configure, and launch AI agents directly inside CometChat.
 
 import { Columns, Steps, Step, Callout } from 'mintlify';
 
-{/* Hero */}
-<div className="relative w-full flex items-center justify-center" style={{ height: '20rem', overflow: 'hidden' }}>
-  <div className="absolute inset-0 bg-primary dark:bg-primary-light" style={{ opacity: 0.05 }}/>
-
-  <div style={{ maxWidth: '70rem', marginLeft: 'auto', marginRight: 'auto', paddingLeft: '1.25rem', paddingRight: '1.25rem' }}>
-    <Columns cols={2} className="items-center gap-x-12">
-      <div className="flex flex-col justify-center h-full text-center md:text-left">
-        <h1 className="text-gray-700 dark:text-white" style={{ fontSize: '2.2rem', fontWeight: '600' }}>Agent Builder</h1>
-        <p className="text-lg text-gray-600">
-          Stand up production-ready assistants without external orchestration. Pick a model, wire native tools and MCPs, and deploy to CometChat surfaces in minutes.
-        </p>
-      </div>
-      <div className="flex flex-col items-center justify-center h-full">
-        <img
-          src="/images/ai-agent-chat-builder-preview.png"
-          alt="Agent Builder preview"
-          className="w-full max-w-[340px]"
-        />
-      </div>
-    </Columns>
-  </div>
-</div>
+<Frame>
+  <img src="/images/cometchat-agent-builder.png" alt="CometChat Agent Builder" />
+</Frame>
 
 <div style={{ marginTop: '2rem', marginBottom: '2rem', maxWidth: '70rem', marginLeft: 'auto', marginRight: 'auto', paddingLeft: '1.25rem', paddingRight: '1.25rem' }}>
 
@@ -59,18 +40,17 @@ Agent Builder provides the capability to create, configure, and customize AI age
       - **Icon URL** - supply an image URL for the agent avatar.
       - **Description** - describe the agent’s purpose so teammates can recognise it later.
     </ul>
+    Click <strong>Add</strong> once all required fields are complete. Agent Builder redirects you to the configuration page where you can connect models, instructions, tools, and MCP endpoints.
+
   </Step>
 
-  <Step title="Create the agent" description="Launch configuration.">
+  <Step title="Configure the agent" description="Set up capabilities.">
     <p className="text-gray-600 dark:text-gray-300">
-      Click <strong>Add</strong> once all required fields are complete. Agent Builder redirects you to the configuration page where you can connect models, instructions, tools, and MCP endpoints.
+      After creation, configure instructions, tools, and MCPs from the left-hand tabs. Detailed guidance lives in the <a href="/ai-agents/agent-builder/instructions">Instructions</a>, <a href="/ai-agents/agent-builder/tools/overview">Tools</a>, and <a href="/ai-agents/agent-builder/mcp/overview">MCP</a> sections.
     </p>
   </Step>
-</Steps>
 
-<Callout className="mt-8" type="info" title="Next up">
-  After creation, configure instructions, tools, and MCPs from the left-hand tabs. Detailed guidance lives in the <a href="/ai-agents/agent-builder/instructions">Instructions</a>, <a href="/ai-agents/agent-builder/tools/overview">Tools</a>, and <a href="/ai-agents/agent-builder/mcp/overview">MCP</a> sections.
-</Callout>
+</Steps>
 
 ## Advanced Configuration
 
