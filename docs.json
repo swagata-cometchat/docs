@@ -288,19 +288,6 @@
               "/ai-agents/agent-builder/tools/overview",
               "/ai-agents/agent-builder/mcp/overview"
             ]
-          },
-          {
-            "group": "Guides",
-            "pages": [
-              "/ai-agents/cometchat-ag-ui-byoa"
-            ]
-          },
-          {
-            "group": "Implementation",
-            "pages": [
-              "/ai-agents/cometchat-ag-ui-express",
-              "/ai-agents/cometchat-ag-ui-nestjs"
-            ]
           }
         ]
       },
@@ -391,13 +378,26 @@
             "dropdown": "AG-UI",
             "icon": "/images/icons/agui.svg",
             "pages": [
-              "/ai-agents/ag-ui"
+              "/ai-agents/ag-ui",
+              {
+            "group": "Guides",
+            "pages": [
+              "/ai-agents/cometchat-ag-ui-byoa"
+            ]
+          },
+          {
+            "group": "Implementation",
+            "pages": [
+              "/ai-agents/cometchat-ag-ui-express",
+              "/ai-agents/cometchat-ag-ui-nestjs"
+            ]
+          }
             ]
           }
         ]
       },
       {
-        "tab": "UI Kit Builder",
+        "tab": "Widget Builder",
         "tab-id" : "ai-agent-chat-builder",
         "pages": [
           "/ai-agents/chat-widget"
