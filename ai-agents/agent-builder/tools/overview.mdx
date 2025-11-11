@@ -1,0 +1,119 @@
+---
+title: "Tools"
+sidebarTitle: "Tools"
+description: "Explore the various tools you can use with your AI agent in CometChat."
+---
+
+import { Callout } from 'mintlify';
+
+## Overview
+
+Tools allow your AI agent to perform specific operations or integrate with external systems.  
+Once created, these tools can be invoked by **Actions** to execute tasks, fetch data, or interact with third-party APIs.
+
+You can use tools to:
+
+- Fetch data from external APIs.
+- Trigger workflows in other systems.
+- Perform backend logic before returning results to the chat.
+- Extend your AI agent’s capabilities beyond basic responses.
+
+---
+
+## Creating a tool
+
+1. **Navigate to AI Agents → Tools** in the CometChat dashboard.
+2. Click **Create Tool** and choose the type that fits your workflow (Custom API, Google Suite, or a built-in integration).
+3. Enter:
+   - **Display Name** – a human readable label, for example `Zendesk Ticket Creator`.
+   - **Execution Text** – guidance the agent uses to decide when to invoke the tool (e.g. `Use this when a user asks to open a support ticket`).
+   - **Name** – the programmatic identifier (lowercase_with_underscores). This must match the property name you expose in an Action schema.
+
+4. Define the **Parameters** JSON schema. Every property you mark as `required` becomes an explicit value the agent must collect before the tool runs.
+5. Add the target **Endpoint URL** and any HTTP headers, secrets, or request templates the tool needs.
+
+---
+
+## Custom API tools
+
+Custom API tools are ideal when you already expose an HTTP endpoint and want the agent to call it with structured payloads.
+
+### Setup checklist
+
+1. Choose **Custom API** as the tool type.
+2. Provide the endpoint URL (HTTPS recommended).
+3. Add authentication headers such as `Authorization: Bearer <token>` or HMAC signatures.
+4. Describe the payload with JSON Schema. A sample schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "ticket_subject": {
+      "type": "string",
+      "description": "Short summary that becomes the Zendesk subject"
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["low", "normal", "high", "urgent"]
+    },
+    "customer_email": {
+      "type": "string",
+      "format": "email"
+    }
+  },
+  "required": ["ticket_subject", "customer_email"]
+}
+```
+
+5. Attach the tool to an Action. The Action schema must contain a property whose key matches the tool name:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "zendesk_ticket_creator": {
+      "type": "object",
+      "description": "Payload forwarded to the ticketing webhook",
+      "properties": {}
+    }
+  }
+}
+```
+
+6. Test in the Agent Builder console and watch the **Tool Invocation** tab to validate outgoing payloads.
+
+---
+
+## Google Suite tools
+
+Google Suite tools provide native integrations for Gmail, Calendar, Drive, and Docs. They manage OAuth scopes and service-account impersonation for you.
+
+### Requirements
+
+- A Google Cloud project with the relevant APIs enabled.
+- A service account (with domain-wide delegation if required) and JSON key.
+- Scopes that match the actions you expect the agent to perform (for example `https://www.googleapis.com/auth/calendar`).
+
+### Configuration steps
+
+1. Create a tool and pick **Google Suite** as the type.
+2. Paste the service account email, client ID, and private key from the JSON file.
+3. Enter the scopes and the user to impersonate (often a shared inbox or admin).
+4. Choose the Google product (Gmail, Calendar, Drive, etc.) and the specific operation you want to allow.
+5. Adjust the parameter schema so the agent collects the minimum context (recipient, subject, meeting start time, etc.).
+6. Save and run a test conversation. The tool response appears in the console so you can confirm authorisation.
+
+<Callout type="info" title="Security tip">
+Store the JSON key in a secrets manager and rotate it frequently. You can update the key in the dashboard without redeploying the agent.
+</Callout>
+
+---
+
+## Testing & best practices
+
+- **Name consistency is crucial** – mismatch between the tool name and the Action schema key will prevent invocation.
+- **Keep execution text concise** – give the agent a clear rule for when to use the tool.
+- **Document input requirements** – add `description` hints in the schema so the agent knows how to populate each field.
+- **Simulate unhappy paths** – test what happens when external APIs fail or return errors. Update the system prompt so the agent recovers gracefully.
+- **Monitor usage** – the dashboard logs every tool call with payloads and latency so you can audit behaviour after launch.

@@ -1,0 +1,52 @@
+---
+title: "MCP Connections"
+sidebarTitle: "MCP"
+description: "Add Model Context Protocol data sources to the Agent Builder."
+---
+
+import { Callout } from 'mintlify';
+
+## Overview
+
+Model Context Protocol (MCP) lets the Agent Builder ingest real-time context from any compliant server. Use it to surface knowledge-base articles, product catalogue entries, tickets, or custom data without writing additional tooling. Each connection is scoped per environment so staging agents can use sandbox data while production agents read live sources.
+
+## Prepare your MCP server
+
+- Ensure the server supports Server-Sent Events (SSE) or HTTP streaming, as required by the MCP spec.
+- Expose resources with descriptive metadata so the agent understands what each document contains.
+- Configure authentication (API key, Basic Auth, JWT) before you connect it to CometChat.
+
+## Connect MCP in the dashboard
+
+1. Go to **AI Agents → MCP**.
+2. Select **Connect MCP**.
+3. Provide a connection name (what teammates will see in the builder) and the MCP server URL.
+4. Add any headers or query parameters needed for authentication. Secrets are stored encrypted.
+5. Choose which environments (Staging, Production) can access the connection.
+
+## Attach MCP to an agent
+
+1. Open an agent in the builder.
+2. In the **Context** tab, enable the MCP connection you just created.
+3. Optionally limit the connection to specific actions or workflows using context rules.
+4. Save your changes—the agent now has access to the MCP resource during runs.
+
+## Test the connection
+
+1. Use the **Test** console inside the builder and ask a question that should use MCP data.
+2. Open the **Context Inspector** to view the chunks the MCP server returned.
+3. Confirm identifiers you need later (order IDs, document IDs) come back in the payload so tools can consume them.
+
+<Callout type="info" title="Tip">
+Combine MCP context with custom tools for end-to-end workflows. The agent can read product specs via MCP and then pass the product ID to a fulfilment tool.
+</Callout>
+
+## Troubleshooting
+
+| Symptom | Fix |
+| --- | --- |
+| No context appears in the inspector | Verify the MCP server URL and ensure it returns results for the query you asked. |
+| 401 errors when connecting | Update the authentication header or rotate the API key in the dashboard. |
+| Responses are too long | Adjust the server-side filters or limit the number of documents returned per request. |
+| Wrong environment data | Double-check that the connection is enabled for the environment you are testing (Staging vs Production). |
+

@@ -1,0 +1,82 @@
+---
+title: "Connect Tools & MCP"
+sidebarTitle: "Instructions"
+description: "Wire tools, MCP context, and validation loops into your Agent Builder project."
+---
+
+import { Callout, Steps, Step } from 'mintlify';
+
+## Before you start
+
+- Complete the core creation flow in the Agent Builder so your agent has a provider, persona, and greeting.
+- Gather API credentials for every external system the agent will touch (support desk, internal APIs, Google Workspace, etc.).
+- Decide which environment (Staging or Production) you are wiring. Secrets are stored per environment so you can test safely.
+
+## Add tools to your agent
+
+<Steps className="mt-6">
+  <Step title="Create a tool definition" description="Expose the action you want the agent to trigger.">
+    <p className="text-gray-600 dark:text-gray-300">
+      From the dashboard, open <strong>AI Agents → Tools</strong> and click <strong>Create Tool</strong>. Supply a display name, execution hint, and a unique tool name (lowercase with underscores).
+    </p>
+  </Step>
+
+  <Step title="Describe the payload schema" description="Tell the agent which inputs it must collect.">
+    <p className="text-gray-600 dark:text-gray-300">
+      Use JSON Schema to describe the payload your backend expects. Each property becomes a field the agent will gather before it runs the tool. Make required fields explicit to avoid partial calls.
+    </p>
+  </Step>
+
+  <Step title="Secure the webhook" description="Protect downstream systems.">
+    <p className="text-gray-600 dark:text-gray-300">
+      Enter the endpoint URL and—if needed—custom headers or secrets (API keys, HMAC signatures). Secret values are stored encrypted and injected whenever the agent invokes the tool.
+    </p>
+  </Step>
+  
+  <Step title="Attach the tool to an action" description="Tie the tool to agent behaviour.">
+    <p className="text-gray-600 dark:text-gray-300">
+      In <strong>Agent Builder → Actions</strong>, add or update an action so its parameters include a key matching the tool name. This gives the agent permission to call the tool when user intent matches.
+    </p>
+  </Step>
+</Steps>
+
+### Validate tool execution
+
+1. Open the agent in the builder and switch to the **Test** console.
+2. Ask the agent to perform a task that should invoke the tool.
+3. Inspect the **Tool Invocation** panel to review the payload that was sent.
+4. Adjust the schema or instructions if values are missing, ill-formatted, or mislabelled.
+
+<Callout className="mt-6" type="warning" title="Timeouts">
+  Tools run on a 15s timeout by default. If your downstream service needs longer, return interim status messages from your webhook so the agent can keep the user informed.
+</Callout>
+
+## Connect an MCP context source
+
+MCP (Model Context Protocol) endpoints stream ambient knowledge into your agent at run-time. Use them for knowledge bases, catalogue search, or any source where you do not want to build a dedicated tool.
+
+1. Navigate to **AI Agents → MCP** and click **Connect MCP**.
+2. Provide a connection name, MCP server URL, and optional authentication headers.
+3. Choose the environments and agents that should access the connection.
+4. Open your agent in the builder and enable the new MCP connection within the **Context** panel.
+5. Run a quick test and confirm the **Context Inspector** shows relevant chunks.
+
+<Callout className="mt-6" type="info" title="Combine with tools">
+  Copy identifiers from MCP snippets into tool payloads so downstream services know which record the agent referenced.
+</Callout>
+
+## Test everything together
+
+1. Open the **Test** console and draft a scenario that requires both MCP context and a tool invocation.
+2. Watch the streaming transcript, MCP context, and tool payloads in parallel. All three inspectors update in real time.
+3. Retry with malformed inputs to check error handling. The agent should acknowledge failures and offer a retry path.
+4. Promote the agent to **Live** once you are happy with traces from both staging and production environments.
+
+## Troubleshooting checklist
+
+| Symptom | Quick fix |
+| --- | --- |
+| Tool fails with HTTP 401 | Re-enter the secret header and check environment selection. |
+| Agent never calls the tool | Verify the tool name matches the action schema key; update the system prompt to mention the tool explicitly. |
+| MCP context is empty | Confirm the MCP server URL is reachable and that the filter query returned results. |
+| Tool payload missing fields | Mark the field as `required` in JSON Schema and retest so the agent collects the value. |
